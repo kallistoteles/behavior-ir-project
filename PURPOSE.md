@@ -49,6 +49,9 @@ and the owning repositories' constitutions and feature contracts.
 
 ## Reproducible delivery
 
+Our [branch strategy](BRANCHING.md) uses GitHub Flow with versioned releases:
+`main` holds accepted development, while immutable tags identify published releases.
+
 Confidence depends on more than deterministic evaluation. Required gates must validate the
 supported dependency graph; consumers must build through the public contract; and releases
 must identify an immutable source revision. Release checks and consumer validation precede

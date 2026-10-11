@@ -11,6 +11,7 @@ own them.
 
 - [PURPOSE.md](PURPOSE.md) explains the problem, design principles and intended outcome.
 - [AGENTS.md](AGENTS.md) tells agents how to navigate the project and make changes.
+- [BRANCHING.md](BRANCHING.md) defines GitHub Flow with versioned releases across the repositories.
 
 ## Repositories and responsibilities
 
@@ -31,6 +32,9 @@ to ordinary Behavior IR; they do not add hidden runtime behavior.
 
 ## Development and releases
 
+Follow [the branch strategy](BRANCHING.md): reviewed feature branches merge into
+`main`, and immutable tags identify published code releases.
+
 The ecosystem's [core-release.json](https://github.com/kallistoteles/behavior-ir/blob/main/core-release.json)
 declares its exact published Core Release. Committed dependency configuration, CI and release
 builds use that release. Explicit, private, untracked overrides may support experimental
@@ -43,9 +47,11 @@ Run checks from the repository being changed, using its pinned Nix environment:
 nix develop -c scripts/gates.sh
 ```
 
-This command exists in each code repository. This documentation repository has no build or
-release pipeline of its own. Follow the owning repository's constitution, feature specifications
-and scripts for the detailed requirements.
+This command exists in each code repository. This documentation repository has
+GitHub Actions checks for top-level Markdown local links, headings and whitespace;
+run them locally with `python3 scripts/check-docs.py` and `git diff --check`.
+It has no runtime build or release pipeline. Follow the owning repository's constitution,
+feature specifications and scripts for the detailed requirements.
 
 Local checkout names can differ from GitHub names. In the current workspace, the siblings are
 `../behavior-ir-core` and `../behaviour-ir` (the ecosystem checkout). Confirm paths

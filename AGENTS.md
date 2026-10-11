@@ -15,6 +15,10 @@ Confirm the working directory and Git remote. The usual local siblings are
 `../behavior-ir-core` and `../behaviour-ir`; the latter's GitHub name is
 `behavior-ir`. Do not assume that a directory's name identifies its responsibility.
 
+Follow [BRANCHING.md](BRANCHING.md): work on focused branches, use PRs into `main`,
+and keep release publication separate from merging. Use separate worktrees for
+parallel features and make dependencies between PRs explicit.
+
 ## Put changes in the repository that owns them
 
 - **Core:** semantic primitives, typing, admission, evaluation, hashing, verification,
@@ -90,7 +94,9 @@ nix develop -c scripts/gates.sh
 Use the canonical repository scripts and required CI checks. Do not weaken gates, bypass
 branch protection or substitute private overrides to obtain a green result. Verify that
 results cover the actual revision being delivered. For documentation-only changes here,
-check factual claims and links and run `git diff --check`; there is no runtime test suite.
+check factual claims and links, run `python3 scripts/check-docs.py` and `git diff --check`;
+there is no runtime test suite. When changing documentation tooling, also run
+`python3 -B -m unittest discover -s scripts/tests -p 'test_*.py'`.
 
 Explain the outcome, relevant validation and any remaining work. Distinguish locally
 created files, committed changes, merged changes and published releases. Continue work
