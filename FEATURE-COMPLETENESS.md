@@ -6,9 +6,9 @@
 
 **Assessment date:** 2026-10-17
 
-**Source baseline:** Ecosystem [`3f28bde`](https://github.com/kallistoteles/behavior-ir/commit/3f28bdebc3ba72e96e0c85e7a3bf2b087a5dddf5),
-adopting Core **0.15.0** / verifier **0.10.0**. The next ecosystem package release
-is being prepared separately as feature **509**.
+**Release baseline:** [Behavior **0.13.0**](https://github.com/kallistoteles/behavior-ir/releases/tag/v0.13.0),
+commit [`63f916c`](https://github.com/kallistoteles/behavior-ir/commit/63f916cbd9d999270f476e33267200e0aacd8696),
+bundling Core **0.15.0** / verifier **0.10.0**. Release feature **509** is delivered.
 
 **Goal:** Define when the system is functionally complete, independently of production hardening.
 
@@ -51,10 +51,10 @@ FC-06.
 | **Persistence and concurrency** | Core contract and reference-backend conformance exercised; durable integration not yet demonstrated by the cited evidence | An actual durable backend passes conformance and survives restart, conflict and retry tests. |
 | **History and schema evolution** | Implemented | Committed histories replay across supported schema migrations. |
 | **Verification and governance** | Implemented; verifier 0.10.0 proves the original C19 local uniqueness obligations | Static verification, historical verification, signed governance evidence and commit policy have tested contracts. |
-| **Compositional Models** | 501–503 and declaration identity 505 merged; WorkQueue and transition state bindings 507 merged | Models lower deterministically, compose and preserve identity and ownership rules. |
-| **Cross-layer conformance** | 506 full: 39 passed; 507 full: 61 passed and 12 obligations passed; both complete at the source baseline | Independent authoring and consumption paths reproduce specified results. |
+| **Compositional Models** | 501–503, declaration identity 505, and WorkQueue/state bindings 507 are delivered in Behavior 0.13.0 | Models lower deterministically, compose and preserve identity and ownership rules. |
+| **Cross-layer conformance** | 506 full: 39 passed; 507 full: 61 passed and 12 obligations passed; both complete and rechecked by release 509 | Independent authoring and consumption paths reproduce specified results. |
 | **External command integration** | Core intents and WorkQueue exist; a durable command-consumer reference integration remains to be demonstrated | A reference host safely consumes committed commands, with explicit retry and idempotency behavior. |
-| **Developer experience** | Python DSL, CLI, four Models and examples exist in source; ecosystem package/Skills update 509 in progress | A developer can build and evolve a complete application through supported public interfaces. |
+| **Developer experience** | Behavior 0.13.0 publishes the Python DSL, command authoring, CLI, four Models and updated consumer Skills; clean-install and example checks pass | A developer can build and evolve a complete application through supported public interfaces. |
 
 The assessment combines merged source, checked-in conformance reports and release
 evidence. It does not declare the full FC-01–FC-09 gate passed. In particular,
@@ -68,31 +68,38 @@ command evidence does not establish delivery to an external system.
   0.10.0 and Z3 4.16.0. Its [release workflow](https://github.com/kallistoteles/behavior-ir-core/actions/runs/39033400230)
   passed; downloaded assets match the independent local reproducible build.
 - [Ecosystem 508](https://github.com/kallistoteles/behavior-ir/pull/26) adopts that
-  exact release and its asset checksums. [Main CI](https://github.com/kallistoteles/behavior-ir/actions/runs/39042261046)
-  passed on the source baseline above. Core [#29](https://github.com/kallistoteles/behavior-ir-core/issues/29),
+  exact release and its asset checksums. Behavior 0.13.0 retains the pin;
+  [main CI](https://github.com/kallistoteles/behavior-ir/actions/runs/39051411412)
+  passed on the release commit above. Core [#29](https://github.com/kallistoteles/behavior-ir-core/issues/29),
   [#31](https://github.com/kallistoteles/behavior-ir-core/issues/31) and
   [#35](https://github.com/kallistoteles/behavior-ir-core/issues/35) are closed;
   the corresponding ecosystem readiness registry is empty.
-- The [506 full report](https://github.com/kallistoteles/behavior-ir/blob/3f28bdebc3ba72e96e0c85e7a3bf2b087a5dddf5/specs/508-core-release-0-15/evidence/0.15.0-506-full-report.json)
+- The [506 full report](https://github.com/kallistoteles/behavior-ir/blob/v0.13.0/specs/508-core-release-0-15/evidence/0.15.0-506-full-report.json)
   records **39 passed, zero blockers, complete**. C19 verifies the original module
   `sha256:a04ba37ab89e051e448abb760bd754bbb0955125fd22ba8da927b8529a531779`;
   both action-qualified uniqueness checks are proven. Its fresh report identity is
   `sha256:d862a01023de26adf951b9c6dc7a3f36707b183d028fe4ad1a000b7c7c482d34`.
-- The [507 full report](https://github.com/kallistoteles/behavior-ir/blob/3f28bdebc3ba72e96e0c85e7a3bf2b087a5dddf5/specs/508-core-release-0-15/evidence/0.15.0-507-full-report.json)
+- The [507 full report](https://github.com/kallistoteles/behavior-ir/blob/v0.13.0/specs/508-core-release-0-15/evidence/0.15.0-507-full-report.json)
   records **61 passed and all 12 obligations passed, complete**. Its obligations
   retain explicit assumptions about trusted time, migrations and host behavior.
   These are not all global SMT theorems.
-- The [508 comparison](https://github.com/kallistoteles/behavior-ir/blob/3f28bdebc3ba72e96e0c85e7a3bf2b087a5dddf5/specs/508-core-release-0-15/evidence/verification-comparison.md)
+- The [508 comparison](https://github.com/kallistoteles/behavior-ir/blob/v0.13.0/specs/508-core-release-0-15/evidence/verification-comparison.md)
   records unchanged semantic snapshots, removal of binding snapshot-completion
   workarounds and C19's change from blocked to passed. It preserves old reports as
   historical evidence. Quick mode still omits checks and cannot replace complete mode.
 
-The latest published ecosystem package remains
-[Behavior 0.12.0](https://github.com/kallistoteles/behavior-ir/releases/tag/v0.12.0)
-at this assessment. Release preparation **509** targets **Behavior 0.13.0**,
-bundling Core 0.15.0, the merged Model capabilities and updated consumer Skills.
-Publication and clean installed-artifact acceptance remain separate from the
-merged-source results. Core, ecosystem and Model semantic versions are independent.
+[Behavior 0.13.0](https://github.com/kallistoteles/behavior-ir/releases/tag/v0.13.0)
+was published on 2026-10-17 by [release 509](https://github.com/kallistoteles/behavior-ir/pull/27).
+Its [release workflow](https://github.com/kallistoteles/behavior-ir/actions/runs/39053833380)
+passed, including full conformance, clean no-Rust installation, installed-version
+and output checks, consumer Skill examples and reproducible wheel builds.
+The downloaded wheel and manifest match the published checksums; the bundled
+Core CLI is byte-identical to the pinned Core 0.15.0 asset. The released wheel
+targets Python 3.13+ on Linux x86_64 / manylinux_2_28.
+
+This supplies published-package acceptance evidence. It does not establish the
+durable reference integration or independent complete-application walkthrough
+required below. Core, ecosystem and Model semantic versions remain independent.
 
 ## 3. Mandatory end-to-end capabilities
 
@@ -190,7 +197,7 @@ external command executor. Its suite's completion does not establish all FC crit
 
 ### Reference B — Domain state and financial operations
 
-Exercises ordinary Core primitives without depending on the three Models: exact
+Exercises ordinary Core primitives without depending on Models: exact
 numeric values, entity references, relational queries, constraints, schema
 migration and durable command intents. Existing accounts, ledger or order examples
 can provide the starting point.
@@ -245,7 +252,7 @@ general-purpose distributed application platform.**
 | --- | --- | --- |
 | 1 | Core release + source alignment | Core 0.15.0 is published; adoption 508 is merged and CI is green. |
 | 2 | Model identities and cross-layer conformance | 505 and 506 are merged; 506 complete passes. WorkQueue 507 supplies additional complete conformance evidence. |
-| 3 | Ecosystem release and consumer Skills, 509 | In progress: publish the supported package, verify installed artifacts and document the bundled Core and consumer contracts. |
+| 3 | Ecosystem release and consumer Skills, 509 | Delivered: Behavior 0.13.0 is published with green release checks, verified artifacts and updated consumer Skills. |
 | 4 | Durable reference integration | Remaining: demonstrate real storage and command consumption with restart, conflict, retry and idempotency evidence. |
 | 5 | Developer acceptance and evidence mapping | Remaining: map FC-01–FC-09 to pinned tests/results and verify clean-install usability before declaring completion. |
 
@@ -253,8 +260,8 @@ Future features should be evaluated against this roadmap. A feature is mandatory
 before feature complete only if its absence prevents an explicitly required
 capability from being implemented correctly using existing public contracts.
 
-The current priority is **finish 509 → durable end-to-end application → FC evidence
-mapping and developer acceptance → feature complete**. Existing Model and
+The current priority is **durable end-to-end application → FC evidence mapping
+and developer acceptance → feature complete**. Existing release, Model and
 conformance work is reused. Additional Models or scheduling capabilities are
 required only if a demonstrated gap prevents one of the defined FC capabilities.
 

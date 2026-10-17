@@ -8,14 +8,15 @@ historical explanation, not a semantic authority.
 **Status checked:** 2026-10-17. Both Core and the ecosystem currently list no open
 GitHub issues. This is a tracker snapshot, not a declaration of defect freedom or
 feature completeness. Source fixes and published package availability are distinct:
-the ecosystem's Core 0.15.0 adoption is merged, while its next package release is
-still being prepared. See the [current baseline](README.md#current-baseline).
+[Behavior 0.13.0](https://github.com/kallistoteles/behavior-ir/releases/tag/v0.13.0)
+now delivers the ecosystem fixes and exact Core 0.15.0 adoption. See the
+[current baseline](README.md#current-baseline).
 
 ## KI-001: Module source locations depend on the checkout path, and notebook builds crash
 
 | | |
 | --- | --- |
-| **Status** | Resolved on ecosystem main. Core normalization is published in 0.14.0 and later, and adopted by ecosystem 508. Ecosystem package delivery is pending release 509. |
+| **Status** | Resolved and released in Behavior 0.13.0. It bundles Core 0.15.0, including the normalization fix first released in Core 0.14.0. |
 | **Found** | 2026-10-12, behavior-ir feature 501 (Behavior Models), convergence task T076; refined 2026-10-15 by review |
 | **Owner** | behavior-ir: Python source collection; behavior-ir-core: final-IR source normalization. |
 | **Original severity** | Medium for notebook/REPL crashes; low for diagnostic location drift. Semantic hashes are unaffected, but source provenance can affect fresh legacy read-record identities. |
@@ -32,8 +33,11 @@ still being prepared. See the [current baseline](README.md#current-baseline).
   paths contribute to an inferred absolute root; relative paths and virtual
   markers remain verbatim. See the [source-location contract](https://github.com/kallistoteles/behavior-ir-core/blob/v0.15.0/docs/source-locations.md).
 - [Ecosystem 508](https://github.com/kallistoteles/behavior-ir/pull/26) adopts Core
-  0.15.0. Its [implementation evidence](https://github.com/kallistoteles/behavior-ir/blob/3f28bdebc3ba72e96e0c85e7a3bf2b087a5dddf5/specs/508-core-release-0-15/implementation-log.md)
+  0.15.0. Its [implementation evidence](https://github.com/kallistoteles/behavior-ir/blob/v0.13.0/specs/508-core-release-0-15/implementation-log.md)
   records all three former Core #31 strict xfails as ordinary passing tests.
+- [Release 509](https://github.com/kallistoteles/behavior-ir/pull/27) ships these
+  corrections in Behavior 0.13.0. Its [release workflow](https://github.com/kallistoteles/behavior-ir/actions/runs/39053833380)
+  passed; the published wheel and its exact bundled Core binary were verified.
 
 BehaviorHash, SchemaHash and query meaning are preserved. Corrected provenance
 can change newly constructed legacy read identities; historical bytes and
@@ -157,7 +161,7 @@ Python prove it.
 | [#29 — incomplete binding parent snapshots](https://github.com/kallistoteles/behavior-ir-core/issues/29) | Closed; feature 026 shipped in Core 0.14.0. Ecosystem 508 removes private snapshot completion and executes all ten published current binding requests unchanged. |
 | [#35 — query-summary incongruence](https://github.com/kallistoteles/behavior-ir-core/issues/35) | Closed; feature 028 shipped in Core 0.15.0 with verifier 0.10.0. Ecosystem 508 proves the unchanged C19 module; the 506 full report now has 39 passes and no blockers. |
 
-The [508 evidence comparison](https://github.com/kallistoteles/behavior-ir/blob/3f28bdebc3ba72e96e0c85e7a3bf2b087a5dddf5/specs/508-core-release-0-15/evidence/verification-comparison.md)
+The [508 evidence comparison](https://github.com/kallistoteles/behavior-ir/blob/v0.13.0/specs/508-core-release-0-15/evidence/verification-comparison.md)
 records the adopted pin, removed workarounds and conformance results. Historical
 reports that show the old blockers remain historical evidence, not current status.
 The remaining durable-integration and developer-acceptance work is tracked in the
