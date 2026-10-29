@@ -1,0 +1,15 @@
+{
+  "format": "session-preservation.v1",
+  "original_branch": "docs/known-issues",
+  "original_head": "aa301ce20028f2ab8664f31c6de99a5deb30cdf1",
+  "archive_branch": "archive/session-20261029/project-local-skills",
+  "snapshot_only": true,
+  "validated_as_release": false,
+  "encrypted_local_files": 0,
+  "encryption_recipient": null,
+  "excluded": [
+    "rebuildable build/tool caches",
+    "machine private keys",
+    "nested Git repositories, preserved independently"
+  ]
+}
