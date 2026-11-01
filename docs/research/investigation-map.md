@@ -4,6 +4,11 @@ Sammanställning 2026-11-01. Detta är 13 huvuddelar i den aktuella Core-utredni
 inklusive förarbetet i Core 029. Flera innehåller egna delstudier. Listan skiljer
 uppmätta experiment från arkitekturförslag och litteraturstudier.
 
+Genomgången är nu omsatt i [ett rekommenderat arkitekturbeslut för nästa Core](../architecture/core/README.md),
+med tre jämförda alternativ, sammanhängande korrekthetskrav och absoluta
+bygggrindar. Det är en ny syntes av underlaget nedan, inte en uppmätt eller
+färdigbevisad implementation.
+
 | Nr | Undersökning | Fråga och viktigaste resultat | Typ |
 | --- | --- | --- | --- |
 | 1 | **Core 029: inkrementell validering** | Kan redan etablerad tillståndsgiltighet återanvändas? Ja, för avgränsade lokala regler och count-gränser. Fullständiga beslutsunderlag och historikkostnader kvarstår. | Implementerad avgränsad väg, korrekthetsargument och mätningar. |
@@ -60,4 +65,6 @@ identifierade och granskade. Den öppna uppgiften är att pröva en Core-specifi
 sammansättning som verkligen undviker full omberäkning/återspelning, bevisar
 motsvarigheten och visar absoluta tider för hela den utlovade kedjan. En ny
 allmän litteraturlista eller ytterligare procentförbättring av samma modell
-räcker inte för att avsluta den uppgiften.
+räcker inte för att avsluta den uppgiften. Arkitekturbeslutet anger nu vilken
+sammansättning som rekommenderas och exakt vad som måste bevisas och mätas för
+att den ska räknas som en fungerande lösning.

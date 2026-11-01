@@ -1,0 +1,232 @@
+{
+  "date": "2026-11-01",
+  "source_checkout": "/tmp/behavior-ir-core-final-20261031",
+  "source_checkout_head": "1a3ae37623cf90b4608a678ef283ee313306d9bb",
+  "snapshot_scope": "Selected primary reports, contracts and source cited by architecture candidates; not a complete checkout or new execution evidence. Local bytes are authoritative for this snapshot; per-file equality to checkout HEAD is explicit.",
+  "files": [
+    {
+      "path": "api/engine-surface.txt",
+      "bytes": 3743,
+      "sha256": "9cbd83d7302f6835e1d2140373f1fb5b997910dfae147067e48b9a1e8fa38049",
+      "present_at_checkout_commit": true,
+      "equals_checkout_commit": true
+    },
+    {
+      "path": "crates/behavior-core/src/eval.rs",
+      "bytes": 170716,
+      "sha256": "32fb860ca10bd48bc605f49e3a99cdc9e40adbdf80b34602205b884a1491b82c",
+      "present_at_checkout_commit": true,
+      "equals_checkout_commit": true
+    },
+    {
+      "path": "crates/behavior-core/src/semantic/expr.rs",
+      "bytes": 7329,
+      "sha256": "e84d6b965c20e49330ad6ef719ee86a85143901b338a6079b4387bcce1311da7",
+      "present_at_checkout_commit": true,
+      "equals_checkout_commit": true
+    },
+    {
+      "path": "docs/commands.md",
+      "bytes": 5765,
+      "sha256": "dfbadac0b4009d2db6e1e19c94f2422e070bf8c78c4ec2aa80537dde2b3d194e",
+      "present_at_checkout_commit": true,
+      "equals_checkout_commit": true
+    },
+    {
+      "path": "docs/incremental-validation.md",
+      "bytes": 6012,
+      "sha256": "ca34c7755c988169439056548bc2d8c765db9a1e3ad4bd6f35603fb17e8a0f7f",
+      "present_at_checkout_commit": true,
+      "equals_checkout_commit": true
+    },
+    {
+      "path": "docs/persistence.md",
+      "bytes": 31406,
+      "sha256": "c952fa334f432f2972a7bb0a6c409823fa817ea9efc9902469172dbc25356b30",
+      "present_at_checkout_commit": true,
+      "equals_checkout_commit": true
+    },
+    {
+      "path": "specs/029-incremental-global-validation/construct-mapping.md",
+      "bytes": 10325,
+      "sha256": "0adb73d04f86a549a3adc71831719e48f667a604c1d2fc51d2cd6777b9423acb",
+      "present_at_checkout_commit": true,
+      "equals_checkout_commit": true
+    },
+    {
+      "path": "specs/029-incremental-global-validation/correctness.md",
+      "bytes": 14111,
+      "sha256": "50339a1262f50e5b29b5fe7ca7337fbb8f046cca55370ea5638894b8a837fd73",
+      "present_at_checkout_commit": true,
+      "equals_checkout_commit": true
+    },
+    {
+      "path": "specs/029-incremental-global-validation/evaluation-report.md",
+      "bytes": 15808,
+      "sha256": "f17b949fa9bf2099f17963480d28a5109210251b6aeba5ec6d4067c24ef117b2",
+      "present_at_checkout_commit": true,
+      "equals_checkout_commit": true
+    },
+    {
+      "path": "specs/031-scalable-execution-evidence/evidence/algorithms/correspondence.md",
+      "bytes": 6538,
+      "sha256": "70d76cb8a0d33dbf9763686b9627b94c15b98e7c1c2b14210427004caf8ff0a8",
+      "present_at_checkout_commit": true,
+      "equals_checkout_commit": true
+    },
+    {
+      "path": "specs/031-scalable-execution-evidence/evidence/algorithms/proof-scope.md",
+      "bytes": 2637,
+      "sha256": "2553e279a913f6980ed4a224e0b7ecd673728eaf34955c0a8adfae4f771549b1",
+      "present_at_checkout_commit": true,
+      "equals_checkout_commit": true
+    },
+    {
+      "path": "specs/031-scalable-execution-evidence/investigation.md",
+      "bytes": 11301,
+      "sha256": "d78fe4c8847f0fa13d4eb1487a942d884110306790458c158f18d9ca696935b0",
+      "present_at_checkout_commit": true,
+      "equals_checkout_commit": true
+    },
+    {
+      "path": "specs/031-scalable-execution-evidence/profiling/architecture-options-20261028/architecture-options.md",
+      "bytes": 20226,
+      "sha256": "7a09472855c20381a44570831949852033020b2aabff0d277daaa7b42bcf6ba1",
+      "present_at_checkout_commit": true,
+      "equals_checkout_commit": true
+    },
+    {
+      "path": "specs/031-scalable-execution-evidence/profiling/architecture-options-20261028/authenticated-structures.md",
+      "bytes": 11996,
+      "sha256": "4544708e23ad328c6d48900e59beb4284f70cb7c4572293ed7d409b9ef22e2f7",
+      "present_at_checkout_commit": true,
+      "equals_checkout_commit": true
+    },
+    {
+      "path": "specs/031-scalable-execution-evidence/profiling/first-principles-20261028/derived-architectures.md",
+      "bytes": 14996,
+      "sha256": "2e9f07e1e42926f1104afdef2185fd82378c8ffa788b7a33d714b26cec0e6537",
+      "present_at_checkout_commit": true,
+      "equals_checkout_commit": true
+    },
+    {
+      "path": "specs/031-scalable-execution-evidence/profiling/first-principles-20261028/obligations-and-limits.md",
+      "bytes": 13156,
+      "sha256": "d615fae78a93e0b452e5e3b95497b0d9b38cedd8808ae578ad6d0d65686d7eb5",
+      "present_at_checkout_commit": true,
+      "equals_checkout_commit": true
+    },
+    {
+      "path": "specs/031-scalable-execution-evidence/profiling/first-principles-20261028/research.md",
+      "bytes": 17296,
+      "sha256": "8e598789174b24d1fdd6998bdfe0e0b4c45fca6f5be42f39c23e276d12562ea2",
+      "present_at_checkout_commit": true,
+      "equals_checkout_commit": true
+    },
+    {
+      "path": "specs/031-scalable-execution-evidence/profiling/greenfield-redesign-20261028/composition-findings.md",
+      "bytes": 18849,
+      "sha256": "2b8c194bd77177db52b53b3910a661c73ebed869c747943d89bb3381ae7a86ff",
+      "present_at_checkout_commit": true,
+      "equals_checkout_commit": true
+    },
+    {
+      "path": "specs/031-scalable-execution-evidence/profiling/greenfield-redesign-20261028/ivc-findings.md",
+      "bytes": 26683,
+      "sha256": "6ecf817b913dacc936060f1f5201d84da388263886a43371ecfd496ec31f89e6",
+      "present_at_checkout_commit": true,
+      "equals_checkout_commit": true
+    },
+    {
+      "path": "specs/031-scalable-execution-evidence/profiling/greenfield-redesign-20261028/research.md",
+      "bytes": 23215,
+      "sha256": "d62e6a67846508cd6caf78cb2db5a8418477213fd82cfac460481970d1b44009",
+      "present_at_checkout_commit": true,
+      "equals_checkout_commit": true
+    },
+    {
+      "path": "specs/031-scalable-execution-evidence/profiling/single-create-20261028/report.md",
+      "bytes": 10717,
+      "sha256": "4502c0b6bd4249c870d1dd3e01e50b06e17ae0d8db515e0bb4d7156889ba2332",
+      "present_at_checkout_commit": true,
+      "equals_checkout_commit": true
+    },
+    {
+      "path": "specs/032-transition-verification-study/contracts/proof-and-evidence.md",
+      "bytes": 7416,
+      "sha256": "6f99325997b8995d178683bee3c87aeeeb10aa9db664899cccb01bb692d96202",
+      "present_at_checkout_commit": true,
+      "equals_checkout_commit": true
+    },
+    {
+      "path": "specs/032-transition-verification-study/contracts/transition-contract.md",
+      "bytes": 6713,
+      "sha256": "795462121ee7e87bde344b8e191c1c9d48391855b0a4a0a47337371d864b1830",
+      "present_at_checkout_commit": true,
+      "equals_checkout_commit": true
+    },
+    {
+      "path": "specs/032-transition-verification-study/evidence/batch-checker-correspondence.md",
+      "bytes": 2238,
+      "sha256": "8ef4ebd262fd9268ad7c161ab5e7c3acd6a25f48dd54395d84e1915f1c779368",
+      "present_at_checkout_commit": true,
+      "equals_checkout_commit": true
+    },
+    {
+      "path": "specs/032-transition-verification-study/evidence/circuit-correspondence.md",
+      "bytes": 5012,
+      "sha256": "72919a27e48385919ec634d14f2a4fbc0b0c4ecfb3ee57b9200e872649d02ca8",
+      "present_at_checkout_commit": true,
+      "equals_checkout_commit": true
+    },
+    {
+      "path": "specs/032-transition-verification-study/evidence/correspondence.md",
+      "bytes": 11314,
+      "sha256": "51b488d90f9faa3d67a75b5c3f11c56ec094a77533212e580abb636c287fa1cd",
+      "present_at_checkout_commit": true,
+      "equals_checkout_commit": true
+    },
+    {
+      "path": "specs/032-transition-verification-study/evidence/cost-model.md",
+      "bytes": 16851,
+      "sha256": "474449fc2d0bedf76e316e9cb484f258a856fdce97f41e84cbbf9447dbb75da4",
+      "present_at_checkout_commit": true,
+      "equals_checkout_commit": true
+    },
+    {
+      "path": "specs/032-transition-verification-study/evidence/proof-lifecycle.md",
+      "bytes": 2811,
+      "sha256": "1951de0a36fd4fb99c888fd39923d1cf0f07703225cfb885d46fe94183497cea",
+      "present_at_checkout_commit": true,
+      "equals_checkout_commit": true
+    },
+    {
+      "path": "specs/032-transition-verification-study/evidence/source-costs.md",
+      "bytes": 11418,
+      "sha256": "73db1d7d6d282e67b0ec9f797e63a916241b1882333b7f6af5f755100fa0c5ad",
+      "present_at_checkout_commit": true,
+      "equals_checkout_commit": true
+    },
+    {
+      "path": "specs/032-transition-verification-study/investigation.md",
+      "bytes": 19817,
+      "sha256": "002c080318c45cc8c083a8323319d6f5b074c5d62394b341ab9285da489e910f",
+      "present_at_checkout_commit": true,
+      "equals_checkout_commit": true
+    },
+    {
+      "path": "specs/032-transition-verification-study/research.md",
+      "bytes": 18685,
+      "sha256": "3b9039defc5d8530e626c1e5f1f8c778fda6e96369c4898c6ae7169026a7d8ed",
+      "present_at_checkout_commit": true,
+      "equals_checkout_commit": true
+    },
+    {
+      "path": "specs/032-transition-verification-study/spec.md",
+      "bytes": 19482,
+      "sha256": "14cec45140e4f62b74dbe8482fb76eb43db647b6eaf07332382f73b9f207115c",
+      "present_at_checkout_commit": true,
+      "equals_checkout_commit": true
+    }
+  ]
+}

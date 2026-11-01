@@ -1,0 +1,13 @@
+# External proof scope and independent checking
+
+No external Lean environment was installed, elaborated or kernel-replayed for this research. No selected external theorem has received a transitive axiom audit here. All external formal-proof claims below are **source-inspected or publisher-reported**, never independently machine-checked evidence for Core.
+
+| Artifact | Selected target / statement scope | Pin and assumptions | Independent result |
+|---|---|---|---|
+| DBSP theory | `filter_incremental`, `incremental_comp`, `linear_sub`: filtering/lifting/composition over algebraic streams | Commit `fb6ff4416108710448ccd87473c5513c1a1179ea`; Lean 3.51.1; mathlib `44b58b42794e5abe2bf86397c38e26b587e07e59`; commutative groups and total mathematical functions | Source inspected only; target transitive axioms not checked |
+| Differential formal development | `Program.adequate`, `Coverage.exists_diff_trace_comp`, `Model.Run.stream_correct`: abstract operator adequacy, edit-time coverage and modeled reduce scheduling | Commit `aa8745f93ea8abe131104fc7885ba4fd47e63902`; Lean 4.31.0; mathlib `fabf563a7c95a166b8d7b6efca11c8b4dc9d911f`; formal model's group/time/frontier premises | Publisher describes axiom-clean proofs; no independent audit/replay here; not a Rust engine implementation proof |
+| Adapton/Nominal Adapton | Written from-scratch consistency argument for a formal incremental calculus | PLDI paper and named-calculus extended appendix; well-formed dependency/name/initial-graph premises | Written argument inspected; no machine-checked proof of either inspected implementation or Core |
+
+The inspected DBSP `stream_elim.lean` contains two `sorry` terms inside a local claim in `example : true`. That prevents describing the entire checked-out source as admission-free. It does **not** establish that a selected named theorem depends on those terms. Only a per-target dependency audit can answer that. Source samples, hashes and unsuccessful fetches are retained in `source-fetch.json`; missing source is not treated as successful checking.
+
+The current Core investigation does not issue a mathematical certification from any of these external artifacts. Its finite-map argument is explicitly written, and its Rust/consumer results are tests. A future implementation relying on an external checked theorem must first reproduce its pinned build, check the intended statement and all transitive axioms/admissions, then establish the separate mapping to admitted Core IR, checked arithmetic, errors, traces and implementation extraction. Adding a Lean library without that mapping does not close the correspondence gap.

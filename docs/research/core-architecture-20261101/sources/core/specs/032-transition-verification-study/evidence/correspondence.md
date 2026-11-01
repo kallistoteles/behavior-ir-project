@@ -1,0 +1,56 @@
+# Core 032 correspondence and trust ledger
+
+This is a live implementation ledger, not a Safety certificate. Core 0.16.0 and its admitted semantics remain authoritative. Defining a reference model alone establishes no F/J/K theorem or accumulated proof. Checked results and their actual scope are identified below.
+
+| Layer / claim | Current evidence | Boundary / remaining work |
+|---|---|---|
+| Whole module subject | `subject.rs` regenerates and admits the closed configured template; compares Core-computed BehaviorHash and complete resolved action inventory; records schema, fields, constraints and global invariants | Core admission/hash implementation and collision resistance are trusted; supplied hashes alone are not accepted. Input names are checked to avoid adapter misbinding. Unexpected actions, schema, assignments and weakened Boolean conditions are rejected. |
+| Operational state | Actual `Store::export_seed_at()` plus genesis seed and every ordinary record's `created` list; exact HistoryRef, StateId, schema and typed live/used keys | Core/backend snapshot completeness and lineage correctness are trusted. Migration segments are unsupported. A live-only snapshot cannot reconstruct the lifetime-used set. Full capture visits live state and history; final measurements include that work rather than assuming constant-time capture. |
+| Authoritative reference | Actual Core Store evaluation/commit; private `with_reference(true)` libtest route accepts frozen module/genesis/attempt data and emits full records/states | Ordinary adapter calls are labeled ordinary Core execution. Final full-reference collection must use the private forced-full probe. Route selection has a negative control and observes full-parent validation. No production flag/API was added. |
+| Result channels | Allow, Refused, EvaluationError plus original Core record/error; publication and availability are distinct | `ENTITY_ID_ALREADY_USED` and `LIFECYCLE_CONFLICT` remain exact lifecycle refusal results in retained Core bytes. Their coarse Refused classification does not replace those bytes. Operational backend errors do not become business denials. |
+| Core model inputs | Typed closed create/set/remove/emit/probe/add/lazy operations; exact generated input/context/bindings; fixed recorded timestamp | Parameters and context are supplied data, not world-truth assertions. Module/context authenticity and fresh authorization remain host obligations. |
+| Logical Lean state/reference | `State.lean` / `Reference.lean` define finite typed rows, used identities, logical ordered events, checked integer bounds, literal create/assignment, references, captured count, add and lazy branch | Executable definitions compile. This is a logical model, not Core IR extraction or canonical cryptographic encoding. Complete diagnostic/trace interpretation and implementation correspondence require the A/B/observation tasks; do not label this stage exact end-to-end verified Core. |
+| A/J initialization/update/rebuild | Checked logical initialization/rebuild/complete-delta/maintained-check theorems; actual retained count/member/ref/query predictions tested against Core | Conservative implementation checks full J before/after, still renders all normative observations through Core, and pays full scans/captures. No sublinear speedup is inferred. Rust maintenance correspondence remains trusted. |
+| B/witness acceptance | Native replay-backed checker passes hostile snapshot/subject/context/history/command/trace controls; scoped Lean targets checked with standard axioms and fresh kernel replay | Full genesis-prefix reconstruction and actual Core recomputation are included in B cost. `checker_sound`/`checker_complete` concern the logical reference, not verified Rust/Core extraction. Reports `native-proofs-007/` and deliberately failed premise mutations retain the actual mathematical checks. |
+| Compact observation / full audit | Full Core records, states, commands and committed records are retained by the reference. `ReferenceObservation::export()` is a research envelope; `canonical_core_record()` returns the actual record bytes when Core emitted one | `Observation.lean` checks abstract lookup/expansion soundness and round-trip composition. The Rust DAG, JSON typing/ordering, SHA implementation and resource-bound correspondence remain trusted and independently tested; this is not a machine-checked serializer or authenticated query-completeness proof. A Store-level error with no decision record is not fabricated as a Core decision record. A digest is not an availability guarantee. |
+| Circuit / accumulated proof | Actual C1/H2 proof and three first-use/reuse producer/consumer repetitions verify with matched Core bridge; C1/H4 lifetime-refusal proof also verifies | Rust gate extraction, SHA gadget, pinned Nova implementation/crypto and parameter identity remain individually identified. A SHA chain or invariant-only circuit will not meet the exact-transition claim. |
+| Existing Core identities | Actual Core generates canonical records, MuHash content identity and history chain | Formal logical histories are not Core history hashes. The independently checked per-event Core bridge is still required; its full cost must be included even if linear. |
+
+## Public neutral fixture scope
+
+The configured template uses `E.x: Int`, padding and optional required `Ref[Parent]`, positivity, repeated cardinality invariants, literal assignments/creation/removal and a canonical constant command intent. Probe uses a genuine captured context threshold and `max_matches` precondition. Add/lazy controls distinguish checked overflow from a skipped partial computation. Each fixture's exact Core module is admitted before use.
+
+Core rejects actions with neither declared state nor command effects. For a configured zero-realized-command emit/probe/lazy control, the template declares a command guarded by literal false. This uses ordinary existing Core semantics: no intent is realized, while the allowed event can still have distinct history. It is not hidden state or host execution.
+
+The closed recognizer deliberately rejects changed parameter spellings even if an alternative Core encoding could be equivalent: the current adapter must bind exact known names. Source action declaration order can vary where Core identity is unchanged. No claim of arbitrary-module, arbitrary-query or general authoring-language support follows.
+
+## Evidence classes and acceptance
+
+1. **Machine checked**: the 14 declared logical theorem targets have structured transitive axiom reports and fresh kernel replay (`native-proofs-007`). The proof driver also detects actual proof-integrity failures. These establish the stated logical results, not universal correctness of the Core/Rust implementation. Fresh replay is a separate process using the same Lean kernel implementation, not an independently implemented kernel.
+2. **Structural**: complete regenerated template matching and typed inventories.
+3. **Empirical**: actual Core hand-oracle cases, forced-reference route controls and hostile artifact/resource controls.
+4. **Trusted correspondence**: Core-to-logical-model interpretation, Rust implementation and canonical renderer until independently verified. These must be justified and listed per final claim rather than promoted into proved theorems.
+5. **External obligations**: valid exact initialization anchor, snapshot/backend completeness, module authorization, migration boundaries, context provenance, retention/retrieval and physical command execution.
+
+Only completed theorem targets with permitted axioms and fresh replay may receive a mathematical checked label. Future exact-execution recommendations also require the documented concrete mapping and differential/mutation evidence. Missing obligations block completion; hypotheses and partial definitions remain pending.
+
+## Current scoped implementation findings
+
+Native A predicts supported rules from checked complete views, then checks the authoritative Core result and full J. Native B reconstructs the complete claimed prefix once per independent whole-history check, then recomputes and compares every step. Both remain conservative prototypes; their performance and alternative architectures require the frozen campaign. The study DAG factors identical JSON nodes with bounded full expansion and hash checks; it does not eliminate constructing full Core output or guarantee availability.
+
+The logical state now uses canonical typed-key map presentations; aliasing distinct state parameters produces an error before assignment, matching the public Core binding rule. Typed input bounds and valid initial-state interpretation remain premises. The abstract checked-step/history theorems are not an automated proof of Rust/Core/R1CS correspondence.
+
+## Whole-history B refinement
+
+Campaign001 is retained as incomplete after identifying repeated genesis/prefix reconstruction for each individual witness. The new case-level B checker reconstructs once in its own fresh Core Store, then checks every full before/after/record/command observation sequentially. It keeps no cross-invocation state and never trusts A or producer approval. The existing single-witness checker remains available. `History.history_exact` and `History.no_unchecked_suffix` cover this compositional mathematical pattern; the same Core/Rust correspondence boundaries remain. A constructor-call control and hostile later-step witnesses test the actual case-level acceptance path. The replacement sources and binaries are frozen in `campaign-002/manifest.json`; its data must be assessed separately.
+
+## Tool authority versus evidence transport
+
+The experiment CLI is developer orchestration over locally built, trusted, frozen tools. Its manifest is a local execution configuration, not an authorization to execute programs received from a witness producer. The portable packet contains data/proofs and source identities; the consumer uses an independently selected pinned checker. Neither a packet's source hash nor a manifest sidecar grants code authority. Actual portable verification starts in a fresh workspace and independently derives proof parameters.
+
+The internal study workspace uses existing Core/Store path crates. The separate `consumer/` recovery test retains its existing `behavior-engine`-only dependency boundary. No production public API or runtime proof dependency is added. Fresh-context semantic reproduction with trusted installed tools is tested; cross-machine byte-identical rebuilding of all binaries is not a measured result.
+
+
+## Final repository wiring and retained gate attempts
+
+The first full workspace Clippy gate rejected duplicate loading of the existing031 workload module. The repair changes only test visibility/import wiring; established fixture files and all frozen primary source/binary archives remain unchanged. Exact before/after hashes and patch: `test-wiring-amendment.*`. The final baseline audit inverses the visibility change and the cfg(test) declaration exactly; the source audit permits only the recorded test paths/hashes. `gates/` and `compatibility.json` retain the initial failed attempt; `gates-002/` and `compatibility-final.json` are the final rerun/audit. No passing scoped check substitutes for that repository gate.

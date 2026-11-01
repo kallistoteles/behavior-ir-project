@@ -61,6 +61,7 @@ readiness is declared by this status update.
 
 ## Project documents
 
+- [New Core architecture](docs/architecture/core/README.md) — 2026-11-01 recommendation from all 13 investigations: exact incremental checking, authenticated retained state and accumulated evidence; correctness contracts and absolute performance gates. This is a proposed architecture, not a validated millisecond implementation.
 - [Feature Completeness Roadmap](FEATURE-COMPLETENESS.md) — draft capability criteria, current evidence and remaining acceptance work.
 - [Known issues](KNOWN-ISSUES.md) — owning trackers, resolved findings and release/adoption boundaries.
 - [Model contracts and examples](https://github.com/kallistoteles/behavior-ir/blob/v0.13.0/models/README.md) — the four released Models, ownership rules and conformance boundaries in Behavior 0.13.0.
