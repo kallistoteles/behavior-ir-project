@@ -1,0 +1,33 @@
+{
+  "utc": "2026-10-31T18:41:51.569750+00:00",
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.42",
+  "python": "3.13.15 (main, Aug  5 2026, 12:25:43) [GCC 15.3.0]",
+  "controller_affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "child_cpu": 7,
+  "address_space_limit_bytes": 8589934592,
+  "timeout_seconds": 180,
+  "repetitions": 7,
+  "expected_timed_samples": 56,
+  "expected_full_samples": 6,
+  "binaries": {
+    "baseline-full-path": "a29ddbdd4d9db819b04605e9d951b0565f18d5e2709f32b88b7773ca06406029",
+    "baseline-profile": "1dc3ac35afe34f68d75ba4d41021a5489857a07c52f03b46b5ca80c9129bdc08",
+    "moved-full-path": "c2b5ddd9334efb464cedec03d79613aac42e7496db287dd4ca882894fb589b72",
+    "moved-profile": "31555b946211c66419f37fb7e28be8ca7213a54477f02b826f2a55f1dda29333"
+  },
+  "inputs": {
+    "128": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+    "512": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+    "2048": "32627e99b6f4c4c268836ed9adec5c74eecc4c3847597c44ef125fe228c740f6",
+    "8192": "3d12595e689ebbc01d587eabe533d0583ff8f22eb9fee4a61fda1a94f985d878"
+  }
+}

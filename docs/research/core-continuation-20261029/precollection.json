@@ -1,0 +1,19 @@
+{
+  "status": "FrozenBeforeMeasurements",
+  "utc": "2026-10-30T18:39:17.110799+00:00",
+  "base_commit": "1a3ae37623cf90b4608a678ef283ee313306d9bb",
+  "timed_samples": 40,
+  "full_observation_cases": 3,
+  "inputs": {
+    "protocol.md": "03a86809bd2ac965886b391eb04f608ce78cc1b981428fd4a29c6a0a189cf7da",
+    "collect.py": "0044836ea2ec196361f7f504ee125f39d933c7a642330ec0fa23b85460e4f961",
+    "run_logged.py": "21c4dae5f2e48ea24316b188fab1b6690666fefc128b9ddcfb6426e70d549265",
+    "candidate.patch": "d0ae6705e15b1f0f435bf3bace38a2f47cbce05797f532b69ca8f1ea0c9a5b5b",
+    "builds.json": "5d8163c5a7fa2b07e3dc945cca5417df59f662ea51fa7299174c7dde535783bb",
+    "replay_materialization.rs": "70825ba93b599b1f0358ccc9995a0114910885375f8f4cb5782750cbb328c16f",
+    "profile-driver.rs": "bdb045d819b43e2bc24178f94d32ffed95e7976fcf0d2342f36dc994e38ba97b",
+    "correspondence.md": "e7ee2627f46c7fc035f68115b9917b1b551a11acb4230d47c00b1d5ca2218170",
+    "validation.json": "fcfe288a0a8dd3421d3125154c3e29172ff646bae5b04d457f4bd4effa990a88",
+    "collector-tests.log": "725b805e9cc756f6f140b6616fb57905ae927d99fb0c2630012bb6c18aa38fb9"
+  }
+}

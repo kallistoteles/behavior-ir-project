@@ -1,0 +1,8 @@
+{
+  "status": "Passed",
+  "logical_executable_paths": 45,
+  "unique_executables": 26,
+  "raw_unique_bytes": 226198184,
+  "archive_bytes": 76750760,
+  "archive_sha256": "e3171af7fa5c3b9df98231be4853bcecc34729416693b8294004abdaf2e0e41e"
+}

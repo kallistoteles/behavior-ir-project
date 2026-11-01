@@ -1,0 +1,125 @@
+{
+  "status": "Passed",
+  "rows": [
+    {
+      "ack_bytes": 5,
+      "capacity_after": 64742,
+      "capacity_before": 64742,
+      "commands": 0,
+      "diagnostics": "allocation-pmu",
+      "mode": "empty",
+      "n": 128,
+      "record_bytes": 64742,
+      "window_ns": 285,
+      "write_ns": 277238,
+      "counters": {
+        "cycles:u": {
+          "count": 14864.0,
+          "runtime": 10421515.0,
+          "running_percent": 100.0,
+          "raw_fields": [
+            "14864",
+            "",
+            "cycles:u",
+            "10421515",
+            "100.00",
+            "",
+            ""
+          ]
+        },
+        "instructions:u": {
+          "count": 617.0,
+          "runtime": 10421515.0,
+          "running_percent": 100.0,
+          "raw_fields": [
+            "617",
+            "",
+            "instructions:u",
+            "10421515",
+            "100.00",
+            "",
+            ""
+          ]
+        }
+      },
+      "arm": "view",
+      "kind": "stat",
+      "index": 0,
+      "process_ms": 362.92243501520716,
+      "record_sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "perf_path": "raw-00000.stat.csv",
+      "perf_sha256": "ce12c9db437e0df99fefc597185f4bda18bd494dd3bfc92e1192706b478473a6",
+      "artifact": "00000.decision.json.gz"
+    },
+    {
+      "ack_bytes": 5,
+      "capacity_after": 64742,
+      "capacity_before": 64742,
+      "commands": 0,
+      "diagnostics": "allocation-pmu",
+      "mode": "alloc",
+      "n": 128,
+      "record_bytes": 64742,
+      "window_ns": 366270,
+      "write_ns": 238815,
+      "counters": {
+        "cycles:u": {
+          "count": 1050077.0,
+          "runtime": 563885.0,
+          "running_percent": 100.0,
+          "raw_fields": [
+            "1050077",
+            "",
+            "cycles:u",
+            "563885",
+            "100.00",
+            "",
+            ""
+          ]
+        },
+        "instructions:u": {
+          "count": 1587761.0,
+          "runtime": 563885.0,
+          "running_percent": 100.0,
+          "raw_fields": [
+            "1587761",
+            "",
+            "instructions:u",
+            "563885",
+            "100.00",
+            "",
+            ""
+          ]
+        }
+      },
+      "arm": "view",
+      "kind": "stat",
+      "index": 1,
+      "process_ms": 107.18064400134608,
+      "record_sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "perf_path": "raw-00001.stat.csv",
+      "perf_sha256": "52d73abace28a70524234770f947a647139f02b426ed4a3b55dab496f349cd66",
+      "artifact": "00001.decision.json.gz"
+    },
+    {
+      "ack_bytes": 5,
+      "capacity_after": 254822,
+      "capacity_before": 254822,
+      "commands": 0,
+      "diagnostics": "allocation-pmu",
+      "mode": "alloc",
+      "n": 512,
+      "record_bytes": 254822,
+      "window_ns": 3901644,
+      "write_ns": 1162890,
+      "arm": "decode",
+      "kind": "record",
+      "index": 2,
+      "process_ms": 398.24003298417665,
+      "record_sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "perf_path": "raw-00002.perf.data",
+      "perf_sha256": "cd11447049a239e8de127d20da38a4a1aaa61061d2184f86f6adbd9f8580b02d",
+      "artifact": "00002.decision.json.gz"
+    }
+  ]
+}

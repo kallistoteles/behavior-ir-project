@@ -1,0 +1,245 @@
+{
+  "functions": [
+    {
+      "path": "crates/behavior-core/src/canonical.rs",
+      "function": "decode_strict",
+      "label": "core::decode_strict",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-core/src/canonical.rs",
+      "function": "to_canonical_string",
+      "label": "core::to_canonical_string",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-core/src/canonical.rs",
+      "function": "check_canonical_value",
+      "label": "core::check_canonical_value",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-core/src/canonical.rs",
+      "function": "tagged_hash",
+      "label": "core::tagged_hash[{tag}]",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-core/src/canonical.rs",
+      "function": "tagged_hash_canonical_text",
+      "label": "core::tagged_hash_canonical_text[{tag}]",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-core/src/record.rs",
+      "function": "from_json",
+      "label": "core::record::from_json",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-core/src/record.rs",
+      "function": "with_profile",
+      "label": "core::record::with_profile",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-core/src/record.rs",
+      "function": "with_current_profile",
+      "label": "core::record::with_current_profile",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-core/src/record.rs",
+      "function": "reproduce_record",
+      "label": "core::record::reproduce_record",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-core/src/record.rs",
+      "function": "replay_profile",
+      "label": "core::record::replay_profile",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-core/src/record.rs",
+      "function": "validate_record08",
+      "label": "core::record::validate_record08",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-core/src/record.rs",
+      "function": "validate_record07",
+      "label": "core::record::validate_record07",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-core/src/record.rs",
+      "function": "validate_record07_fields",
+      "label": "core::record::validate_record07_fields",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-core/src/record.rs",
+      "function": "project_current_record",
+      "label": "core::record::project_current_record",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-core/src/record.rs",
+      "function": "normalize_current_legacy",
+      "label": "core::record::normalize_current_legacy",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-core/src/record.rs",
+      "function": "compare",
+      "label": "core::record::compare",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-core/src/eval.rs",
+      "function": "evaluate_decoded_request",
+      "label": "core::eval::evaluate_decoded_request",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-core/src/eval.rs",
+      "function": "run_transition",
+      "label": "core::eval::run_transition",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-core/src/eval.rs",
+      "function": "run_complete_child_rules",
+      "label": "core::eval::run_complete_child_rules",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-core/src/eval.rs",
+      "function": "snapshot_universe_json",
+      "label": "core::eval::snapshot_universe_json",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-core/src/eval/prepared.rs",
+      "function": "evaluate",
+      "label": "core::prepared::evaluate",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-core/src/eval/prepared.rs",
+      "function": "run_child_rules",
+      "label": "core::prepared::run_child_rules",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-core/src/eval/prepared.rs",
+      "function": "checked_child",
+      "label": "core::prepared::checked_child",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-core/src/facts.rs",
+      "function": "to_json",
+      "label": "core::facts::to_json",
+      "insertions": 2
+    },
+    {
+      "path": "crates/behavior-store/src/documents.rs",
+      "function": "hash_of",
+      "label": "store::documents::hash_of[{tag}]",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-store/src/documents.rs",
+      "function": "decode",
+      "label": "store::documents::decode",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-store/src/store.rs",
+      "function": "evaluate",
+      "label": "store::evaluate",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-store/src/store.rs",
+      "function": "bundle_from_evaluation",
+      "label": "store::bundle_from_evaluation",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-store/src/store.rs",
+      "function": "commit_impl",
+      "label": "store::commit_impl",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-store/src/store.rs",
+      "function": "head",
+      "label": "store::head",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-store/src/store.rs",
+      "function": "validate_snapshot",
+      "label": "store::validate_snapshot",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-store/src/store.rs",
+      "function": "validate_snapshot_full",
+      "label": "store::validate_snapshot_full",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-store/src/store.rs",
+      "function": "snapshot_identity",
+      "label": "store::snapshot_identity",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-store/src/store.rs",
+      "function": "rederive_for",
+      "label": "store::rederive_for",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-store/src/store.rs",
+      "function": "transition_hash",
+      "label": "store::transition_hash",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-store/src/store/incremental/mod.rs",
+      "function": "validate_incremental_child_at",
+      "label": "store::incremental::validate_incremental_child_at",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-store/src/store/incremental/mod.rs",
+      "function": "carry_incremental_child",
+      "label": "store::incremental::carry_incremental_child",
+      "insertions": 1
+    },
+    {
+      "path": "crates/behavior-store/src/memory.rs",
+      "function": "commit",
+      "label": "backend::commit",
+      "insertions": 1
+    }
+  ],
+  "files": {
+    "crates/behavior-core/src/eval/work.rs": "5ee1407f65ec6b362b591c5417983deca8c29a3ceb0cca6d318f418f641b5a64",
+    "crates/behavior-core/src/canonical.rs": "55e1302d9a7c444f60bb4bca4f57877ba4e44baf48678f4305089f88fb0d8123",
+    "crates/behavior-core/src/record.rs": "3c1faad0d4821131ff964ba30134549f393305a26756b802b7e4a49f7d033fec",
+    "crates/behavior-core/src/eval.rs": "f564f6ec3b5a6116945acea9b618ef1e9038da2beb5130b8ea81b0ba08a05642",
+    "crates/behavior-core/src/eval/prepared.rs": "cf0e9828a1037149dc9386fc2814f75169254b929eef1cff23100bec04051ccd",
+    "crates/behavior-core/src/facts.rs": "f8d440f692548e8fa9985a756755f29c5458a003867db09481a51b29e444d39a",
+    "crates/behavior-store/src/documents.rs": "b00e27490d2d7e4c5c6b2eec9a9511197d4fd11d89bdd10cc7e2b045cdcfebca",
+    "crates/behavior-store/src/store.rs": "89d6450b5473e6eaf6735e5948afc8f71fc0a7091b76a812fc9e55b66f11b8cb",
+    "crates/behavior-store/src/store/incremental/mod.rs": "7fa5d4a8af57f5c03e62a00a60e1e6eea9b96b7514d7245f8bf3a5ea6d94febe",
+    "crates/behavior-store/src/memory.rs": "cb30fcf07c0bc8695f8e378382f466c89474dd2219a396b6cbf13554d6b31795",
+    "crates/behavior-store/examples/residual_phase_profile.rs": "82147271b29666062519f1643b19cf9a5899b82cdb841f8672f45b60e370183a"
+  }
+}

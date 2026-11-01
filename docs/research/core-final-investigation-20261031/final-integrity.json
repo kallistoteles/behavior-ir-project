@@ -1,0 +1,68 @@
+{
+  "status": "Passed",
+  "campaigns": {
+    "primary": {
+      "frozen_inputs": 87,
+      "frozen_binaries": 41,
+      "old_manifests": {
+        "core-continuation-20261029": "574e35fb0ee4e733eae9f6260e4ebec1779de7ba8d32608e5150eb1386b43264",
+        "core-typed-record-20261031": "dd74dd902c1e8d7c96accef3059de4400fd35dbd7f1e25afc449867977127a3c",
+        "core-residual-profile-20261031": "9c307c42b2c26d9ba7943d9d0536cb88ded180d359e32d2df8fca27f631064ae",
+        "core-bundle-ownership-20261031": "7980a3688dfde67ba63b268f0fa194b722aa2646e98f569c488efa267066446a"
+      },
+      "references": {
+        "original_reference_controls": 6,
+        "expected_wrong_oracle_failures": 2,
+        "frozen_oracles": 12
+      },
+      "native": {
+        "native": 252,
+        "full": 18,
+        "artifacts": 90
+      },
+      "sinks": {
+        "attempts": 224,
+        "rounds": 1792,
+        "artifacts": 32
+      },
+      "anchors": {
+        "attempts": 56,
+        "artifacts": 8
+      },
+      "status": "Passed",
+      "successful_attempts": 550
+    },
+    "factors": {
+      "status": "Passed",
+      "attempts": 560,
+      "rounds": 4480,
+      "artifacts": 80
+    },
+    "pmu": {
+      "status": "Passed",
+      "measured_attempts": 105,
+      "stat_attempts": 70,
+      "record_attempts": 35,
+      "auxiliary_commands": 140,
+      "complete_outputs": 105,
+      "source_archives": 4,
+      "record_condition": {
+        "legacy_gap_reproduced": true,
+        "v2_gap_reproduced": true,
+        "collect_record": true
+      }
+    }
+  },
+  "measured_processes": 1215,
+  "executable_paths": 45,
+  "unique_archived_executables": 26,
+  "patch_base_check": "Passed",
+  "final_document_links_checked": 40,
+  "index_sha256": "5c7752738897042680c4390c7ce4c199b2f4a53f606782539b40277d7f77c9d2",
+  "owner_gates": "Passed",
+  "qualifications": [
+    "Native N128 command-v2 first Display regresses; preserved.",
+    "PMU13zero-sample processes and1kernel/unknown sample preserved.",
+    "Source-site resource counters are not global allocator totals."
+  ]
+}

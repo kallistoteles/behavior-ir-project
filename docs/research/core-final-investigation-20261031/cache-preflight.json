@@ -1,0 +1,9 @@
+{
+  "observation": "Shared-target stream build returned retained moved executables; reject before any candidate measurement.",
+  "returned": {
+    "serialization_factor": "5136fcd6c8310e0b3cc30ef1f08377137c1dc66455b12290472b9fd9e901da8e",
+    "execution_evidence_bench": "e39c2e1816b001bd490c0d37728d92b036493abfcc7aaae026bb7ae46faa7f64",
+    "final_native_probe": "d4a98de93a9368460f835df6e9a51ffaa50f4725ea0dac81244c7e5cae372e6c"
+  },
+  "remedy": "Seed isolated final/target cache; clean every workspace package there; independently recompile candidate; do not use shared target across final/reference checkouts."
+}

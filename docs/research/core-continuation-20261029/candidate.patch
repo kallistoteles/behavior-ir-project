@@ -1,0 +1,15 @@
+diff --git a/crates/behavior-core/src/record.rs b/crates/behavior-core/src/record.rs
+index f09f6a8..b566a79 100644
+--- a/crates/behavior-core/src/record.rs
++++ b/crates/behavior-core/src/record.rs
+@@ -523,7 +523,9 @@ fn replay_profile(module: &Module, stored: &Json) -> Result<RecordExecution, Rec
+     let command_module = module.semantic_profile() == SemanticProfile::CommandIntents;
+     match stored.get("record_version").and_then(Json::as_str) {
+         Some(RECORD_VERSION_CURRENT) => {
+-            DecisionRecord::from_json(&stored.to_string())?;
++            // reproduce_record already strictly decoded this immutable value.
++            // Retain every typed/profile check without a second text round trip.
++            validate_record08(stored)?;
+             if command_module != stored.get("semantic_profile").is_some() {
+                 return Err(record_error("record/module profile mismatch"));
+             }

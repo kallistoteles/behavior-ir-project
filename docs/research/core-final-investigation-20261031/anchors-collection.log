@@ -1,0 +1,15 @@
+{"command": ["python", "anchor_collect.py", "/tmp/core-final-anchor-binaries-20261031", "/tmp/core-final-inputs-20261031", "/data/repos/behavior-ir-project/docs/research/core-final-investigation-20261031/anchors"], "utc": "2026-11-01T00:38:54.786276+00:00"}
+{"n": 128, "repetition": 0}
+{"n": 128, "repetition": 1}
+{"n": 128, "repetition": 2}
+{"n": 128, "repetition": 3}
+{"n": 128, "repetition": 4}
+{"n": 128, "repetition": 5}
+{"n": 128, "repetition": 6}
+{"n": 512, "repetition": 0}
+{"n": 512, "repetition": 1}
+{"n": 512, "repetition": 2}
+{"n": 512, "repetition": 3}
+{"n": 512, "repetition": 4}
+{"n": 512, "repetition": 5}
+{"n": 512, "repetition": 6}

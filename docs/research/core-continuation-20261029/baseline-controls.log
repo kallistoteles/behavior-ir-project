@@ -1,0 +1,13 @@
+{"command": ["cargo", "test", "--locked", "--release", "-p", "behavior-core", "--features", "validation-work", "--test", "replay_materialization", "--", "--skip", "replay_does_not_reparse_its_already_strictly_decoded_value"], "utc": "2026-10-30T18:31:18.218011+00:00"}
+   Compiling behavior-core v0.16.0 (/tmp/behavior-ir-core-continuation-20261029/crates/behavior-core)
+    Finished `release` profile [optimized] target(s) in 1.83s
+     Running tests/replay_materialization.rs (target/release/deps/replay_materialization-a8f7fb2aa68c584f)
+
+running 4 tests
+test same_call_reuse_retains_strict_lexical_ingress ... ok
+test strict_value_reuse_preserves_accepted_unicode_and_whitespace ... ok
+test strict_value_reuse_preserves_module_profile_mismatch ... ok
+test same_call_reuse_preserves_closed_validation_and_selected_error ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+

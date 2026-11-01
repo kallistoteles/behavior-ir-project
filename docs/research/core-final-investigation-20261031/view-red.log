@@ -1,0 +1,38 @@
+{"command": ["cargo", "test", "--locked", "--release", "-p", "behavior-core", "--lib", "canonical::hash_stream_tests"], "utc": "2026-10-31T22:27:01.154902+00:00"}
+   Compiling behavior-core v0.16.0 (/tmp/behavior-ir-core-final-20261031/crates/behavior-core)
+    Finished `release` profile [optimized] target(s) in 43.69s
+     Running unittests src/lib.rs (/tmp/behavior-ir-core-continuation-20261029/target/release/deps/behavior_core-6865ee59b065067b)
+
+running 6 tests
+test canonical::hash_stream_tests::canonical_string_contract_remains_compact_ordered_utf8 ... ok
+test canonical::hash_stream_tests::full_value_errors_precede_top_level_hash_exclusion ... ok
+test canonical::hash_stream_tests::composed_view_matches_materialized_objects_and_exact_float_paths ... ok
+test canonical::hash_stream_tests::composed_view_hash_does_not_materialize_canonical_text ... FAILED
+test canonical::hash_stream_tests::tagged_hash_does_not_materialize_a_canonical_output_string ... FAILED
+test canonical::hash_stream_tests::scalar_nested_and_large_documents_match_frozen_hashing ... ok
+
+failures:
+
+---- canonical::hash_stream_tests::composed_view_hash_does_not_materialize_canonical_text stdout ----
+
+thread 'canonical::hash_stream_tests::composed_view_hash_does_not_materialize_canonical_text' (162853) panicked at crates/behavior-core/src/canonical/hash_stream_tests.rs:107:5:
+assertion `left == right` failed: view hash should stream canonical bytes
+  left: 65551
+ right: 0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- canonical::hash_stream_tests::tagged_hash_does_not_materialize_a_canonical_output_string stdout ----
+
+thread 'canonical::hash_stream_tests::tagged_hash_does_not_materialize_a_canonical_output_string' (162857) panicked at crates/behavior-core/src/canonical/hash_stream_tests.rs:37:5:
+assertion `left == right` failed: hash should stream canonical bytes
+  left: 65566
+ right: 0
+
+
+failures:
+    canonical::hash_stream_tests::composed_view_hash_does_not_materialize_canonical_text
+    canonical::hash_stream_tests::tagged_hash_does_not_materialize_a_canonical_output_string
+
+test result: FAILED. 4 passed; 2 failed; 0 ignored; 0 measured; 47 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p behavior-core --lib`

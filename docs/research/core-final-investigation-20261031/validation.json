@@ -1,0 +1,111 @@
+{
+  "status": "Passed",
+  "owner_command": "scripts/gates.sh",
+  "default_test_scope": "cargo test --workspace; standard ignored tests remain ignored",
+  "gates": [
+    {
+      "name": "cargo fmt",
+      "status": "Passed",
+      "test_groups": 0,
+      "passed": 0,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "name": "clippy",
+      "status": "Passed",
+      "test_groups": 0,
+      "passed": 0,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "name": "cargo test",
+      "status": "Passed",
+      "test_groups": 215,
+      "passed": 1705,
+      "failed": 0,
+      "ignored": 29
+    },
+    {
+      "name": "prepared state work",
+      "status": "Passed",
+      "test_groups": 1,
+      "passed": 14,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "name": "incremental validation work",
+      "status": "Passed",
+      "test_groups": 1,
+      "passed": 50,
+      "failed": 0,
+      "ignored": 5
+    },
+    {
+      "name": "cargo build",
+      "status": "Passed",
+      "test_groups": 0,
+      "passed": 0,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "name": "determinism check",
+      "status": "Passed",
+      "test_groups": 0,
+      "passed": 0,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "name": "boundary",
+      "status": "Passed",
+      "test_groups": 0,
+      "passed": 0,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "name": "public surface",
+      "status": "Passed",
+      "test_groups": 0,
+      "passed": 0,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "name": "external consumer",
+      "status": "Passed",
+      "test_groups": 30,
+      "passed": 139,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "name": "workflows",
+      "status": "Passed",
+      "test_groups": 0,
+      "passed": 0,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "name": "terms",
+      "status": "Passed",
+      "test_groups": 0,
+      "passed": 0,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "name": "script tests",
+      "status": "Passed",
+      "test_groups": 0,
+      "passed": 0,
+      "failed": 0,
+      "ignored": 0
+    }
+  ]
+}

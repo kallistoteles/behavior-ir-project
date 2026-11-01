@@ -1,0 +1,30 @@
+{
+  "utc": "2026-11-01T00:37:41.184334+00:00",
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.42",
+  "precollection_sha256": "9ecdadc9822f2e2908274f815858083fb39d0f30722e033d9f488813bbadb43f",
+  "python": "3.13.15 (main, Aug  5 2026, 12:25:43) [GCC 15.3.0]",
+  "controller_affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "child_cpu": 7,
+  "address_space_limit_bytes": 8589934592,
+  "timeout_seconds": 180,
+  "declared_attempts": 224,
+  "binaries": {
+    "decode-serial": "2df5400f1acca0562ed7439271206939163990f4165237d3afcb62cfa2a9ad80",
+    "typed-serial": "c719c466642eef80ca3dffcbe69ac406bc1049fee1e52827f499f8d501787b50",
+    "moved-serial": "5136fcd6c8310e0b3cc30ef1f08377137c1dc66455b12290472b9fd9e901da8e",
+    "view-serial": "b2448cec84779f5c5b405130e6dbc38fcbfb33738e7f642d0a475862e114904f"
+  },
+  "inputs": {
+    "128": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+    "512": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6"
+  }
+}

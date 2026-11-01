@@ -1,0 +1,26 @@
+{
+  "utc": "2026-10-30T18:39:17.364550+00:00",
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.42",
+  "python": "3.13.15 (main, Aug  5 2026, 12:25:43) [GCC 15.3.0]",
+  "controller_affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "child_cpu": 7,
+  "address_space_limit_bytes": 8589934592,
+  "timeout_seconds": 180,
+  "repetitions": 5,
+  "cpu": "model name\t: Intel(R) Xeon(R) CPU           X5670  @ 2.93GHz",
+  "binaries": {
+    "baseline-full-path": "f445ae2c207f25211cac0b050e1f54290959a25f4bddcc5bd6e71c623b2d114e",
+    "baseline-profile": "d16f3466f6b464cc0333b6adbc0b2bea3a70428d2e945f547536d45537735e2a",
+    "candidate-full-path": "69c332afe881eff28649824e831a933d1ba6acb7830bbdda49428a626696c3dc",
+    "candidate-profile": "4ebd8cd21bc7c53eb671165c7c3c4739bc5ac1411fc16c3a9a899921d8b6228c"
+  }
+}

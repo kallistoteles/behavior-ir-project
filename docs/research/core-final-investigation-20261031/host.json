@@ -1,0 +1,24 @@
+{
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.42",
+  "machine": "x86_64",
+  "cpu_model": "Intel(R) Xeon(R) CPU           X5670  @ 2.93GHz",
+  "logical_cpus": 8,
+  "measurement_cpu": 7,
+  "controller_affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "selected_cpu_frequency_policy": {
+    "scaling_governor": null,
+    "scaling_driver": null,
+    "scaling_min_freq": null,
+    "scaling_max_freq": null
+  },
+  "measurement_limit": "Shared host; no frequency-lock or exclusive-CPU guarantee. Interleaved comparisons are descriptive."
+}

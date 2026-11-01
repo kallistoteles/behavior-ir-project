@@ -1,0 +1,6 @@
+{"command": ["python3", "docs/research/core-typed-record-20261031/test_collector.py"], "utc": "2026-10-31T10:42:24.597122+00:00"}
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.079s
+
+OK

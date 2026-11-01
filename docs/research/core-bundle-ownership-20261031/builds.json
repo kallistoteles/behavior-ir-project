@@ -1,0 +1,39 @@
+{
+  "source_base_commit": "1a3ae37623cf90b4608a678ef283ee313306d9bb",
+  "checkout": "/tmp/behavior-ir-core-bundle-20261031",
+  "binary_directory": "/tmp/core-bundle-ownership-binaries-20261031",
+  "shared_build_cache": "/tmp/behavior-ir-core-continuation-20261029/target",
+  "normal_timing_features": "no validation-work",
+  "binaries": {
+    "baseline-full-path": "a29ddbdd4d9db819b04605e9d951b0565f18d5e2709f32b88b7773ca06406029",
+    "baseline-profile": "1dc3ac35afe34f68d75ba4d41021a5489857a07c52f03b46b5ca80c9129bdc08",
+    "moved-full-path": "c2b5ddd9334efb464cedec03d79613aac42e7496db287dd4ca882894fb589b72",
+    "moved-profile": "31555b946211c66419f37fb7e28be8ca7213a54477f02b826f2a55f1dda29333"
+  },
+  "candidate_source": {
+    "crates/behavior-core/src/record.rs": "09adc58bde0088de5144785c24f734ff24e8cd4d67b85f7178f0d8b5079b692a",
+    "crates/behavior-core/src/eval/work.rs": "f352625cd9e87ce28606fb579e3f0aae9bc862a695b480b2818a2c6af7ab8dc1",
+    "crates/behavior-store/src/store.rs": "4d94326dc7aeb9213c5338885df9031bea45e3e5f1acaeec7dc69b36befc1b33",
+    "crates/behavior-store/tests/bundle_ownership.rs": "bd6fbbcdc85e03d8cd80f3d233bd17a1e1950b326a96fd7cc18699d92f997f33",
+    "crates/behavior-store/tests/bundle_hash_order.rs": "a18e2db4dd8f7ec3cc284f78420faaf5d255b3bdea589e075af62e79956e7d42",
+    "crates/behavior-store/examples/replay_materialization_profile.rs": "bdb045d819b43e2bc24178f94d32ffed95e7976fcf0d2342f36dc994e38ba97b",
+    "crates/behavior-store/examples/execution_evidence_bench.rs": "e6d82a76d998e335e56b24b1ec091d5a2cba64521dde2c0209636ff12aa6c834",
+    "crates/behavior-store/tests/support/execution_evidence_fixtures.rs": "e95746eed6ac95c386fd56e790bae31e418042e338b103dea4059869ea8e94ca",
+    "crates/behavior-store/tests/support/execution_evidence_workload.rs": "dcafda1f5d0c1e96a12c49e1ba9ac41df7aa48f115973b4794e8d6ce4edeb30a"
+  },
+  "arm_store_sources": {
+    "baseline": {
+      "snapshot": "baseline-counted-store.rs",
+      "sha256": "865f566f29cd9accbee02d1a09ce7f1954d85a89c283805129116d2cdcd9651c"
+    },
+    "moved": {
+      "snapshot": "moved-counted-store.rs",
+      "sha256": "4d94326dc7aeb9213c5338885df9031bea45e3e5f1acaeec7dc69b36befc1b33"
+    }
+  },
+  "locks": {
+    "Cargo.lock": "9c0a8fdf3ec777f8fbf11dc8320199297553a94ba1b5dcf7949804fbe09af454",
+    "flake.lock": "ed16bd3f98b17e19e07d6ecafecdd20897024a170f7f3727ed6565c582a01bbe",
+    "rust-toolchain.toml": "706f35f67156a1a378d28055a67ba3bf84dac8091968a409fb0c27e7003bd83c"
+  }
+}

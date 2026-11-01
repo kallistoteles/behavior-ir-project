@@ -1,0 +1,513 @@
+{
+  "commit": {
+    "spans": {
+      "backend::commit": {
+        "calls": 1,
+        "exclusive_ns": 616244,
+        "inclusive_ns": 2287305
+      },
+      "core::check_canonical_value": {
+        "calls": 140,
+        "exclusive_ns": 203203,
+        "inclusive_ns": 203203
+      },
+      "core::decode_strict": {
+        "calls": 1,
+        "exclusive_ns": 1489964,
+        "inclusive_ns": 1489964
+      },
+      "core::eval::evaluate_decoded_request": {
+        "calls": 1,
+        "exclusive_ns": 20040,
+        "inclusive_ns": 2775073
+      },
+      "core::eval::record_assembly": {
+        "calls": 1,
+        "exclusive_ns": 6182,
+        "inclusive_ns": 1697052
+      },
+      "core::eval::record_header_echo": {
+        "calls": 1,
+        "exclusive_ns": 10571,
+        "inclusive_ns": 10571
+      },
+      "core::eval::run_complete_child_rules": {
+        "calls": 1,
+        "exclusive_ns": 1507,
+        "inclusive_ns": 819752
+      },
+      "core::eval::run_transition": {
+        "calls": 1,
+        "exclusive_ns": 138907,
+        "inclusive_ns": 959603
+      },
+      "core::eval::snapshot_universe_json": {
+        "calls": 1,
+        "exclusive_ns": 173883,
+        "inclusive_ns": 173883
+      },
+      "core::facts::to_json": {
+        "calls": 2,
+        "exclusive_ns": 640191,
+        "inclusive_ns": 640191
+      },
+      "core::prepared::checked_child": {
+        "calls": 1,
+        "exclusive_ns": 87807,
+        "inclusive_ns": 87807
+      },
+      "core::prepared::evaluate": {
+        "calls": 1,
+        "exclusive_ns": 154467,
+        "inclusive_ns": 2995624
+      },
+      "core::prepared::run_child_rules": {
+        "calls": 1,
+        "exclusive_ns": 818245,
+        "inclusive_ns": 818245
+      },
+      "core::record::exact_comparison": {
+        "calls": 1,
+        "exclusive_ns": 1204524,
+        "inclusive_ns": 1204524
+      },
+      "core::record::normalize_current_legacy": {
+        "calls": 1,
+        "exclusive_ns": 135531,
+        "inclusive_ns": 135531
+      },
+      "core::record::replay_profile": {
+        "calls": 1,
+        "exclusive_ns": 5513,
+        "inclusive_ns": 1782282
+      },
+      "core::record::reproduce_record": {
+        "calls": 1,
+        "exclusive_ns": 217062,
+        "inclusive_ns": 7689456
+      },
+      "core::record::validate_record07_fields": {
+        "calls": 1,
+        "exclusive_ns": 652819,
+        "inclusive_ns": 652819
+      },
+      "core::record::validate_record08": {
+        "calls": 1,
+        "exclusive_ns": 182235,
+        "inclusive_ns": 1776769
+      },
+      "core::record::with_current_profile": {
+        "calls": 1,
+        "exclusive_ns": 1088873,
+        "inclusive_ns": 1224686
+      },
+      "core::record::with_profile": {
+        "calls": 1,
+        "exclusive_ns": 282,
+        "inclusive_ns": 282
+      },
+      "core::serialize_value": {
+        "calls": 140,
+        "exclusive_ns": 1260880,
+        "inclusive_ns": 1260880
+      },
+      "core::tagged_hash[behavior.commit_bundle.v1]": {
+        "calls": 1,
+        "exclusive_ns": 2760,
+        "inclusive_ns": 787991
+      },
+      "core::tagged_hash[behavior.entity_content.v1]": {
+        "calls": 1,
+        "exclusive_ns": 891,
+        "inclusive_ns": 5460
+      },
+      "core::tagged_hash[behavior.evidence_policy.v1]": {
+        "calls": 1,
+        "exclusive_ns": 984,
+        "inclusive_ns": 4051
+      },
+      "core::tagged_hash[behavior.query_result.v1]": {
+        "calls": 1,
+        "exclusive_ns": 2204,
+        "inclusive_ns": 26884
+      },
+      "core::tagged_hash[behavior.transition.v1]": {
+        "calls": 1,
+        "exclusive_ns": 2181,
+        "inclusive_ns": 781192
+      },
+      "core::tagged_hash[behavior.transition_record.v1]": {
+        "calls": 2,
+        "exclusive_ns": 5756,
+        "inclusive_ns": 1607991
+      },
+      "core::tagged_hash_canonical_text[behavior.commit_bundle.v1]": {
+        "calls": 1,
+        "exclusive_ns": 501562,
+        "inclusive_ns": 501562
+      },
+      "core::tagged_hash_canonical_text[behavior.entity_content.v1]": {
+        "calls": 1,
+        "exclusive_ns": 2239,
+        "inclusive_ns": 2239
+      },
+      "core::tagged_hash_canonical_text[behavior.evidence_policy.v1]": {
+        "calls": 1,
+        "exclusive_ns": 1669,
+        "inclusive_ns": 1669
+      },
+      "core::tagged_hash_canonical_text[behavior.query_result.v1]": {
+        "calls": 1,
+        "exclusive_ns": 13234,
+        "inclusive_ns": 13234
+      },
+      "core::tagged_hash_canonical_text[behavior.transition.v1]": {
+        "calls": 1,
+        "exclusive_ns": 442767,
+        "inclusive_ns": 442767
+      },
+      "core::tagged_hash_canonical_text[behavior.transition_record.v1]": {
+        "calls": 2,
+        "exclusive_ns": 1016585,
+        "inclusive_ns": 1016585
+      },
+      "core::to_canonical_string": {
+        "calls": 140,
+        "exclusive_ns": 47640,
+        "inclusive_ns": 1511723
+      },
+      "diagnostic::hash_document_bytes": {
+        "calls": 5,
+        "exclusive_ns": 715,
+        "inclusive_ns": 715
+      },
+      "phase::commit": {
+        "calls": 1,
+        "exclusive_ns": 1804,
+        "inclusive_ns": 20083873
+      },
+      "record08_common_move": {
+        "calls": 1,
+        "exclusive_ns": 25234,
+        "inclusive_ns": 25234
+      },
+      "record08_typed_decode": {
+        "calls": 1,
+        "exclusive_ns": 863545,
+        "inclusive_ns": 863545
+      },
+      "store::archive_bundle_clone": {
+        "calls": 1,
+        "exclusive_ns": 1572265,
+        "inclusive_ns": 1572265
+      },
+      "store::commit_impl": {
+        "calls": 1,
+        "exclusive_ns": 926737,
+        "inclusive_ns": 20082069
+      },
+      "store::documents::hash_of[behavior.commit_bundle.v1]": {
+        "calls": 1,
+        "exclusive_ns": 215420,
+        "inclusive_ns": 1652489
+      },
+      "store::documents::hash_of[behavior.entity_content.v1]": {
+        "calls": 1,
+        "exclusive_ns": 1647,
+        "inclusive_ns": 10024
+      },
+      "store::documents::hash_of[behavior.evidence_policy.v1]": {
+        "calls": 1,
+        "exclusive_ns": 3321,
+        "inclusive_ns": 9290
+      },
+      "store::documents::hash_of[behavior.transition_record.v1]": {
+        "calls": 2,
+        "exclusive_ns": 437494,
+        "inclusive_ns": 3453619
+      },
+      "store::event_bundle_clone": {
+        "calls": 1,
+        "exclusive_ns": 570329,
+        "inclusive_ns": 570329
+      },
+      "store::hash_to_value": {
+        "calls": 5,
+        "exclusive_ns": 2061332,
+        "inclusive_ns": 2061332
+      },
+      "store::head": {
+        "calls": 2,
+        "exclusive_ns": 1819,
+        "inclusive_ns": 1819
+      },
+      "store::incremental::carry_incremental_child": {
+        "calls": 1,
+        "exclusive_ns": 409765,
+        "inclusive_ns": 409765
+      },
+      "store::incremental::validate_incremental_child_at": {
+        "calls": 1,
+        "exclusive_ns": 319513,
+        "inclusive_ns": 458186
+      },
+      "store::record_to_string": {
+        "calls": 1,
+        "exclusive_ns": 628766,
+        "inclusive_ns": 628766
+      },
+      "store::rederive_for": {
+        "calls": 1,
+        "exclusive_ns": 737553,
+        "inclusive_ns": 9618306
+      },
+      "store::snapshot_identity": {
+        "calls": 1,
+        "exclusive_ns": 144636,
+        "inclusive_ns": 176985
+      },
+      "store::transition_hash": {
+        "calls": 1,
+        "exclusive_ns": 1804,
+        "inclusive_ns": 782996
+      },
+      "store::validate_snapshot": {
+        "calls": 1,
+        "exclusive_ns": 10772,
+        "inclusive_ns": 187757
+      }
+    },
+    "work": {
+      "backend_commits": 1,
+      "backend_enumerations": 0,
+      "backend_key_candidates": 0,
+      "backend_members": 0,
+      "backend_record_reads": 1,
+      "backend_versions": 2,
+      "child_rows": 128,
+      "copied_rows": 0,
+      "decoded_rows": 0,
+      "document_decode_calls": 0,
+      "document_decode_json_bytes": 0,
+      "document_hash_calls": 5,
+      "hash_document_json_bytes": 0,
+      "predicate_evaluations": 3,
+      "provider_rows": 0,
+      "query_rows": 0,
+      "record_parse_bytes": 0,
+      "record_parse_calls": 0,
+      "snapshot_rows": 0,
+      "store_value_rows": 0,
+      "unrelated_row_checks": 0
+    }
+  },
+  "commit_ms": 20.084385,
+  "evaluate": {
+    "spans": {
+      "core::check_canonical_value": {
+        "calls": 5,
+        "exclusive_ns": 58582,
+        "inclusive_ns": 58582
+      },
+      "core::eval::evaluate_decoded_request": {
+        "calls": 1,
+        "exclusive_ns": 26996,
+        "inclusive_ns": 3077160
+      },
+      "core::eval::record_assembly": {
+        "calls": 1,
+        "exclusive_ns": 15838,
+        "inclusive_ns": 1796919
+      },
+      "core::eval::record_header_echo": {
+        "calls": 1,
+        "exclusive_ns": 11135,
+        "inclusive_ns": 11135
+      },
+      "core::eval::run_complete_child_rules": {
+        "calls": 1,
+        "exclusive_ns": 1316,
+        "inclusive_ns": 1047614
+      },
+      "core::eval::run_transition": {
+        "calls": 1,
+        "exclusive_ns": 130412,
+        "inclusive_ns": 1178943
+      },
+      "core::eval::snapshot_universe_json": {
+        "calls": 1,
+        "exclusive_ns": 184729,
+        "inclusive_ns": 184729
+      },
+      "core::facts::to_json": {
+        "calls": 2,
+        "exclusive_ns": 640701,
+        "inclusive_ns": 640701
+      },
+      "core::prepared::checked_child": {
+        "calls": 1,
+        "exclusive_ns": 63167,
+        "inclusive_ns": 63167
+      },
+      "core::prepared::evaluate": {
+        "calls": 1,
+        "exclusive_ns": 157180,
+        "inclusive_ns": 3251158
+      },
+      "core::prepared::run_child_rules": {
+        "calls": 1,
+        "exclusive_ns": 1046298,
+        "inclusive_ns": 1046298
+      },
+      "core::record::normalize_current_legacy": {
+        "calls": 1,
+        "exclusive_ns": 132945,
+        "inclusive_ns": 132945
+      },
+      "core::record::with_current_profile": {
+        "calls": 1,
+        "exclusive_ns": 1081756,
+        "inclusive_ns": 1215051
+      },
+      "core::record::with_profile": {
+        "calls": 1,
+        "exclusive_ns": 350,
+        "inclusive_ns": 350
+      },
+      "core::serialize_value": {
+        "calls": 5,
+        "exclusive_ns": 356162,
+        "inclusive_ns": 356162
+      },
+      "core::tagged_hash[behavior.query_result.v1]": {
+        "calls": 1,
+        "exclusive_ns": 1605,
+        "inclusive_ns": 26952
+      },
+      "core::tagged_hash[behavior.transition.v1]": {
+        "calls": 1,
+        "exclusive_ns": 3274,
+        "inclusive_ns": 760612
+      },
+      "core::tagged_hash_canonical_text[behavior.query_result.v1]": {
+        "calls": 1,
+        "exclusive_ns": 12230,
+        "inclusive_ns": 12230
+      },
+      "core::tagged_hash_canonical_text[behavior.transition.v1]": {
+        "calls": 1,
+        "exclusive_ns": 444447,
+        "inclusive_ns": 444447
+      },
+      "core::to_canonical_string": {
+        "calls": 5,
+        "exclusive_ns": 6087,
+        "inclusive_ns": 420831
+      },
+      "phase::evaluate": {
+        "calls": 1,
+        "exclusive_ns": 3504,
+        "inclusive_ns": 7108127
+      },
+      "store::bundle_from_evaluation": {
+        "calls": 1,
+        "exclusive_ns": 146306,
+        "inclusive_ns": 1195709
+      },
+      "store::evaluate": {
+        "calls": 1,
+        "exclusive_ns": 1309775,
+        "inclusive_ns": 7104623
+      },
+      "store::head": {
+        "calls": 2,
+        "exclusive_ns": 1886,
+        "inclusive_ns": 1886
+      },
+      "store::return_record_clone": {
+        "calls": 1,
+        "exclusive_ns": 1118401,
+        "inclusive_ns": 1118401
+      },
+      "store::snapshot_identity": {
+        "calls": 1,
+        "exclusive_ns": 146634,
+        "inclusive_ns": 223722
+      },
+      "store::transition_hash": {
+        "calls": 1,
+        "exclusive_ns": 2439,
+        "inclusive_ns": 763051
+      },
+      "store::validate_snapshot": {
+        "calls": 1,
+        "exclusive_ns": 3972,
+        "inclusive_ns": 227694
+      }
+    },
+    "work": {
+      "backend_commits": 0,
+      "backend_enumerations": 0,
+      "backend_key_candidates": 0,
+      "backend_members": 0,
+      "backend_record_reads": 0,
+      "backend_versions": 1,
+      "child_rows": 128,
+      "copied_rows": 0,
+      "decoded_rows": 0,
+      "document_decode_calls": 0,
+      "document_decode_json_bytes": 0,
+      "document_hash_calls": 0,
+      "hash_document_json_bytes": 0,
+      "predicate_evaluations": 3,
+      "provider_rows": 0,
+      "query_rows": 0,
+      "record_parse_bytes": 0,
+      "record_parse_calls": 0,
+      "snapshot_rows": 0,
+      "store_value_rows": 0,
+      "unrelated_row_checks": 0
+    }
+  },
+  "evaluate_ms": 7.109782,
+  "mode": "instrumented",
+  "n": 128,
+  "profile_bytes": false,
+  "record_bytes": 64742,
+  "record_path": "/data/repos/behavior-ir-project/docs/research/core-residual-profile-20261031/smoke-profile/record/original-128-0.record.json",
+  "record_serialization_ms": 1.151964,
+  "repetition": 0,
+  "serialization": {
+    "spans": {
+      "phase::serialization": {
+        "calls": 1,
+        "exclusive_ns": 1151072,
+        "inclusive_ns": 1151072
+      }
+    },
+    "work": {
+      "backend_commits": 0,
+      "backend_enumerations": 0,
+      "backend_key_candidates": 0,
+      "backend_members": 0,
+      "backend_record_reads": 0,
+      "backend_versions": 0,
+      "child_rows": 0,
+      "copied_rows": 0,
+      "decoded_rows": 0,
+      "document_decode_calls": 0,
+      "document_decode_json_bytes": 0,
+      "document_hash_calls": 0,
+      "hash_document_json_bytes": 0,
+      "predicate_evaluations": 0,
+      "provider_rows": 0,
+      "query_rows": 0,
+      "record_parse_bytes": 0,
+      "record_parse_calls": 0,
+      "snapshot_rows": 0,
+      "store_value_rows": 0,
+      "unrelated_row_checks": 0
+    }
+  },
+  "variant": "original"
+}

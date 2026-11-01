@@ -1,0 +1,530 @@
+{
+  "groups": [
+    {
+      "kind": "stat",
+      "n": 512,
+      "commands": 0,
+      "mode": "alloc",
+      "arms": {
+        "decode": {
+          "window_ms": 3.313231,
+          "write_ms": 1.113525,
+          "counters": {
+            "cycles:u": {
+              "median_count": 9286001.0,
+              "minimum_running_percent": 100.0
+            },
+            "instructions:u": {
+              "median_count": 8477366.0,
+              "minimum_running_percent": 100.0
+            }
+          }
+        },
+        "typed": {
+          "window_ms": 3.390235,
+          "write_ms": 1.123923,
+          "counters": {
+            "cycles:u": {
+              "median_count": 9565213.0,
+              "minimum_running_percent": 100.0
+            },
+            "instructions:u": {
+              "median_count": 8466455.0,
+              "minimum_running_percent": 100.0
+            }
+          }
+        },
+        "view": {
+          "window_ms": 0.115205,
+          "write_ms": 1.118352,
+          "counters": {
+            "cycles:u": {
+              "median_count": 350368.0,
+              "minimum_running_percent": 100.0
+            },
+            "instructions:u": {
+              "median_count": 231992.0,
+              "minimum_running_percent": 100.0
+            }
+          }
+        }
+      }
+    },
+    {
+      "kind": "stat",
+      "n": 512,
+      "commands": 0,
+      "mode": "empty",
+      "arms": {
+        "decode": {
+          "window_ms": 0.000386,
+          "write_ms": 1.111117,
+          "counters": {
+            "cycles:u": {
+              "median_count": 12310.0,
+              "minimum_running_percent": 100.0
+            },
+            "instructions:u": {
+              "median_count": 617.0,
+              "minimum_running_percent": 100.0
+            }
+          }
+        },
+        "typed": {
+          "window_ms": 0.00038,
+          "write_ms": 1.109874,
+          "counters": {
+            "cycles:u": {
+              "median_count": 12282.0,
+              "minimum_running_percent": 100.0
+            },
+            "instructions:u": {
+              "median_count": 617.0,
+              "minimum_running_percent": 100.0
+            }
+          }
+        },
+        "view": {
+          "window_ms": 0.000348,
+          "write_ms": 1.117611,
+          "counters": {
+            "cycles:u": {
+              "median_count": 12569.0,
+              "minimum_running_percent": 100.0
+            },
+            "instructions:u": {
+              "median_count": 617.0,
+              "minimum_running_percent": 100.0
+            }
+          }
+        }
+      }
+    },
+    {
+      "kind": "stat",
+      "n": 128,
+      "commands": 2,
+      "mode": "alloc",
+      "arms": {
+        "original": {
+          "window_ms": 0.046044,
+          "write_ms": 0.308275,
+          "counters": {
+            "cycles:u": {
+              "median_count": 147023.0,
+              "minimum_running_percent": 100.0
+            },
+            "instructions:u": {
+              "median_count": 156080.0,
+              "minimum_running_percent": 100.0
+            }
+          }
+        },
+        "view": {
+          "window_ms": 0.410417,
+          "write_ms": 0.307985,
+          "counters": {
+            "cycles:u": {
+              "median_count": 1180440.0,
+              "minimum_running_percent": 100.0
+            },
+            "instructions:u": {
+              "median_count": 1613383.0,
+              "minimum_running_percent": 100.0
+            }
+          }
+        }
+      }
+    },
+    {
+      "kind": "stat",
+      "n": 128,
+      "commands": 2,
+      "mode": "empty",
+      "arms": {
+        "original": {
+          "window_ms": 0.000349,
+          "write_ms": 0.319,
+          "counters": {
+            "cycles:u": {
+              "median_count": 12681.0,
+              "minimum_running_percent": 100.0
+            },
+            "instructions:u": {
+              "median_count": 617.0,
+              "minimum_running_percent": 100.0
+            }
+          }
+        },
+        "view": {
+          "window_ms": 0.000352,
+          "write_ms": 0.309792,
+          "counters": {
+            "cycles:u": {
+              "median_count": 11240.0,
+              "minimum_running_percent": 100.0
+            },
+            "instructions:u": {
+              "median_count": 617.0,
+              "minimum_running_percent": 100.0
+            }
+          }
+        }
+      }
+    },
+    {
+      "kind": "record",
+      "n": 512,
+      "commands": 0,
+      "mode": "alloc",
+      "arms": {
+        "decode": {
+          "window_ms": 4.163549,
+          "write_ms": 1.151542,
+          "sample_symbols": {
+            "/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6::malloc_consolidate": {
+              "samples": 35,
+              "period": 35305317
+            },
+            "/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6::unlink_chunk.isra.0": {
+              "samples": 23,
+              "period": 25723286
+            }
+          },
+          "unparsed_sample_lines": [],
+          "loss_and_throttle_metadata": [
+            {
+              "index": 70,
+              "line": "# Total Lost Samples: 0"
+            },
+            {
+              "index": 75,
+              "line": "# Total Lost Samples: 0"
+            },
+            {
+              "index": 77,
+              "line": "# Total Lost Samples: 0"
+            },
+            {
+              "index": 79,
+              "line": "# Total Lost Samples: 0"
+            },
+            {
+              "index": 84,
+              "line": "# Total Lost Samples: 0"
+            },
+            {
+              "index": 86,
+              "line": "# Total Lost Samples: 0"
+            },
+            {
+              "index": 88,
+              "line": "# Total Lost Samples: 0"
+            }
+          ],
+          "parsed_sample_count": 58,
+          "parsed_total_sample_period": 61028603,
+          "report_sample_counts": [
+            {
+              "index": 70,
+              "reported_samples": 8
+            },
+            {
+              "index": 75,
+              "reported_samples": 8
+            },
+            {
+              "index": 77,
+              "reported_samples": 8
+            },
+            {
+              "index": 79,
+              "reported_samples": 9
+            },
+            {
+              "index": 84,
+              "reported_samples": 8
+            },
+            {
+              "index": 86,
+              "reported_samples": 8
+            },
+            {
+              "index": 88,
+              "reported_samples": 9
+            }
+          ]
+        },
+        "typed": {
+          "window_ms": 4.267767,
+          "write_ms": 1.158145,
+          "sample_symbols": {
+            "/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6::malloc_consolidate": {
+              "samples": 36,
+              "period": 36066022
+            },
+            "/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6::unlink_chunk.isra.0": {
+              "samples": 23,
+              "period": 26765271
+            },
+            "/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6::_int_malloc": {
+              "samples": 1,
+              "period": 2111981
+            }
+          },
+          "unparsed_sample_lines": [],
+          "loss_and_throttle_metadata": [
+            {
+              "index": 71,
+              "line": "# Total Lost Samples: 0"
+            },
+            {
+              "index": 73,
+              "line": "# Total Lost Samples: 0"
+            },
+            {
+              "index": 78,
+              "line": "# Total Lost Samples: 0"
+            },
+            {
+              "index": 80,
+              "line": "# Total Lost Samples: 0"
+            },
+            {
+              "index": 82,
+              "line": "# Total Lost Samples: 0"
+            },
+            {
+              "index": 87,
+              "line": "# Total Lost Samples: 0"
+            },
+            {
+              "index": 89,
+              "line": "# Total Lost Samples: 0"
+            }
+          ],
+          "parsed_sample_count": 60,
+          "parsed_total_sample_period": 64943274,
+          "report_sample_counts": [
+            {
+              "index": 71,
+              "reported_samples": 8
+            },
+            {
+              "index": 73,
+              "reported_samples": 9
+            },
+            {
+              "index": 78,
+              "reported_samples": 8
+            },
+            {
+              "index": 80,
+              "reported_samples": 9
+            },
+            {
+              "index": 82,
+              "reported_samples": 9
+            },
+            {
+              "index": 87,
+              "reported_samples": 9
+            },
+            {
+              "index": 89,
+              "reported_samples": 8
+            }
+          ]
+        },
+        "view": {
+          "window_ms": 0.205441,
+          "write_ms": 1.151751,
+          "sample_symbols": {
+            "/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6::_int_malloc": {
+              "samples": 1,
+              "period": 501504
+            }
+          },
+          "unparsed_sample_lines": [],
+          "loss_and_throttle_metadata": [
+            {
+              "index": 76,
+              "line": "# Total Lost Samples: 0"
+            }
+          ],
+          "parsed_sample_count": 1,
+          "parsed_total_sample_period": 501504,
+          "report_sample_counts": [
+            {
+              "index": 72,
+              "reported_samples": null
+            },
+            {
+              "index": 74,
+              "reported_samples": null
+            },
+            {
+              "index": 76,
+              "reported_samples": 1
+            },
+            {
+              "index": 81,
+              "reported_samples": null
+            },
+            {
+              "index": 83,
+              "reported_samples": null
+            },
+            {
+              "index": 85,
+              "reported_samples": null
+            },
+            {
+              "index": 90,
+              "reported_samples": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "kind": "record",
+      "n": 128,
+      "commands": 2,
+      "mode": "alloc",
+      "arms": {
+        "original": {
+          "window_ms": 0.046483,
+          "write_ms": 0.320969,
+          "sample_symbols": {},
+          "unparsed_sample_lines": [],
+          "loss_and_throttle_metadata": [],
+          "parsed_sample_count": 0,
+          "parsed_total_sample_period": 0,
+          "report_sample_counts": [
+            {
+              "index": 91,
+              "reported_samples": null
+            },
+            {
+              "index": 94,
+              "reported_samples": null
+            },
+            {
+              "index": 95,
+              "reported_samples": null
+            },
+            {
+              "index": 98,
+              "reported_samples": null
+            },
+            {
+              "index": 99,
+              "reported_samples": null
+            },
+            {
+              "index": 102,
+              "reported_samples": null
+            },
+            {
+              "index": 103,
+              "reported_samples": null
+            }
+          ]
+        },
+        "view": {
+          "window_ms": 0.610791,
+          "write_ms": 0.319578,
+          "sample_symbols": {
+            "/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6::malloc_consolidate": {
+              "samples": 8,
+              "period": 3988713
+            },
+            "/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6::unlink_chunk.isra.0": {
+              "samples": 5,
+              "period": 2477417
+            },
+            "[unknown]::[unknown]": {
+              "samples": 1,
+              "period": 501504
+            }
+          },
+          "unparsed_sample_lines": [],
+          "loss_and_throttle_metadata": [
+            {
+              "index": 92,
+              "line": "# Total Lost Samples: 0"
+            },
+            {
+              "index": 93,
+              "line": "# Total Lost Samples: 0"
+            },
+            {
+              "index": 96,
+              "line": "# Total Lost Samples: 0"
+            },
+            {
+              "index": 97,
+              "line": "# Total Lost Samples: 0"
+            },
+            {
+              "index": 100,
+              "line": "# Total Lost Samples: 0"
+            },
+            {
+              "index": 101,
+              "line": "# Total Lost Samples: 0"
+            },
+            {
+              "index": 104,
+              "line": "# Total Lost Samples: 0"
+            }
+          ],
+          "parsed_sample_count": 14,
+          "parsed_total_sample_period": 6967634,
+          "report_sample_counts": [
+            {
+              "index": 92,
+              "reported_samples": 2
+            },
+            {
+              "index": 93,
+              "reported_samples": 2
+            },
+            {
+              "index": 96,
+              "reported_samples": 2
+            },
+            {
+              "index": 97,
+              "reported_samples": 2
+            },
+            {
+              "index": 100,
+              "reported_samples": 2
+            },
+            {
+              "index": 101,
+              "reported_samples": 2
+            },
+            {
+              "index": 104,
+              "reported_samples": 2
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "stat_diagnostic_gaps": {
+    "legacy_gap_reproduced": true,
+    "v2_gap_reproduced": true,
+    "collect_record": true
+  },
+  "sampling_diagnostic_gaps": {
+    "legacy_gap_reproduced": true,
+    "v2_gap_reproduced": true,
+    "collect_record": true
+  },
+  "limits": "New diagnostic context; no subtraction of empty-window medians. Samples localize executed user IPs, not exclusive wall-time causation."
+}

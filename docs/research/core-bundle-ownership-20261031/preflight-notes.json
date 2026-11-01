@@ -1,0 +1,5 @@
+{
+  "initial_error": "Overbroad construction-count assertion expected3, actual2. Stopped before any checkout source write; baseline binaries already saved. A Store test command had been started separately on still-baseline sources; retain it as baseline-store-tests.log.",
+  "correction": "Use exact unique result_state/event-assembly anchor; prepare patch outside active checkout; apply after baseline build/test exits.",
+  "broad_test_attempt": "The still-baseline broad Store command stopped during compilation: shared normal-only research profile example references profile_reset/profile_read when validation-work is enabled, but this experiment intentionally adds counters without the phase profiler. No tests ran in that command. Correct scope is --lib --tests, excluding examples. Do not introduce dummy profiler APIs to hide the incompatible research feature combination."
+}

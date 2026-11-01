@@ -1,0 +1,22 @@
+{
+  "utc": "2026-11-01T00:15:15.602330+00:00",
+  "status": "Passed",
+  "unchanged_prior_studies": {
+    "core-continuation-20261029": {
+      "manifest_sha256": "574e35fb0ee4e733eae9f6260e4ebec1779de7ba8d32608e5150eb1386b43264",
+      "verified_files": 44
+    },
+    "core-typed-record-20261031": {
+      "manifest_sha256": "dd74dd902c1e8d7c96accef3059de4400fd35dbd7f1e25afc449867977127a3c",
+      "verified_files": 66
+    },
+    "core-residual-profile-20261031": {
+      "manifest_sha256": "9c307c42b2c26d9ba7943d9d0536cb88ded180d359e32d2df8fca27f631064ae",
+      "verified_files": 72
+    },
+    "core-bundle-ownership-20261031": {
+      "manifest_sha256": "7980a3688dfde67ba63b268f0fa194b722aa2646e98f569c488efa267066446a",
+      "verified_files": 58
+    }
+  }
+}

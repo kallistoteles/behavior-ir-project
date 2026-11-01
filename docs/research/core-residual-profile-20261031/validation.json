@@ -1,0 +1,21 @@
+{
+  "profiler-core-tests.log": {
+    "passed": 26,
+    "ignored": 0
+  },
+  "profiler-store-tests.log": {
+    "passed": 2,
+    "ignored": 0
+  },
+  "scoped-frozen-validator-tests.log": {
+    "passed": 8,
+    "ignored": 0
+  },
+  "serialization-schedule-tests.log": {
+    "passed": 2,
+    "ignored": 0
+  },
+  "collector_tests": 8,
+  "negative_byte_controls": 2,
+  "smoke_profile": "passed"
+}

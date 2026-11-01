@@ -1,0 +1,29 @@
+{"command": ["cargo", "test", "--locked", "--release", "-p", "behavior-core", "--lib", "typed_materialization_tests", "--", "--nocapture"], "utc": "2026-10-31T10:25:39.948237+00:00"}
+   Compiling behavior-core v0.16.0 (/tmp/behavior-ir-core-continuation-20261029/crates/behavior-core)
+    Finished `release` profile [optimized] target(s) in 42.59s
+     Running unittests src/lib.rs (target/release/deps/behavior_core-6865ee59b065067b)
+
+running 6 tests
+
+thread 'record::typed_materialization_tests::current_object_record_reuses_its_common_typed_fields' (101972) panicked at crates/behavior-core/src/record/typed_materialization_tests.rs:93:5:
+assertion `left == right` failed: a current object record should not decode the common record again
+  left: 1
+ right: 0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test record::typed_materialization_tests::current_object_record_reuses_its_common_typed_fields ... FAILED
+test record::typed_materialization_tests::typed_trace_conversion_needs_a_sequence_fallback ... ok
+test record::typed_materialization_tests::all_seed_records_remain_valid_with_exact_command_bags ... ok
+test record::typed_materialization_tests::sequence_forms_and_compound_errors_keep_their_original_order ... ok
+TYPED_MATERIALIZATION_SEQUENCE_CASES=1767
+test record::typed_materialization_tests::nested_struct_sequences_preserve_accepted_forms_and_errors ... ok
+TYPED_MATERIALIZATION_DIFFERENTIAL_CASES=18917
+test record::typed_materialization_tests::public_constructor_matches_frozen_errors_over_field_mutations ... ok
+
+failures:
+
+failures:
+    record::typed_materialization_tests::current_object_record_reuses_its_common_typed_fields
+
+test result: FAILED. 5 passed; 1 failed; 0 ignored; 0 measured; 39 filtered out; finished in 11.45s
+
+error: test failed, to rerun pass `-p behavior-core --lib`

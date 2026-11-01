@@ -1,0 +1,750 @@
+{
+  "status": "Complete",
+  "samples": 60,
+  "byte_equal": true,
+  "summary": [
+    {
+      "n": 128,
+      "record_bytes": 64742,
+      "baseline": {
+        "evaluate_ms": 6.715409999999999,
+        "commit_ms": 20.688004,
+        "evaluate_plus_commit_ms": 27.981337,
+        "process_ms": 87.09530500345863
+      },
+      "borrowed": {
+        "evaluate_ms": 6.520954,
+        "commit_ms": 20.27923,
+        "evaluate_plus_commit_ms": 26.872197999999997,
+        "process_ms": 86.60402300301939
+      },
+      "projected": {
+        "evaluate_ms": 6.5183,
+        "commit_ms": 19.445806,
+        "evaluate_plus_commit_ms": 26.091564,
+        "process_ms": 88.10675298445858
+      },
+      "comparisons": {
+        "borrowed_vs_baseline": {
+          "commit_ms": -1.9758986898881115,
+          "evaluate_plus_commit_ms": -3.9638527637189114
+        },
+        "projected_vs_baseline": {
+          "commit_ms": -6.004436194037854,
+          "evaluate_plus_commit_ms": -6.75369086187696
+        },
+        "projected_vs_borrowed": {
+          "commit_ms": -4.109741839310455,
+          "evaluate_plus_commit_ms": -2.9049875265134473
+        }
+      }
+    },
+    {
+      "n": 512,
+      "record_bytes": 254822,
+      "baseline": {
+        "evaluate_ms": 25.535657999999998,
+        "commit_ms": 87.669004,
+        "evaluate_plus_commit_ms": 113.204662,
+        "process_ms": 328.4706459962763
+      },
+      "borrowed": {
+        "evaluate_ms": 25.223123,
+        "commit_ms": 83.693133,
+        "evaluate_plus_commit_ms": 108.916256,
+        "process_ms": 324.4352139881812
+      },
+      "projected": {
+        "evaluate_ms": 25.567234000000003,
+        "commit_ms": 79.73746299999999,
+        "evaluate_plus_commit_ms": 105.24056599999999,
+        "process_ms": 321.2633990042377
+      },
+      "comparisons": {
+        "borrowed_vs_baseline": {
+          "commit_ms": -4.5350931556151775,
+          "evaluate_plus_commit_ms": -3.788188511176327
+        },
+        "projected_vs_baseline": {
+          "commit_ms": -9.047143959796799,
+          "evaluate_plus_commit_ms": -7.035130761664221
+        },
+        "projected_vs_borrowed": {
+          "commit_ms": -4.726397325811682,
+          "evaluate_plus_commit_ms": -3.374785486566867
+        }
+      }
+    },
+    {
+      "n": 2048,
+      "record_bytes": 1019335,
+      "baseline": {
+        "evaluate_ms": 115.72934,
+        "commit_ms": 413.84625000000005,
+        "evaluate_plus_commit_ms": 535.496111,
+        "process_ms": 1396.642701991368
+      },
+      "borrowed": {
+        "evaluate_ms": 114.52347999999999,
+        "commit_ms": 399.675694,
+        "evaluate_plus_commit_ms": 514.199174,
+        "process_ms": 1382.0157799927983
+      },
+      "projected": {
+        "evaluate_ms": 115.297999,
+        "commit_ms": 366.482761,
+        "evaluate_plus_commit_ms": 479.449124,
+        "process_ms": 1349.777074996382
+      },
+      "comparisons": {
+        "borrowed_vs_baseline": {
+          "commit_ms": -3.4241112490447922,
+          "evaluate_plus_commit_ms": -3.9770479304190642
+        },
+        "projected_vs_baseline": {
+          "commit_ms": -11.44470657883213,
+          "evaluate_plus_commit_ms": -10.466366766947456
+        },
+        "projected_vs_borrowed": {
+          "commit_ms": -8.304966626266753,
+          "evaluate_plus_commit_ms": -6.758091369473885
+        }
+      }
+    },
+    {
+      "n": 8192,
+      "record_bytes": 4085191,
+      "baseline": {
+        "evaluate_ms": 484.905817,
+        "commit_ms": 1913.414782,
+        "evaluate_plus_commit_ms": 2398.320599,
+        "process_ms": 5920.813044009265
+      },
+      "borrowed": {
+        "evaluate_ms": 487.994298,
+        "commit_ms": 1706.318294,
+        "evaluate_plus_commit_ms": 2191.280122,
+        "process_ms": 5741.609474993311
+      },
+      "projected": {
+        "evaluate_ms": 483.76023699999996,
+        "commit_ms": 1596.676058,
+        "evaluate_plus_commit_ms": 2097.946709,
+        "process_ms": 5581.027250998886
+      },
+      "comparisons": {
+        "borrowed_vs_baseline": {
+          "commit_ms": -10.82339751674397,
+          "evaluate_plus_commit_ms": -8.632727296189147
+        },
+        "projected_vs_baseline": {
+          "commit_ms": -16.553584041455373,
+          "evaluate_plus_commit_ms": -12.524342663997622
+        },
+        "projected_vs_borrowed": {
+          "commit_ms": -6.425661401248506,
+          "evaluate_plus_commit_ms": -4.259309983372372
+        }
+      }
+    }
+  ],
+  "full_paths": [
+    {
+      "case": {
+        "case_id": "ordinary",
+        "n": 8,
+        "history": 0,
+        "steps": 2,
+        "batch": 1,
+        "rules": 1,
+        "padding": 0,
+        "filter_terms": 1,
+        "operation": "create",
+        "commands": 0,
+        "relations": false,
+        "global": "count"
+      },
+      "arm": "baseline",
+      "process_ms": 55.96471900935285,
+      "observation_sha256": "fb71eb1e1ff6834655f175014cf77a918ee1783410592ebe3cf2c5693f891559",
+      "result": {
+        "case_id": "ordinary",
+        "changed_identities": 2,
+        "execution_outcome": "ALLOW",
+        "final_members": 10,
+        "final_position": 2,
+        "metrics": {
+          "artifact_write_ms": 0.277056,
+          "audit_serialization_ms": 0.5309619999999999,
+          "behavior_replay_ms": 9.659253,
+          "commit_ms": 6.211167,
+          "cycle_ms": 9.698246000000001,
+          "data_replay_ms": 3.593453,
+          "drain_ms": 1.173021,
+          "evaluate_ms": 2.257815,
+          "first_eval_ms": 2.046364,
+          "history_ms": 0.00023,
+          "page_ms": 6.408493,
+          "read_ms": 0.7538389999999999,
+          "reference_replay_ms": 3.863001,
+          "reopen_ms": 1.599707,
+          "setup_ms": 5.511614
+        },
+        "mode": "production-like",
+        "observation_bytes": 63842,
+        "prepared_history_position": 0,
+        "process_hwm": "VmHWM:\t    9680 kB",
+        "work": {
+          "cycle": null,
+          "page": null,
+          "read": null
+        }
+      }
+    },
+    {
+      "case": {
+        "case_id": "ordinary",
+        "n": 8,
+        "history": 0,
+        "steps": 2,
+        "batch": 1,
+        "rules": 1,
+        "padding": 0,
+        "filter_terms": 1,
+        "operation": "create",
+        "commands": 0,
+        "relations": false,
+        "global": "count"
+      },
+      "arm": "borrowed",
+      "process_ms": 53.04719801642932,
+      "observation_sha256": "fb71eb1e1ff6834655f175014cf77a918ee1783410592ebe3cf2c5693f891559",
+      "result": {
+        "case_id": "ordinary",
+        "changed_identities": 2,
+        "execution_outcome": "ALLOW",
+        "final_members": 10,
+        "final_position": 2,
+        "metrics": {
+          "artifact_write_ms": 0.224079,
+          "audit_serialization_ms": 0.541744,
+          "behavior_replay_ms": 9.457399,
+          "commit_ms": 5.885902999999999,
+          "cycle_ms": 9.271541,
+          "data_replay_ms": 3.594771,
+          "drain_ms": 1.177597,
+          "evaluate_ms": 2.157455,
+          "first_eval_ms": 1.9982160000000002,
+          "history_ms": 0.00016999999999999999,
+          "page_ms": 6.7118910000000005,
+          "read_ms": 0.809982,
+          "reference_replay_ms": 3.951173,
+          "reopen_ms": 1.618583,
+          "setup_ms": 5.6350549999999995
+        },
+        "mode": "production-like",
+        "observation_bytes": 63842,
+        "prepared_history_position": 0,
+        "process_hwm": "VmHWM:\t    9684 kB",
+        "work": {
+          "cycle": null,
+          "page": null,
+          "read": null
+        }
+      }
+    },
+    {
+      "case": {
+        "case_id": "ordinary",
+        "n": 8,
+        "history": 0,
+        "steps": 2,
+        "batch": 1,
+        "rules": 1,
+        "padding": 0,
+        "filter_terms": 1,
+        "operation": "create",
+        "commands": 0,
+        "relations": false,
+        "global": "count"
+      },
+      "arm": "projected",
+      "process_ms": 52.82377501134761,
+      "observation_sha256": "fb71eb1e1ff6834655f175014cf77a918ee1783410592ebe3cf2c5693f891559",
+      "result": {
+        "case_id": "ordinary",
+        "changed_identities": 2,
+        "execution_outcome": "ALLOW",
+        "final_members": 10,
+        "final_position": 2,
+        "metrics": {
+          "artifact_write_ms": 0.31507300000000005,
+          "audit_serialization_ms": 0.5044150000000001,
+          "behavior_replay_ms": 9.073038,
+          "commit_ms": 5.933088,
+          "cycle_ms": 9.350193999999998,
+          "data_replay_ms": 3.580718,
+          "drain_ms": 1.1848640000000001,
+          "evaluate_ms": 2.178809,
+          "first_eval_ms": 2.045004,
+          "history_ms": 0.000275,
+          "page_ms": 6.204562,
+          "read_ms": 0.698727,
+          "reference_replay_ms": 3.825788,
+          "reopen_ms": 1.598381,
+          "setup_ms": 5.725471000000001
+        },
+        "mode": "production-like",
+        "observation_bytes": 63842,
+        "prepared_history_position": 0,
+        "process_hwm": "VmHWM:\t    9696 kB",
+        "work": {
+          "cycle": null,
+          "page": null,
+          "read": null
+        }
+      }
+    },
+    {
+      "case": {
+        "case_id": "commands-references",
+        "n": 8,
+        "history": 2,
+        "steps": 2,
+        "batch": 1,
+        "rules": 1,
+        "padding": 0,
+        "filter_terms": 1,
+        "operation": "create",
+        "commands": 2,
+        "relations": true,
+        "global": "filtered"
+      },
+      "arm": "baseline",
+      "process_ms": 786.5651530155446,
+      "observation_sha256": "7724275aea5cdf468333009409dbf45a9848d1141e0c23129a344cdbda41961c",
+      "result": {
+        "case_id": "commands-references",
+        "changed_identities": 2,
+        "execution_outcome": "ALLOW",
+        "final_members": 10,
+        "final_position": 4,
+        "metrics": {
+          "artifact_write_ms": 0.38203800000000004,
+          "audit_serialization_ms": 1.378849,
+          "behavior_replay_ms": 159.95631799999998,
+          "commit_ms": 58.550749,
+          "cycle_ms": 109.15661899999999,
+          "data_replay_ms": 119.239376,
+          "drain_ms": 17.944293000000002,
+          "evaluate_ms": 32.587002,
+          "first_eval_ms": 17.465056,
+          "history_ms": 57.734201999999996,
+          "page_ms": 142.520183,
+          "read_ms": 4.535153,
+          "reference_replay_ms": 119.620946,
+          "reopen_ms": 19.245842999999997,
+          "setup_ms": 5.928707
+        },
+        "mode": "production-like",
+        "observation_bytes": 166153,
+        "prepared_history_position": 2,
+        "process_hwm": "VmHWM:\t   12956 kB",
+        "work": {
+          "cycle": null,
+          "page": null,
+          "read": null
+        }
+      }
+    },
+    {
+      "case": {
+        "case_id": "commands-references",
+        "n": 8,
+        "history": 2,
+        "steps": 2,
+        "batch": 1,
+        "rules": 1,
+        "padding": 0,
+        "filter_terms": 1,
+        "operation": "create",
+        "commands": 2,
+        "relations": true,
+        "global": "filtered"
+      },
+      "arm": "borrowed",
+      "process_ms": 762.1794320002664,
+      "observation_sha256": "7724275aea5cdf468333009409dbf45a9848d1141e0c23129a344cdbda41961c",
+      "result": {
+        "case_id": "commands-references",
+        "changed_identities": 2,
+        "execution_outcome": "ALLOW",
+        "final_members": 10,
+        "final_position": 4,
+        "metrics": {
+          "artifact_write_ms": 0.361193,
+          "audit_serialization_ms": 1.381347,
+          "behavior_replay_ms": 153.84906,
+          "commit_ms": 56.69408,
+          "cycle_ms": 105.848223,
+          "data_replay_ms": 114.924949,
+          "drain_ms": 17.412698000000002,
+          "evaluate_ms": 31.659878,
+          "first_eval_ms": 17.031713,
+          "history_ms": 55.767669,
+          "page_ms": 137.817166,
+          "read_ms": 4.511129,
+          "reference_replay_ms": 115.446681,
+          "reopen_ms": 18.321654,
+          "setup_ms": 6.0042919999999995
+        },
+        "mode": "production-like",
+        "observation_bytes": 166153,
+        "prepared_history_position": 2,
+        "process_hwm": "VmHWM:\t   12920 kB",
+        "work": {
+          "cycle": null,
+          "page": null,
+          "read": null
+        }
+      }
+    },
+    {
+      "case": {
+        "case_id": "commands-references",
+        "n": 8,
+        "history": 2,
+        "steps": 2,
+        "batch": 1,
+        "rules": 1,
+        "padding": 0,
+        "filter_terms": 1,
+        "operation": "create",
+        "commands": 2,
+        "relations": true,
+        "global": "filtered"
+      },
+      "arm": "projected",
+      "process_ms": 707.1677010098938,
+      "observation_sha256": "7724275aea5cdf468333009409dbf45a9848d1141e0c23129a344cdbda41961c",
+      "result": {
+        "case_id": "commands-references",
+        "changed_identities": 2,
+        "execution_outcome": "ALLOW",
+        "final_members": 10,
+        "final_position": 4,
+        "metrics": {
+          "artifact_write_ms": 0.340883,
+          "audit_serialization_ms": 1.289567,
+          "behavior_replay_ms": 142.091695,
+          "commit_ms": 52.223176,
+          "cycle_ms": 98.54839199999999,
+          "data_replay_ms": 106.044397,
+          "drain_ms": 16.397875,
+          "evaluate_ms": 29.84778,
+          "first_eval_ms": 16.063599,
+          "history_ms": 52.089138,
+          "page_ms": 126.79547999999998,
+          "read_ms": 4.124426,
+          "reference_replay_ms": 106.714745,
+          "reopen_ms": 17.790816,
+          "setup_ms": 6.019626000000001
+        },
+        "mode": "production-like",
+        "observation_bytes": 166153,
+        "prepared_history_position": 2,
+        "process_hwm": "VmHWM:\t   12864 kB",
+        "work": {
+          "cycle": null,
+          "page": null,
+          "read": null
+        }
+      }
+    },
+    {
+      "case": {
+        "case_id": "history-update",
+        "n": 8,
+        "history": 8,
+        "steps": 2,
+        "batch": 1,
+        "rules": 1,
+        "padding": 0,
+        "filter_terms": 1,
+        "operation": "update",
+        "commands": 2,
+        "relations": false,
+        "global": "count"
+      },
+      "arm": "baseline",
+      "process_ms": 1018.3214940188918,
+      "observation_sha256": "adc3ac4fed90d808130c60e6227e1ea64c537a65f3fecef4de00413411d5fdec",
+      "result": {
+        "case_id": "history-update",
+        "changed_identities": 1,
+        "execution_outcome": "ALLOW",
+        "final_members": 8,
+        "final_position": 10,
+        "metrics": {
+          "artifact_write_ms": 0.354276,
+          "audit_serialization_ms": 1.28201,
+          "behavior_replay_ms": 232.06411,
+          "commit_ms": 41.682083,
+          "cycle_ms": 71.594544,
+          "data_replay_ms": 168.208828,
+          "drain_ms": 10.092486,
+          "evaluate_ms": 19.749342999999996,
+          "first_eval_ms": 10.625705,
+          "history_ms": 196.602857,
+          "page_ms": 125.273726,
+          "read_ms": 2.476907,
+          "reference_replay_ms": 168.865572,
+          "reopen_ms": 12.248827,
+          "setup_ms": 5.756474
+        },
+        "mode": "production-like",
+        "observation_bytes": 150744,
+        "prepared_history_position": 8,
+        "process_hwm": "VmHWM:\t   13440 kB",
+        "work": {
+          "cycle": null,
+          "page": null,
+          "read": null
+        }
+      }
+    },
+    {
+      "case": {
+        "case_id": "history-update",
+        "n": 8,
+        "history": 8,
+        "steps": 2,
+        "batch": 1,
+        "rules": 1,
+        "padding": 0,
+        "filter_terms": 1,
+        "operation": "update",
+        "commands": 2,
+        "relations": false,
+        "global": "count"
+      },
+      "arm": "borrowed",
+      "process_ms": 987.0144480082672,
+      "observation_sha256": "adc3ac4fed90d808130c60e6227e1ea64c537a65f3fecef4de00413411d5fdec",
+      "result": {
+        "case_id": "history-update",
+        "changed_identities": 1,
+        "execution_outcome": "ALLOW",
+        "final_members": 8,
+        "final_position": 10,
+        "metrics": {
+          "artifact_write_ms": 0.34447500000000003,
+          "audit_serialization_ms": 1.3236299999999999,
+          "behavior_replay_ms": 223.697845,
+          "commit_ms": 40.662265000000005,
+          "cycle_ms": 69.64170299999999,
+          "data_replay_ms": 161.91968300000002,
+          "drain_ms": 9.88471,
+          "evaluate_ms": 18.995921000000003,
+          "first_eval_ms": 10.655221,
+          "history_ms": 190.863765,
+          "page_ms": 120.902283,
+          "read_ms": 2.4702610000000003,
+          "reference_replay_ms": 162.588999,
+          "reopen_ms": 11.981803,
+          "setup_ms": 5.750455
+        },
+        "mode": "production-like",
+        "observation_bytes": 150744,
+        "prepared_history_position": 8,
+        "process_hwm": "VmHWM:\t   13232 kB",
+        "work": {
+          "cycle": null,
+          "page": null,
+          "read": null
+        }
+      }
+    },
+    {
+      "case": {
+        "case_id": "history-update",
+        "n": 8,
+        "history": 8,
+        "steps": 2,
+        "batch": 1,
+        "rules": 1,
+        "padding": 0,
+        "filter_terms": 1,
+        "operation": "update",
+        "commands": 2,
+        "relations": false,
+        "global": "count"
+      },
+      "arm": "projected",
+      "process_ms": 930.4027800098993,
+      "observation_sha256": "adc3ac4fed90d808130c60e6227e1ea64c537a65f3fecef4de00413411d5fdec",
+      "result": {
+        "case_id": "history-update",
+        "changed_identities": 1,
+        "execution_outcome": "ALLOW",
+        "final_members": 8,
+        "final_position": 10,
+        "metrics": {
+          "artifact_write_ms": 0.360864,
+          "audit_serialization_ms": 1.228451,
+          "behavior_replay_ms": 218.562345,
+          "commit_ms": 38.245082,
+          "cycle_ms": 65.591599,
+          "data_replay_ms": 150.925388,
+          "drain_ms": 9.232192999999999,
+          "evaluate_ms": 18.033707999999997,
+          "first_eval_ms": 9.891651,
+          "history_ms": 177.87824899999998,
+          "page_ms": 112.951898,
+          "read_ms": 2.285642,
+          "reference_replay_ms": 151.351894,
+          "reopen_ms": 11.088192,
+          "setup_ms": 5.985113999999999
+        },
+        "mode": "production-like",
+        "observation_bytes": 150744,
+        "prepared_history_position": 8,
+        "process_hwm": "VmHWM:\t   13324 kB",
+        "work": {
+          "cycle": null,
+          "page": null,
+          "read": null
+        }
+      }
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "baseline-128.record.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "borrowed-128.record.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "projected-128.record.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "baseline-512.record.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "borrowed-512.record.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "projected-512.record.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "baseline-2048.record.json.gz",
+      "sha256": "32627e99b6f4c4c268836ed9adec5c74eecc4c3847597c44ef125fe228c740f6",
+      "bytes": 1019335,
+      "gzip_bytes": 26214
+    },
+    {
+      "path": "borrowed-2048.record.json.gz",
+      "sha256": "32627e99b6f4c4c268836ed9adec5c74eecc4c3847597c44ef125fe228c740f6",
+      "bytes": 1019335,
+      "gzip_bytes": 26214
+    },
+    {
+      "path": "projected-2048.record.json.gz",
+      "sha256": "32627e99b6f4c4c268836ed9adec5c74eecc4c3847597c44ef125fe228c740f6",
+      "bytes": 1019335,
+      "gzip_bytes": 26214
+    },
+    {
+      "path": "baseline-8192.record.json.gz",
+      "sha256": "3d12595e689ebbc01d587eabe533d0583ff8f22eb9fee4a61fda1a94f985d878",
+      "bytes": 4085191,
+      "gzip_bytes": 94113
+    },
+    {
+      "path": "borrowed-8192.record.json.gz",
+      "sha256": "3d12595e689ebbc01d587eabe533d0583ff8f22eb9fee4a61fda1a94f985d878",
+      "bytes": 4085191,
+      "gzip_bytes": 94113
+    },
+    {
+      "path": "projected-8192.record.json.gz",
+      "sha256": "3d12595e689ebbc01d587eabe533d0583ff8f22eb9fee4a61fda1a94f985d878",
+      "bytes": 4085191,
+      "gzip_bytes": 94113
+    },
+    {
+      "path": "ordinary-baseline.json.gz",
+      "sha256": "fb71eb1e1ff6834655f175014cf77a918ee1783410592ebe3cf2c5693f891559",
+      "bytes": 63842,
+      "gzip_bytes": 4348
+    },
+    {
+      "path": "ordinary-borrowed.json.gz",
+      "sha256": "fb71eb1e1ff6834655f175014cf77a918ee1783410592ebe3cf2c5693f891559",
+      "bytes": 63842,
+      "gzip_bytes": 4348
+    },
+    {
+      "path": "ordinary-projected.json.gz",
+      "sha256": "fb71eb1e1ff6834655f175014cf77a918ee1783410592ebe3cf2c5693f891559",
+      "bytes": 63842,
+      "gzip_bytes": 4348
+    },
+    {
+      "path": "commands-references-baseline.json.gz",
+      "sha256": "7724275aea5cdf468333009409dbf45a9848d1141e0c23129a344cdbda41961c",
+      "bytes": 166153,
+      "gzip_bytes": 7728
+    },
+    {
+      "path": "commands-references-borrowed.json.gz",
+      "sha256": "7724275aea5cdf468333009409dbf45a9848d1141e0c23129a344cdbda41961c",
+      "bytes": 166153,
+      "gzip_bytes": 7728
+    },
+    {
+      "path": "commands-references-projected.json.gz",
+      "sha256": "7724275aea5cdf468333009409dbf45a9848d1141e0c23129a344cdbda41961c",
+      "bytes": 166153,
+      "gzip_bytes": 7728
+    },
+    {
+      "path": "history-update-baseline.json.gz",
+      "sha256": "adc3ac4fed90d808130c60e6227e1ea64c537a65f3fecef4de00413411d5fdec",
+      "bytes": 150744,
+      "gzip_bytes": 7067
+    },
+    {
+      "path": "history-update-borrowed.json.gz",
+      "sha256": "adc3ac4fed90d808130c60e6227e1ea64c537a65f3fecef4de00413411d5fdec",
+      "bytes": 150744,
+      "gzip_bytes": 7067
+    },
+    {
+      "path": "history-update-projected.json.gz",
+      "sha256": "adc3ac4fed90d808130c60e6227e1ea64c537a65f3fecef4de00413411d5fdec",
+      "bytes": 150744,
+      "gzip_bytes": 7067
+    }
+  ],
+  "comparison_controls": "changed byte, omitted sample and duplicate sample rejected"
+}

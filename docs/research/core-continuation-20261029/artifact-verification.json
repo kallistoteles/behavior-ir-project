@@ -1,0 +1,56 @@
+{
+  "status": "Verified",
+  "frozen_inputs_unchanged": true,
+  "complete_attempts": 46,
+  "timed_samples": 40,
+  "full_observation_pairs": 3,
+  "retained_gzip_artifacts": 14,
+  "historical_N8192_first_record_byte_equal": true,
+  "paired_observations": [
+    {
+      "n": 128,
+      "commit_faster_pairs": 5,
+      "paired_commit_change_percent": [
+        -13.724884618758216,
+        -10.669426692909646,
+        -10.605225760781867,
+        -12.27972413509162,
+        -13.26113533968355
+      ]
+    },
+    {
+      "n": 512,
+      "commit_faster_pairs": 5,
+      "paired_commit_change_percent": [
+        -16.308909127978787,
+        -9.535400977881547,
+        -9.641648188248498,
+        -9.114784611837601,
+        -8.604567993982947
+      ]
+    },
+    {
+      "n": 2048,
+      "commit_faster_pairs": 5,
+      "paired_commit_change_percent": [
+        -14.345757977420382,
+        -13.019949854335067,
+        -8.180593067757169,
+        -9.128854345462523,
+        -8.037197848903865
+      ]
+    },
+    {
+      "n": 8192,
+      "commit_faster_pairs": 4,
+      "paired_commit_change_percent": [
+        -14.280365722321664,
+        0.42487674882354387,
+        -8.891512716868844,
+        -9.711797358264572,
+        -6.717493386401219
+      ]
+    }
+  ],
+  "precollection_sha256": "ecca40fbe5e4963570c0060976e95a2161ef4390120b116607a5d20074656cba"
+}

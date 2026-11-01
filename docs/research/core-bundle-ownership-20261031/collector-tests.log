@@ -1,0 +1,6 @@
+{"command": ["python", "docs/research/core-bundle-ownership-20261031/test_collector.py"], "utc": "2026-10-31T18:25:30.979764+00:00"}
+........
+----------------------------------------------------------------------
+Ran 8 tests in 0.019s
+
+OK

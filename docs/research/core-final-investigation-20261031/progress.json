@@ -1,0 +1,43 @@
+{
+  "objective": "Finish full Core performance investigation and consolidated solution; do not stop at another interim experiment.",
+  "final_checkout": "/tmp/behavior-ir-core-final-20261031",
+  "reference_checkout": "/tmp/behavior-ir-core-reference-20261031",
+  "final_target": "/tmp/behavior-ir-core-final-20261031/target",
+  "reference_target": "/tmp/behavior-ir-core-continuation-20261029/target",
+  "binaries": "/tmp/core-final-binaries-20261031",
+  "inputs": "/tmp/core-final-inputs-20261031",
+  "completed": [
+    "Research audits hash/serialization/PMU",
+    "Original/decode/typed/moved fresh native/serial/full reference builds",
+    "Core streaming red then7green controls",
+    "Store views red then10green controls;176differentialcases",
+    "Corrected shared-target stale stream preflight via isolated target and fullworkspace clean; authoritative stream binaries/sourcearchive retained",
+    "Prepared original6decision/event inputs and2actualwrong-oracle controls;12gziporacles",
+    "Full workspace fmt/Clippy passed after testfixturecentralization; workspace tests running",
+    "Collectors/analyzer/verifier written;11collector controls passed; matrix not frozen yet",
+    "All13owner gatesPassed:1705workspace/29ignored,14prepared,50incremental/5ignored,139externalconsumer;fullfmt/Clippy/determinism/boundary/publicsurface/workflows/terms/scriptcontrolsPassed",
+    "2serializationprobeunitcontrolsPassed;15collectorcontrolsPassed",
+    "Freshisolatedreleaseview4binaries349sourcefilesarchive;patchcheckfreshCorebasePassed;firstwrongnotescheckoutcheckfailurepreserved",
+    "Precollectionfreeze87inputs41binaryidentities12oracles;source/binary/archive/oldmanifestpreflightPassed",
+    "Primary550completebyteequalandverified; finalcommitmedian25.11-38.37%faster; all42pairedconsumer/processtimesimprove",
+    "Factor560completebyteequalandverified;matchedDisplaycapacityandtouch;touchrejected40/40chargedmedianregressions;smallv2phaseadversityretained",
+    "PMU4freshdiagbuilds+Clippy,6collectorcontrols,3livecalibrations;all105primarydiagwindowscompletebyteequal/verified;70stat+35IP;bothgapdirectionsreproduce;allocatorfunctionlocalization;oneunexpectedkernelunknownsamplekept",
+    "Consolidatedreportandfinalreproductioncomplete;independentreportnumeric/interpretationauditscorrectionsapplied",
+    "26uniqueexecutables45logicalpathsarchivedandverified;all3campaignsreverified;patchcleanbasecheckandfinaldocumentlinksPassed",
+    "Finalartifactmanifest755files96292005bytesverified;prior4studies/240filesunchanged;no requiredinvestigationworkremains"
+  ],
+  "current_session": null,
+  "current_log": "Final integrity passed;755 artifacts sealed",
+  "next": [],
+  "constraints": [
+    "Primarynativecollectionnowrunning;no finalperformanceclaims until completeverification",
+    "No budgetsrequested",
+    "Preserveold4studies/scratches",
+    "No newagents unlessappliedresearchskillasks;existingagentsfinal_hash_research/final_serialization_research usable",
+    "perfavailable pinnednixpkgs perf7.2.7;ACKis5bytesack\\n\\0, readpmu-method.md;nohardwarecountscollectedexceptavailability",
+    "Do notshareFinal target acrosscheckouts;stalesourcewasactuallycaughtbeforemeasurements",
+    "Waitforformatter completionbeforestartingbuild/gates"
+  ],
+  "updated_utc": "2026-11-01T01:16:02.398738+00:00",
+  "status": "Complete"
+}

@@ -1,0 +1,35 @@
+--- a/crates/behavior-core/src/eval/work.rs
++++ b/crates/behavior-core/src/eval/work.rs
+@@ -25,6 +25,8 @@
+     pub backend_versions: usize,
+     pub backend_record_reads: usize,
+     pub backend_commits: usize,
++    pub commit_archive_clones: usize,
++    pub commit_event_clones: usize,
+ }
+ 
+ thread_local! {
+--- a/crates/behavior-store/src/store.rs
++++ b/crates/behavior-store/src/store.rs
+@@ -2186,6 +2186,8 @@
+         if v2 != (bundle.format == crate::documents::TAG_COMMIT_BUNDLE_V2) {
+             return Err(invalid("bundle/genesis format pairing differs"));
+         }
++        #[cfg(feature = "validation-work")]
++        behavior_core::eval::work::note(|w| w.commit_archive_clones += 1);
+         let mut archived_bundle = bundle.clone();
+         let genesis = std::sync::Arc::clone(&self.genesis);
+         let store = self.store_id.clone();
+@@ -2613,7 +2615,11 @@
+             position,
+             previous_record: head.last_record.clone(),
+             kind: if v2 { Some("action".into()) } else { None },
+-            bundle: Some(archived_bundle.clone()),
++            bundle: Some({
++                #[cfg(feature = "validation-work")]
++                behavior_core::eval::work::note(|w| w.commit_event_clones += 1);
++                archived_bundle.clone()
++            }),
+             migration: None,
+             bundle_hash: archived_bundle.hash()?,
+             evaluated_against: parent.clone(),

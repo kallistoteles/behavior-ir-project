@@ -1,0 +1,16 @@
+{
+  "utc": "2026-11-01T01:01:23.806948+00:00",
+  "freeze_sha256": "cb4eb99486e1d031f915eb687ffcdc60dccebab51ae55ecdd5f7f07f2d5da6ae",
+  "controller_cpu": 6,
+  "child_cpu": 7,
+  "address_space_limit_bytes": 8589934592,
+  "timeout_seconds": 180,
+  "selected_environment": {
+    "GLIBC_TUNABLES": null,
+    "LD_AUDIT": null,
+    "LD_LIBRARY_PATH": null,
+    "LD_PRELOAD": null,
+    "PERF_CONFIG": "/dev/null"
+  },
+  "perf_version": "perf version 7.2.7\n"
+}

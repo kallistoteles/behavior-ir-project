@@ -1,0 +1,5 @@
+{"command": ["cargo", "build", "--locked", "--release", "-p", "behavior-store", "--example", "replay_materialization_profile", "--example", "execution_evidence_bench"], "utc": "2026-10-31T10:38:00.727553+00:00"}
+   Compiling behavior-core v0.16.0 (/tmp/behavior-ir-core-continuation-20261029/crates/behavior-core)
+   Compiling behavior-verify v0.16.0 (/tmp/behavior-ir-core-continuation-20261029/crates/behavior-verify)
+   Compiling behavior-store v0.16.0 (/tmp/behavior-ir-core-continuation-20261029/crates/behavior-store)
+    Finished `release` profile [optimized] target(s) in 1m 25s

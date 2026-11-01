@@ -1,0 +1,55 @@
+{
+  "status": "Complete",
+  "attempts": 56,
+  "normative_bytes_equal": true,
+  "artifacts": [
+    {
+      "path": "128-decode.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "128-typed.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "128-moved.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "128-view.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "512-decode.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "512-view.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "512-moved.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "512-typed.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    }
+  ]
+}

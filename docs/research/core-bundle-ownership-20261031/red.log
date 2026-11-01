@@ -1,0 +1,37 @@
+{"command": ["cargo", "test", "--locked", "--release", "-p", "behavior-store", "--features", "validation-work", "--test", "bundle_ownership"], "utc": "2026-10-31T18:16:07.198451+00:00"}
+   Compiling behavior-core v0.16.0 (/tmp/behavior-ir-core-bundle-20261031/crates/behavior-core)
+   Compiling behavior-verify v0.16.0 (/tmp/behavior-ir-core-bundle-20261031/crates/behavior-verify)
+   Compiling behavior-store v0.16.0 (/tmp/behavior-ir-core-bundle-20261031/crates/behavior-store)
+    Finished `release` profile [optimized] target(s) in 1m 19s
+     Running tests/bundle_ownership.rs (/tmp/behavior-ir-core-continuation-20261029/target/release/deps/bundle_ownership-6d32aec668344092)
+
+running 3 tests
+test legacy_fresh_commit_transfers_its_owned_archive_into_the_event ... FAILED
+test v2_fresh_commit_transfers_its_owned_archive_into_the_event ... FAILED
+test complete_legacy_and_v2_events_preserve_the_supplied_bundle_and_recover_exactly ... ok
+
+failures:
+
+---- legacy_fresh_commit_transfers_its_owned_archive_into_the_event stdout ----
+
+thread 'legacy_fresh_commit_transfers_its_owned_archive_into_the_event' (137310) panicked at crates/behavior-store/tests/bundle_ownership.rs:86:5:
+assertion `left == right` failed: owned archive must transfer
+  left: 1
+ right: 0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- v2_fresh_commit_transfers_its_owned_archive_into_the_event stdout ----
+
+thread 'v2_fresh_commit_transfers_its_owned_archive_into_the_event' (137311) panicked at crates/behavior-store/tests/bundle_ownership.rs:93:5:
+assertion `left == right` failed: owned archive must transfer
+  left: 1
+ right: 0
+
+
+failures:
+    legacy_fresh_commit_transfers_its_owned_archive_into_the_event
+    v2_fresh_commit_transfers_its_owned_archive_into_the_event
+
+test result: FAILED. 1 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+
+error: test failed, to rerun pass `-p behavior-store --test bundle_ownership`

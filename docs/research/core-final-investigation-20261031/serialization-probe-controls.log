@@ -1,0 +1,11 @@
+{"command": ["cargo", "test", "--locked", "-p", "behavior-store", "--example", "serialization_factor"], "utc": "2026-11-01T00:27:37.728278+00:00"}
+   Compiling behavior-store v0.16.0 (/tmp/behavior-ir-core-final-20261031/crates/behavior-store)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.07s
+     Running unittests examples/serialization_factor.rs (target/debug/examples/serialization_factor-f69619995abaecdd)
+
+running 2 tests
+test tests::touch_is_read_only_and_depends_on_keys_and_values ... ok
+test tests::all_sinks_emit_identical_bytes_and_presized_writers_do_not_grow ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+

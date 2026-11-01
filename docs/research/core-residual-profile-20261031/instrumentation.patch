@@ -1,0 +1,803 @@
+diff --git a/crates/behavior-core/src/canonical.rs b/crates/behavior-core/src/canonical.rs
+index 60790e1..0415eb8 100644
+--- a/crates/behavior-core/src/canonical.rs
++++ b/crates/behavior-core/src/canonical.rs
+@@ -18,6 +18,9 @@ pub enum CanonicalError {
+ /// Insignificant whitespace is allowed; floats (including -0), exponents and
+ /// integers outside the i64/u64 JSON domains are not canonical values.
+ pub fn decode_strict(text: &str) -> Result<Value, CanonicalError> {
++    #[cfg(feature = "validation-work")]
++    let _residual_scope = crate::eval::work::profile_scope("core::decode_strict");
++
+     serde_json::from_str::<StrictValue>(text)
+         .map(|v| v.0)
+         .map_err(|e| CanonicalError::Serialize(e.to_string()))
+@@ -103,11 +106,21 @@ fn check_no_floats(v: &Value, path: &str) -> Result<(), CanonicalError> {
+ /// Canonical string of a JSON value. `serde_json`'s map is ordered by key (the
+ /// `preserve_order` feature is not enabled), which gives byte-order key sorting.
+ pub fn to_canonical_string(v: &Value) -> Result<String, CanonicalError> {
++    #[cfg(feature = "validation-work")]
++    let _residual_scope = crate::eval::work::profile_scope("core::to_canonical_string");
++
+     check_canonical_value(v)?;
+-    serde_json::to_string(v).map_err(|e| CanonicalError::Serialize(e.to_string()))
++    {
++        #[cfg(feature = "validation-work")]
++        let _residual_child = crate::eval::work::profile_scope("core::serialize_value");
++        serde_json::to_string(v).map_err(|e| CanonicalError::Serialize(e.to_string()))
++    }
+ }
+ 
+ fn check_canonical_value(v: &Value) -> Result<(), CanonicalError> {
++    #[cfg(feature = "validation-work")]
++    let _residual_scope = crate::eval::work::profile_scope("core::check_canonical_value");
++
+     // Allocate diagnostic paths only when there is a float to report.
+     if contains_float(v) {
+         check_no_floats(v, "$")?;
+@@ -134,12 +147,20 @@ pub fn canonical<T: Serialize>(t: &T) -> Result<String, CanonicalError> {
+ /// Nested hash fields remain content. This is the legacy governance algorithm.
+ /// The complete supplied value must be canonicalizable, including excluded metadata.
+ pub fn tagged_hash(tag: &str, doc: &Value) -> Result<String, CanonicalError> {
++    #[cfg(feature = "validation-work")]
++    let _residual_scope = crate::eval::work::profile_scope(format!("core::tagged_hash[{tag}]"));
++
+     let text = if doc.get("hash").is_some() {
+         check_canonical_value(doc)?;
+-        let mut value = doc.clone();
+-        if let Value::Object(object) = &mut value {
+-            object.remove("hash");
+-        }
++        let value = {
++            #[cfg(feature = "validation-work")]
++            let _residual_clone = crate::eval::work::profile_scope("core::hash_document_clone");
++            let mut value = doc.clone();
++            if let Value::Object(object) = &mut value {
++                object.remove("hash");
++            }
++            value
++        };
+         to_canonical_string(&value)?
+     } else {
+         to_canonical_string(doc)?
+@@ -149,6 +170,10 @@ pub fn tagged_hash(tag: &str, doc: &Value) -> Result<String, CanonicalError> {
+ 
+ /// Internal reuse of bytes already produced by the canonical serializer.
+ pub(crate) fn tagged_hash_canonical_text(tag: &str, text: &str) -> String {
++    #[cfg(feature = "validation-work")]
++    let _residual_scope =
++        crate::eval::work::profile_scope(format!("core::tagged_hash_canonical_text[{tag}]"));
++
+     use sha2::{Digest, Sha256};
+     let mut digest = Sha256::new();
+     digest.update(tag.as_bytes());
+diff --git a/crates/behavior-core/src/eval.rs b/crates/behavior-core/src/eval.rs
+index 8c6490d..c5212cb 100644
+--- a/crates/behavior-core/src/eval.rs
++++ b/crates/behavior-core/src/eval.rs
+@@ -2701,6 +2701,9 @@ fn evaluate_decoded_request(
+     prepared: Option<prepared::MatchedParent<'_>>,
+     child: Option<&mut Option<prepared::PreparedChild>>,
+ ) -> (DecisionRecord, Observed) {
++    #[cfg(feature = "validation-work")]
++    let _residual_scope = crate::eval::work::profile_scope("core::eval::evaluate_decoded_request");
++
+     let request = if module.semantic_profile()
+         == crate::semantic::types::SemanticProfile::CommandIntents
+     {
+@@ -2805,6 +2808,8 @@ fn evaluate_decoded_request(
+         }
+     }
+ 
++    #[cfg(feature = "validation-work")]
++    let residual_header = crate::eval::work::profile_scope("core::eval::record_header_echo");
+     let mut record = Map::new();
+     record.insert("record_version".into(), json!(RECORD_VERSION));
+     record.insert("behavior_version".into(), json!(module.behavior_version()));
+@@ -2881,6 +2886,8 @@ fn evaluate_decoded_request(
+         record.insert(k.into(), Json::Object(v));
+     }
+ 
++    #[cfg(feature = "validation-work")]
++    drop(residual_header);
+     // Binding: distinct state parameters must bind to distinct entity identities (FR-027).
+     if let Some(message) = alias(action, &vals) {
+         if current {
+@@ -2933,6 +2940,8 @@ fn evaluate_decoded_request(
+         *child = parent.checked_child(module, &ev.world);
+     }
+ 
++    #[cfg(feature = "validation-work")]
++    let residual_assembly = crate::eval::work::profile_scope("core::eval::record_assembly");
+     let mut derived = std::mem::take(&mut ev.derived);
+     derived.sort_by(|a, b| (a.phase, a.order, &a.args_key).cmp(&(b.phase, b.order, &b.args_key)));
+     let derived_json: Vec<Json> = derived
+@@ -2969,10 +2978,13 @@ fn evaluate_decoded_request(
+         record.insert("lifecycle".into(), Json::Array(outcome.lifecycle));
+     }
+     let fields = ev.frames.pop().map(|f| f.reads).unwrap_or_default();
+-    (
++    let residual_result = (
+         execution.record(module, Json::Object(record), outcome.commands),
+         Observed { fields, facts },
+-    )
++    );
++    #[cfg(feature = "validation-work")]
++    drop(residual_assembly);
++    residual_result
+ }
+ 
+ /// Converts an evaluated value for storage in a field of type `field_ty`: an `Exact<F>` stored
+@@ -3006,6 +3018,9 @@ fn refuse(out: &mut Outcome, code: &'static str, message: String, loc: &Loc) {
+ }
+ 
+ fn run_transition(ev: &mut Evaluator<'_>, action: &ActionItem, s: Vals) -> Outcome {
++    #[cfg(feature = "validation-work")]
++    let _residual_scope = crate::eval::work::profile_scope("core::eval::run_transition");
++
+     let module = ev.module;
+     let mut out = Outcome {
+         commands: crate::commands::CommandIntentBag::default(),
+@@ -3692,6 +3707,9 @@ fn complete_child(ev: &Evaluator<'_>) -> Result<BTreeMap<Key, Value>, String> {
+ /// Declaration bindings are semantic; synthesized Ref rules follow declared
+ /// constraints, ordered by their semantic field rather than a display label.
+ fn run_complete_child_rules(ev: &mut Evaluator<'_>, out: &mut Outcome, stopped: &mut bool) {
++    #[cfg(feature = "validation-work")]
++    let _residual_scope = crate::eval::work::profile_scope("core::eval::run_complete_child_rules");
++
+     if let Some(parent) = ev.prepared
+         && ev.world.removed.is_empty()
+     {
+@@ -4603,5 +4621,8 @@ fn provider_snapshot(module: &Module, provider: &dyn EvaluationFacts) -> Result<
+     Ok(facts)
+ }
+ fn snapshot_universe_json(facts: &Facts) -> Json {
++    #[cfg(feature = "validation-work")]
++    let _residual_scope = crate::eval::work::profile_scope("core::eval::snapshot_universe_json");
++
+     Json::Array(facts.universe.iter().map(|(entity,members)| json!({"entity":entity,"members":members.values().collect::<Vec<_>>()})).collect())
+ }
+diff --git a/crates/behavior-core/src/eval/prepared.rs b/crates/behavior-core/src/eval/prepared.rs
+index 9989982..0595336 100644
+--- a/crates/behavior-core/src/eval/prepared.rs
++++ b/crates/behavior-core/src/eval/prepared.rs
+@@ -135,6 +135,9 @@ impl PreparedSnapshot {
+         request: &str,
+         provider: &dyn EvaluationFacts,
+     ) -> CheckedEvaluation {
++        #[cfg(feature = "validation-work")]
++        let _residual_scope = crate::eval::work::profile_scope("core::prepared::evaluate");
++
+         let parsed = if module.semantic_profile()
+             == crate::semantic::types::SemanticProfile::CommandIntents
+         {
+@@ -185,6 +188,9 @@ impl PreparedSnapshot {
+         true
+     }
+     pub(super) fn checked_child(&self, module: &Module, world: &World) -> Option<PreparedChild> {
++        #[cfg(feature = "validation-work")]
++        let _residual_scope = crate::eval::work::profile_scope("core::prepared::checked_child");
++
+         // Removal may invalidate untouched reference predicates. Its existing
+         // reference path remains authoritative; no partial evidence is issued.
+         if !world.removed.is_empty() {
+@@ -442,6 +448,9 @@ impl PreparedSnapshot {
+         out: &mut Outcome,
+         stopped: &mut bool,
+     ) {
++        #[cfg(feature = "validation-work")]
++        let _residual_scope = crate::eval::work::profile_scope("core::prepared::run_child_rules");
++
+         // Match complete_child's preflight failures before emitting any row trace.
+         let preflight = (|| -> Result<(), String> {
+             for (key, param) in &ev.world.bound {
+diff --git a/crates/behavior-core/src/eval/work.rs b/crates/behavior-core/src/eval/work.rs
+index 8156b30..9f0859b 100644
+--- a/crates/behavior-core/src/eval/work.rs
++++ b/crates/behavior-core/src/eval/work.rs
+@@ -60,3 +60,85 @@ pub fn note(f: impl FnOnce(&mut Work)) {
+         cell.set(work);
+     });
+ }
++
++// Isolated diagnostic scopes; no semantic result consults these values.
++#[derive(Default, serde::Serialize)]
++pub struct ProfileRow {
++    calls: u64,
++    inclusive_ns: u128,
++    exclusive_ns: u128,
++}
++struct ProfileFrame {
++    name: String,
++    clock: std::time::Instant,
++    children: u128,
++}
++thread_local! {
++    static PROFILE_ENABLED: Cell<bool> = const { Cell::new(false) };
++    static PROFILE_BYTES: Cell<bool> = const { Cell::new(true) };
++    static PROFILE_STACK: RefCell<Vec<ProfileFrame>> = const { RefCell::new(Vec::new()) };
++    static PROFILE_TOTALS: RefCell<std::collections::BTreeMap<String,ProfileRow>> = const { RefCell::new(std::collections::BTreeMap::new()) };
++}
++pub struct ProfileGuard {
++    active: bool,
++}
++pub fn profile_scope(name: impl Into<String>) -> ProfileGuard {
++    let active = PROFILE_ENABLED.with(Cell::get);
++    if active {
++        PROFILE_STACK.with(|stack| {
++            stack.borrow_mut().push(ProfileFrame {
++                name: name.into(),
++                clock: std::time::Instant::now(),
++                children: 0,
++            })
++        });
++    }
++    ProfileGuard { active }
++}
++impl Drop for ProfileGuard {
++    #[allow(clippy::expect_used)]
++    fn drop(&mut self) {
++        if !self.active {
++            return;
++        }
++        // Each active guard owns one LIFO frame; calibration checks early exits.
++        let frame = PROFILE_STACK
++            .with(|stack| stack.borrow_mut().pop())
++            .expect("unbalanced diagnostic scope");
++        let elapsed = frame.clock.elapsed().as_nanos();
++        PROFILE_STACK.with(|stack| {
++            if let Some(parent) = stack.borrow_mut().last_mut() {
++                parent.children += elapsed;
++            }
++        });
++        PROFILE_TOTALS.with(|totals| {
++            let mut totals = totals.borrow_mut();
++            let row = totals.entry(frame.name).or_default();
++            row.calls += 1;
++            row.inclusive_ns += elapsed;
++            row.exclusive_ns += elapsed
++                .checked_sub(frame.children)
++                .expect("child scopes exceed parent");
++        });
++    }
++}
++pub fn profile_reset() {
++    PROFILE_STACK.with(|stack| assert!(stack.borrow().is_empty()));
++    PROFILE_TOTALS.with(|totals| totals.borrow_mut().clear());
++    PROFILE_ENABLED.with(|enabled| enabled.set(true));
++}
++#[allow(clippy::expect_used)]
++pub fn profile_read() -> serde_json::Value {
++    PROFILE_ENABLED.with(|enabled| enabled.set(false));
++    PROFILE_STACK.with(|stack| assert!(stack.borrow().is_empty()));
++    // The bounded campaign's nanosecond totals fit the JSON integer domain.
++    PROFILE_TOTALS.with(|totals| {
++        serde_json::to_value(&*totals.borrow()).expect("bounded diagnostic totals serialize")
++    })
++}
++pub fn profile_set_byte_counts(enabled: bool) {
++    PROFILE_BYTES.with(|value| value.set(enabled));
++}
++pub fn profile_count_bytes() -> bool {
++    PROFILE_BYTES.with(Cell::get)
++}
+diff --git a/crates/behavior-core/src/facts.rs b/crates/behavior-core/src/facts.rs
+index 0764ab2..7d5562b 100644
+--- a/crates/behavior-core/src/facts.rs
++++ b/crates/behavior-core/src/facts.rs
+@@ -27,6 +27,9 @@ pub struct RefEdge {
+ 
+ impl RefEdge {
+     pub fn to_json(&self) -> Json {
++        #[cfg(feature = "validation-work")]
++        let _residual_scope = crate::eval::work::profile_scope("core::facts::to_json");
++
+         json!({"entity": self.entity, "id": self.id, "field": self.field})
+     }
+ }
+@@ -471,6 +474,9 @@ impl Facts {
+     /// The canonical `facts` section: sections sorted by (entity, id), edges by (entity, id,
+     /// field); empty sections are omitted.
+     pub fn to_json(&self) -> Json {
++        #[cfg(feature = "validation-work")]
++        let _residual_scope = crate::eval::work::profile_scope("core::facts::to_json");
++
+         let mut o = Map::new();
+         if !self.existence.is_empty() {
+             let items: Vec<Json> = self
+diff --git a/crates/behavior-core/src/record.rs b/crates/behavior-core/src/record.rs
+index f09f6a8..913c940 100644
+--- a/crates/behavior-core/src/record.rs
++++ b/crates/behavior-core/src/record.rs
+@@ -23,6 +23,9 @@ impl DecisionRecord {
+     /// Decode the closed new-profile record form; this validates claims, not
+     /// whether a live store actually performed the claimed evaluation.
+     pub fn from_json(text: &str) -> Result<Self, RecordError> {
++        #[cfg(feature = "validation-work")]
++        let _residual_scope = crate::eval::work::profile_scope("core::record::from_json");
++
+         #[cfg(feature = "validation-work")]
+         crate::eval::work::note(|w| {
+             w.record_parse_calls += 1;
+@@ -54,6 +57,9 @@ impl DecisionRecord {
+         mut json: Json,
+         mut commands: crate::commands::CommandIntentBag,
+     ) -> Self {
++        #[cfg(feature = "validation-work")]
++        let _residual_scope = crate::eval::work::profile_scope("core::record::with_profile");
++
+         if module.semantic_profile() == crate::semantic::types::SemanticProfile::Legacy {
+             return Self::new(json);
+         }
+@@ -146,6 +152,10 @@ impl DecisionRecord {
+         json: Json,
+         commands: crate::commands::CommandIntentBag,
+     ) -> Self {
++        #[cfg(feature = "validation-work")]
++        let _residual_scope =
++            crate::eval::work::profile_scope("core::record::with_current_profile");
++
+         let mut record = Self::with_profile(module, json, commands);
+         if module.semantic_profile() == crate::semantic::types::SemanticProfile::Legacy {
+             record.diagnostics = json!({
+@@ -276,6 +286,9 @@ impl ReplayResult {
+ 
+ /// Compares a stored record with its replay (feature 010 shares this with read records).
+ pub fn compare(stored: &Json, replayed: &Json) -> ReplayResult {
++    #[cfg(feature = "validation-work")]
++    let _residual_scope = crate::eval::work::profile_scope("core::record::compare");
++
+     match first_difference("", stored, replayed) {
+         None => ReplayResult {
+             matches: true,
+@@ -428,6 +441,9 @@ fn reproduce_record(
+     requested: Option<&Json>,
+     prepared: Option<&PreparedReplay<'_>>,
+ ) -> Result<Reproduced, RecordError> {
++    #[cfg(feature = "validation-work")]
++    let _residual_scope = crate::eval::work::profile_scope("core::record::reproduce_record");
++
+     let stored: Json = crate::canonical::decode_strict(record)
+         .map_err(|e| record_error(format!("record is not valid JSON: {e}")))?;
+     let execution = replay_profile(module, &stored)?;
+@@ -504,7 +520,11 @@ fn reproduce_record(
+             crate::eval::evaluate_archived(module, &request_text, provider),
+         ),
+     };
+-    match first_difference("", &stored, replayed.record().as_json()) {
++    match {
++        #[cfg(feature = "validation-work")]
++        let _residual_child = crate::eval::work::profile_scope("core::record::exact_comparison");
++        first_difference("", &stored, replayed.record().as_json())
++    } {
+         None => Ok(replayed),
+         Some(d) => Err(record_error(d)),
+     }
+@@ -519,11 +539,16 @@ enum RecordExecution {
+ }
+ 
+ fn replay_profile(module: &Module, stored: &Json) -> Result<RecordExecution, RecordError> {
++    #[cfg(feature = "validation-work")]
++    let _residual_scope = crate::eval::work::profile_scope("core::record::replay_profile");
++
+     use crate::semantic::types::SemanticProfile;
+     let command_module = module.semantic_profile() == SemanticProfile::CommandIntents;
+     match stored.get("record_version").and_then(Json::as_str) {
+         Some(RECORD_VERSION_CURRENT) => {
+-            DecisionRecord::from_json(&stored.to_string())?;
++            // reproduce_record already strictly decoded this immutable value.
++            // Retain every typed/profile check without a second text round trip.
++            validate_record08(stored)?;
+             if command_module != stored.get("semantic_profile").is_some() {
+                 return Err(record_error("record/module profile mismatch"));
+             }
+@@ -579,6 +604,10 @@ fn collect_read_keys(
+ /// Legacy-language current records use the same evidence primitives as command
+ /// records, without changing their frozen historical constructor.
+ fn normalize_current_legacy(module: &Module, json: &mut Json) {
++    #[cfg(feature = "validation-work")]
++    let _residual_scope =
++        crate::eval::work::profile_scope("core::record::normalize_current_legacy");
++
+     let mut read_keys = std::collections::BTreeMap::new();
+     for (name, item) in module.derived_items() {
+         collect_read_keys(item.body(), &mut read_keys);
+@@ -1010,8 +1039,14 @@ fn reject_null_fields(raw: &Json, fields: &[&str]) -> Result<(), RecordError> {
+ }
+ 
+ fn validate_record08(raw: &Json) -> Result<crate::commands::CommandIntentBag, RecordError> {
+-    let record: Record08 =
+-        serde_json::from_value(raw.clone()).map_err(|error| record_error(error.to_string()))?;
++    #[cfg(feature = "validation-work")]
++    let _residual_scope = crate::eval::work::profile_scope("core::record::validate_record08");
++
++    let record: Record08 = {
++        #[cfg(feature = "validation-work")]
++        let _residual_child = crate::eval::work::profile_scope("record08_typed_decode");
++        serde::Deserialize::deserialize(raw).map_err(|error| record_error(error.to_string()))?
++    };
+     if record.record_version != RECORD_VERSION_CURRENT
+         || record.validation_profile != VALIDATION_PROFILE_CURRENT
+     {
+@@ -1155,13 +1190,69 @@ fn validate_record08(raw: &Json) -> Result<crate::commands::CommandIntentBag, Re
+             &step.field,
+         );
+     }
++    // Positional CurrentTrace has extra fields that the old projected parser
++    // can reject. Preserve that exact path after all current-profile checks.
++    let object_trace = raw
++        .get("trace")
++        .and_then(Json::as_array)
++        .is_some_and(|steps| steps.iter().all(Json::is_object));
++    if !object_trace {
++        return validate_record07(&project_current_record(raw, record.commands.is_some()));
++    }
++    #[cfg(feature = "validation-work")]
++    let residual_move = crate::eval::work::profile_scope("record08_common_move");
++    let common = Record07 {
++        record_version: RECORD_VERSION_COMMANDS.into(),
++        semantic_profile: "0.8".into(),
++        behavior_version: record.behavior_version,
++        data_version: record.data_version,
++        git_revision: record.git_revision,
++        action: record.action,
++        state: record.state,
++        input: record.input,
++        context: record.context,
++        facts: record.facts,
++        result: record.result,
++        reasons: record.reasons,
++        trace: record
++            .trace
++            .into_iter()
++            .map(|step| SemanticTrace {
++                phase: step.phase,
++                hash: step.hash,
++                reads: step.reads,
++                outcome: step.outcome,
++                param: step.param,
++                role: step.role,
++                rescales: step.rescales,
++                emission: step.emission,
++                canonical_index: step.canonical_index,
++                field: step.field,
++            })
++            .collect(),
++        derived: record.derived,
++        changes: record.changes,
++        lifecycle: record.lifecycle,
++        commands: record
++            .commands
++            .unwrap_or_else(|| json!({"declarations":[],"types":[],"intents":[]})),
++    };
++    #[cfg(feature = "validation-work")]
++    drop(residual_move);
++    validate_record07_fields(common)
++}
++
++fn project_current_record(raw: &Json, has_commands: bool) -> Json {
++    #[cfg(feature = "validation-work")]
++    let _residual_scope = crate::eval::work::profile_scope("core::record::project_current_record");
++
+     let mut common = raw.clone();
+     if let Some(object) = common.as_object_mut() {
+         object.remove("validation_profile");
+         object.remove("refused_request");
+         object.insert("record_version".into(), json!(RECORD_VERSION_COMMANDS));
+         object.insert("semantic_profile".into(), json!("0.8"));
+-        if record.commands.is_none() {
++        if !has_commands {
+             object.insert(
+                 "commands".into(),
+                 json!({"declarations":[],"types":[],"intents":[]}),
+@@ -1177,23 +1268,30 @@ fn validate_record08(raw: &Json) -> Result<crate::commands::CommandIntentBag, Re
+             }
+         }
+     }
+-    let bag = validate_record07(&common)?;
+-    let _ = (
+-        record.behavior_version,
+-        record.data_version,
+-        record.git_revision,
+-        record.action,
+-        record.state,
+-        record.input,
+-        record.context,
+-        record.reasons,
+-    );
+-    Ok(bag)
++    common
+ }
+ 
+ fn validate_record07(raw: &Json) -> Result<crate::commands::CommandIntentBag, RecordError> {
+-    let record: Record07 =
+-        serde_json::from_value(raw.clone()).map_err(|e| record_error(e.to_string()))?;
++    #[cfg(feature = "validation-work")]
++    let _residual_scope = crate::eval::work::profile_scope("core::record::validate_record07");
++
++    #[cfg(test)]
++    typed_materialization_tests::note07_decode();
++    let record: Record07 = {
++        #[cfg(feature = "validation-work")]
++        let _residual_child = crate::eval::work::profile_scope("record07_typed_decode");
++        serde::Deserialize::deserialize(raw).map_err(|e| record_error(e.to_string()))?
++    };
++    validate_record07_fields(record)
++}
++
++fn validate_record07_fields(
++    record: Record07,
++) -> Result<crate::commands::CommandIntentBag, RecordError> {
++    #[cfg(feature = "validation-work")]
++    let _residual_scope =
++        crate::eval::work::profile_scope("core::record::validate_record07_fields");
++
+     if record.record_version != RECORD_VERSION_COMMANDS || record.semantic_profile != "0.8" {
+         return Err(record_error("unsupported record/profile pair"));
+     }
+@@ -1315,3 +1413,7 @@ fn validate_record07(raw: &Json) -> Result<crate::commands::CommandIntentBag, Re
+     );
+     Ok(bag)
+ }
++
++#[cfg(test)]
++#[path = "record/typed_materialization_tests.rs"]
++mod typed_materialization_tests;
+diff --git a/crates/behavior-store/src/documents.rs b/crates/behavior-store/src/documents.rs
+index 7fd1d2c..a50b5d3 100644
+--- a/crates/behavior-store/src/documents.rs
++++ b/crates/behavior-store/src/documents.rs
+@@ -224,21 +224,40 @@ fn schema_mismatch_text(store: &str, module: &str, differing: &[DeclarationDiff]
+ 
+ /// The domain-tagged hash of a serializable document.
+ pub fn hash_of<T: Serialize>(tag: &str, doc: &T) -> R<String> {
+-    let v = serde_json::to_value(doc).map_err(|e| StoreError::BundleInvalid(e.to_string()))?;
++    #[cfg(feature = "validation-work")]
++    let _residual_scope =
++        behavior_core::eval::work::profile_scope(format!("store::documents::hash_of[{tag}]"));
++
++    let v = {
++        #[cfg(feature = "validation-work")]
++        let _residual_child = behavior_core::eval::work::profile_scope("store::hash_to_value");
++        serde_json::to_value(doc).map_err(|e| StoreError::BundleInvalid(e.to_string()))?
++    };
+     #[cfg(feature = "validation-work")]
+     behavior_core::eval::work::note(|w| {
++        let _residual_counter =
++            behavior_core::eval::work::profile_scope("diagnostic::hash_document_bytes");
+         w.document_hash_calls += 1;
+-        w.hash_document_json_bytes += v.to_string().len();
++        if behavior_core::eval::work::profile_count_bytes() {
++            w.hash_document_json_bytes += v.to_string().len();
++        }
+     });
+     document_hash(tag, &v).map_err(|e| StoreError::BundleInvalid(e.to_string()))
+ }
+ 
+ /// Decodes a document strictly (unknown fields are refused).
+ pub fn decode<T: for<'de> Deserialize<'de>>(what: &str, v: &Json) -> R<T> {
++    #[cfg(feature = "validation-work")]
++    let _residual_scope = behavior_core::eval::work::profile_scope("store::documents::decode");
++
+     #[cfg(feature = "validation-work")]
+     behavior_core::eval::work::note(|w| {
++        let _residual_counter =
++            behavior_core::eval::work::profile_scope("diagnostic::decode_document_bytes");
+         w.document_decode_calls += 1;
+-        w.document_decode_json_bytes += v.to_string().len();
++        if behavior_core::eval::work::profile_count_bytes() {
++            w.document_decode_json_bytes += v.to_string().len();
++        }
+     });
+     serde_json::from_value(v.clone()).map_err(|e| StoreError::BundleInvalid(format!("{what}: {e}")))
+ }
+diff --git a/crates/behavior-store/src/memory.rs b/crates/behavior-store/src/memory.rs
+index 6460be6..6b35361 100644
+--- a/crates/behavior-store/src/memory.rs
++++ b/crates/behavior-store/src/memory.rs
+@@ -354,6 +354,9 @@ impl Backend for InMemoryBackend {
+         record: &TransitionRecord,
+         new_head: &Head,
+     ) -> Result<CasOutcome, BackendError> {
++        #[cfg(feature = "validation-work")]
++        let _residual_scope = behavior_core::eval::work::profile_scope("backend::commit");
++
+         #[cfg(feature = "validation-work")]
+         behavior_core::eval::work::note(|w| w.backend_commits += 1);
+         let Some(head) = &self.head else {
+diff --git a/crates/behavior-store/src/store.rs b/crates/behavior-store/src/store.rs
+index 245d47d..398d884 100644
+--- a/crates/behavior-store/src/store.rs
++++ b/crates/behavior-store/src/store.rs
+@@ -1143,6 +1143,9 @@ impl<B: Backend> Store<B> {
+     }
+ 
+     fn head(&self) -> R<Head> {
++        #[cfg(feature = "validation-work")]
++        let _residual_scope = behavior_core::eval::work::profile_scope("store::head");
++
+         self.backend
+             .head()
+             .map_err(backend_err)?
+@@ -1234,6 +1237,9 @@ impl<B: Backend> Store<B> {
+         at: &StateRef,
+         schema: &SchemaRef,
+     ) -> R<SnapshotIdentity> {
++        #[cfg(feature = "validation-work")]
++        let _residual_scope = behavior_core::eval::work::profile_scope("store::snapshot_identity");
++
+         let record = if at.position == 0 {
+             self.store_id.clone()
+         } else {
+@@ -1273,6 +1279,9 @@ impl<B: Backend> Store<B> {
+         at: &StateRef,
+         schema: &SchemaRef,
+     ) -> R<Arc<SeedFacts>> {
++        #[cfg(feature = "validation-work")]
++        let _residual_scope = behavior_core::eval::work::profile_scope("store::validate_snapshot");
++
+         let identity = self.snapshot_identity(module, at, schema)?;
+         #[cfg(test)]
+         if incremental::reference_enabled() {
+@@ -1334,6 +1343,10 @@ impl<B: Backend> Store<B> {
+ 
+     /// Reference implementation: always materializes and checks the complete universe.
+     fn validate_snapshot_full(&self, module: &Module, position: u64) -> R<SeedFacts> {
++        #[cfg(feature = "validation-work")]
++        let _residual_scope =
++            behavior_core::eval::work::profile_scope("store::validate_snapshot_full");
++
+         let mut keys = BTreeSet::new();
+         let mut versions = Vec::new();
+         let mut references = Vec::new();
+@@ -1800,6 +1813,9 @@ impl<B: Backend> Store<B> {
+         commit_time: &str,
+         evidence: Option<Evidence>,
+     ) -> R<Evaluation> {
++        #[cfg(feature = "validation-work")]
++        let _residual_scope = behavior_core::eval::work::profile_scope("store::evaluate");
++
+         if !valid_timestamp(commit_time) {
+             return Err(invalid(format!(
+                 "commit time `{commit_time}` is not RFC 3339 UTC"
+@@ -1898,7 +1914,12 @@ impl<B: Backend> Store<B> {
+             None,
+         )?;
+         Ok(Evaluation {
+-            record: bundle.record.clone(),
++            record: {
++                #[cfg(feature = "validation-work")]
++                let _residual_child =
++                    behavior_core::eval::work::profile_scope("store::return_record_clone");
++                bundle.record.clone()
++            },
+             bundle: Some(bundle),
+         })
+     }
+@@ -1917,6 +1938,10 @@ impl<B: Backend> Store<B> {
+         evidence: Option<Evidence>,
+         evaluated_hash: Option<&str>,
+     ) -> R<CommitBundle> {
++        #[cfg(feature = "validation-work")]
++        let _residual_scope =
++            behavior_core::eval::work::profile_scope("store::bundle_from_evaluation");
++
+         #[cfg(test)]
+         replay_tests::note_bundle();
+         let mut touched = BTreeMap::new();
+@@ -2182,11 +2207,19 @@ impl<B: Backend> Store<B> {
+         bundle: &CommitBundle,
+         context: Option<&behavior_verify::governance::trusted::AuthorizationContextV2>,
+     ) -> R<Committed> {
++        #[cfg(feature = "validation-work")]
++        let _residual_scope = behavior_core::eval::work::profile_scope("store::commit_impl");
++
+         let v2 = self.genesis.evidence_policy.as_trusted().is_some();
+         if v2 != (bundle.format == crate::documents::TAG_COMMIT_BUNDLE_V2) {
+             return Err(invalid("bundle/genesis format pairing differs"));
+         }
+-        let mut archived_bundle = bundle.clone();
++        let mut archived_bundle = {
++            #[cfg(feature = "validation-work")]
++            let _residual_child =
++                behavior_core::eval::work::profile_scope("store::archive_bundle_clone");
++            bundle.clone()
++        };
+         let genesis = std::sync::Arc::clone(&self.genesis);
+         let store = self.store_id.clone();
+         if ![TAG_COMMIT_BUNDLE, crate::documents::TAG_COMMIT_BUNDLE_V2]
+@@ -2613,7 +2646,12 @@ impl<B: Backend> Store<B> {
+             position,
+             previous_record: head.last_record.clone(),
+             kind: if v2 { Some("action".into()) } else { None },
+-            bundle: Some(archived_bundle.clone()),
++            bundle: Some({
++                #[cfg(feature = "validation-work")]
++                let _residual_child =
++                    behavior_core::eval::work::profile_scope("store::event_bundle_clone");
++                archived_bundle.clone()
++            }),
+             migration: None,
+             bundle_hash: archived_bundle.hash()?,
+             evaluated_against: parent.clone(),
+@@ -3115,6 +3153,9 @@ impl<B: Backend> Store<B> {
+         Vec<WriteEntry>,
+         Json,
+     )> {
++        #[cfg(feature = "validation-work")]
++        let _residual_scope = behavior_core::eval::work::profile_scope("store::rederive_for");
++
+         if schema(module).hash != at_schema.hash {
+             return Err(schema_mismatch(at_schema, &schema(module)));
+         }
+@@ -3197,7 +3238,12 @@ impl<B: Backend> Store<B> {
+         {
+             behavior_core::record::reproduce_prepared(
+                 module,
+-                &record.to_string(),
++                &{
++                    #[cfg(feature = "validation-work")]
++                    let _residual_child =
++                        behavior_core::eval::work::profile_scope("store::record_to_string");
++                    record.to_string()
++                },
+                 &facts,
+                 &prepared,
+                 hint.as_ref(),
+@@ -3208,8 +3254,17 @@ impl<B: Backend> Store<B> {
+                 result
+             })
+         } else {
+-            behavior_core::record::reproduce_observed_with(module, &record.to_string(), &facts)
+-                .map(|(_, observed)| observed)
++            behavior_core::record::reproduce_observed_with(
++                module,
++                &{
++                    #[cfg(feature = "validation-work")]
++                    let _residual_child =
++                        behavior_core::eval::work::profile_scope("store::record_to_string");
++                    record.to_string()
++                },
++                &facts,
++            )
++            .map(|(_, observed)| observed)
+         };
+         let observed = reproduced.map_err(|e| {
+             invalid(format!(
+@@ -3232,6 +3287,9 @@ mod replay_tests;
+ /// The transition's semantic identity: the feature-002 transition hash of the decision record
+ /// (excludes commit time and evidence).
+ pub fn transition_hash(record: &Json) -> R<String> {
++    #[cfg(feature = "validation-work")]
++    let _residual_scope = behavior_core::eval::work::profile_scope("store::transition_hash");
++
+     document_hash(TAG_TRANSITION, record).map_err(|e| invalid(e.to_string()))
+ }
+ 
+diff --git a/crates/behavior-store/src/store/incremental/mod.rs b/crates/behavior-store/src/store/incremental/mod.rs
+index df0f1fb..a48a9f5 100644
+--- a/crates/behavior-store/src/store/incremental/mod.rs
++++ b/crates/behavior-store/src/store/incremental/mod.rs
+@@ -37,6 +37,11 @@ impl<B: Backend> Store<B> {
+         // required record hash. These are native results, never bundle claims.
+         known_hashes: Option<(&str, &str)>,
+     ) -> R<Option<Pending>> {
++        #[cfg(feature = "validation-work")]
++        let _residual_scope = behavior_core::eval::work::profile_scope(
++            "store::incremental::validate_incremental_child_at",
++        );
++
+         // Unsupported modules receive no carry evidence. Preserve the original
+         // early reference fallback before parsing/hashing or rereading a parent
+         // whose validity cannot be promoted. The union retains 015 locality.
+@@ -170,6 +175,10 @@ impl<B: Backend> Store<B> {
+         removals: &[EntityKey],
+         references: &[RefChange],
+     ) {
++        #[cfg(feature = "validation-work")]
++        let _residual_scope =
++            behavior_core::eval::work::profile_scope("store::incremental::carry_incremental_child");
++
+         let cache = self.validated.get_mut().unwrap_or_else(|p| p.into_inner());
+         let Some(p) = pending else { return };
+         if !removals.is_empty()

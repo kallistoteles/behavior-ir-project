@@ -1,0 +1,25 @@
+{"command": ["cargo", "clippy", "--locked", "--release", "-p", "behavior-core", "--lib", "--", "-D", "warnings"], "utc": "2026-10-31T10:40:14.634966+00:00"}
+    Blocking waiting for file lock on build directory
+    Checking typenum v1.20.1
+    Checking num-traits v0.2.19
+    Checking serde_core v1.0.229
+    Checking generic-array v0.14.7
+    Checking num-integer v0.1.47
+    Checking num-bigint v0.4.8
+    Checking block-buffer v0.10.4
+    Checking crypto-common v0.1.7
+    Checking digest v0.10.7
+    Checking zmij v1.0.23
+    Checking cpufeatures v0.2.17
+    Checking arrayvec v0.7.8
+    Checking itoa v1.0.18
+    Checking cfg-if v1.0.5
+    Checking memchr v2.8.3
+    Checking num-rational v0.4.2
+    Checking serde v1.0.229
+    Checking serde_json v1.0.151
+    Checking sha2 v0.10.9
+    Checking thiserror v2.0.20
+    Checking rust_decimal v1.43.0
+    Checking behavior-core v0.16.0 (/tmp/behavior-ir-core-continuation-20261029/crates/behavior-core)
+    Finished `release` profile [optimized] target(s) in 3m 49s

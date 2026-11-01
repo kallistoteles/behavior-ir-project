@@ -1,0 +1,28 @@
+{
+  "utc": "2026-11-01T00:38:56.793295+00:00",
+  "child_cpu": 7,
+  "precollection_sha256": "9ecdadc9822f2e2908274f815858083fb39d0f30722e033d9f488813bbadb43f",
+  "address_space_limit_bytes": 8589934592,
+  "timeout_seconds": 180,
+  "controller_affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "declared_attempts": 56,
+  "binaries": {
+    "decode": "4ebd8cd21bc7c53eb671165c7c3c4739bc5ac1411fc16c3a9a899921d8b6228c",
+    "typed": "32633174eab9c520f0c5ef67eafbed07199e374e4e9f0e727f227dcd4f30f72e",
+    "moved": "31555b946211c66419f37fb7e28be8ca7213a54477f02b826f2a55f1dda29333",
+    "view": "6450236304950666feaa1610214b3d460a3f8f5afc38c31475e5b7f8dad4d268"
+  },
+  "inputs": {
+    "128": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+    "512": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6"
+  }
+}

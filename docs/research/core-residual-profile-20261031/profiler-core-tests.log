@@ -1,0 +1,56 @@
+{"command": ["cargo", "test", "--locked", "--release", "-p", "behavior-core", "--features", "validation-work", "--test", "residual_profiler", "--test", "canonical_tagged_hash", "--test", "record_validation", "--test", "replay_materialization"], "utc": "2026-10-31T12:27:16.231184+00:00"}
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+   Compiling behavior-core v0.16.0 (/tmp/behavior-ir-core-profile-20261031/crates/behavior-core)
+    Finished `release` profile [optimized] target(s) in 48.13s
+     Running tests/canonical_tagged_hash.rs (/tmp/behavior-ir-core-continuation-20261029/target/release/deps/canonical_tagged_hash-c20b9ce3122f574d)
+
+running 4 tests
+test hash_field_is_excluded_but_every_other_field_and_the_domain_are_bound ... ok
+test current_profile_and_complete_evidence_are_bound_by_the_existing_hash_domain ... ok
+test every_vector_uses_the_legacy_tagged_document_encoding ... ok
+test archived_decision_versions_keep_their_original_tagged_hash_encoding ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running tests/record_validation.rs (/tmp/behavior-ir-core-continuation-20261029/target/release/deps/record_validation-4843758ccc7979f6)
+
+running 12 tests
+test arbitrary_value_identity_is_fallible_instead_of_sealing_an_empty_fallback ... ok
+test malformed_float_records_cannot_share_the_empty_fallback_identity ... ok
+test read_evidence_refuses_duplicate_format_and_identity_assertions ... ok
+test read_evidence_cannot_claim_a_value_without_one_or_in_a_refusal ... ok
+test read_evidence_refuses_unknown_security_fields_even_with_consistent_hash ... ok
+test strict_decode_refuses_duplicate_keys_including_escaped_and_nested_keys ... ok
+test strict_decode_refuses_floats_and_noncanonical_integer_spellings ... ok
+test strict_roundtrip_preserves_values_key_order_and_integer_domains ... ok
+test published_valid_read_records_keep_exact_bytes_and_identities ... ok
+test an_ambiguous_wire_version_cannot_select_a_weaker_parser ... ok
+test replay_does_not_reduce_duplicate_decision_claims_to_the_last_one ... ok
+test replay_does_not_reduce_duplicate_read_claims_to_the_last_one ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/replay_materialization.rs (/tmp/behavior-ir-core-continuation-20261029/target/release/deps/replay_materialization-a8f7fb2aa68c584f)
+
+running 5 tests
+test same_call_reuse_retains_strict_lexical_ingress ... ok
+test replay_does_not_reparse_its_already_strictly_decoded_value ... ok
+test strict_value_reuse_preserves_accepted_unicode_and_whitespace ... ok
+test strict_value_reuse_preserves_module_profile_mismatch ... ok
+test same_call_reuse_preserves_closed_validation_and_selected_error ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/residual_profiler.rs (/tmp/behavior-ir-core-continuation-20261029/target/release/deps/residual_profiler-5e2cc6d66382ce69)
+
+running 5 tests
+test early_error_cleans_up_scope_stack_without_changing_result ... ok
+test canonical_hash_scopes_keep_the_actual_hash_and_partition_work ... ok
+test nested_scopes_partition_elapsed_time_and_count_calls ... ok
+test excluded_noncanonical_hash_metadata_still_refuses_before_digest ... ok
+test profile_read_disables_new_scopes_and_reset_discards_old_totals ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

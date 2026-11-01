@@ -1,0 +1,6 @@
+{"command": ["python3", "docs/research/core-residual-profile-20261031/test_collector.py"], "utc": "2026-10-31T12:33:56.880271+00:00"}
+........
+----------------------------------------------------------------------
+Ran 8 tests in 0.003s
+
+OK

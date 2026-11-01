@@ -1,0 +1,12 @@
+{"command": ["cargo", "test", "--locked", "--release", "-p", "behavior-store", "--example", "serialization_history_probe"], "utc": "2026-10-31T12:17:45.431342+00:00"}
+    Blocking waiting for file lock on build directory
+   Compiling behavior-store v0.16.0 (/tmp/behavior-ir-core-profile-20261031/crates/behavior-store)
+    Finished `release` profile [optimized] target(s) in 5.97s
+     Running unittests examples/serialization_history_probe.rs (/tmp/behavior-ir-core-continuation-20261029/target/release/examples/serialization_history_probe-40f46316df32fb58)
+
+running 2 tests
+test tests::order_controls_have_distinct_declared_prefixes ... ok
+test tests::every_schedule_keeps_first_original_and_eight_calls_per_object ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

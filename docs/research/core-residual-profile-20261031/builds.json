@@ -1,0 +1,40 @@
+{
+  "source_base_commit": "1a3ae37623cf90b4608a678ef283ee313306d9bb",
+  "baseline_record_sha256": "572aa0c2d39a21457ff63256fec29e94173e1252dfa23adfef22d035ed35e35d",
+  "candidate_record_sha256": "09adc58bde0088de5144785c24f734ff24e8cd4d67b85f7178f0d8b5079b692a",
+  "shared_build_cache": "/tmp/behavior-ir-core-continuation-20261029/target",
+  "inputs": {
+    "8192.json": "3d12595e689ebbc01d587eabe533d0583ff8f22eb9fee4a61fda1a94f985d878",
+    "128.json": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+    "2048.json": "32627e99b6f4c4c268836ed9adec5c74eecc4c3847597c44ef125fe228c740f6",
+    "512.json": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6"
+  },
+  "retained_normal_c_binary_sha256": "32633174eab9c520f0c5ef67eafbed07199e374e4e9f0e727f227dcd4f30f72e",
+  "a_serialization_binary_sha256": "8f0df76a1b6a276aafa45171798196a6ab34db65c4ac19f76a8c954fa6e741cd",
+  "serialization_driver_sha256": "81adb33074f987fcf0fafca9e63e41375b2ce4251dcc502835b27e87b3024c27",
+  "c_serialization_binary_sha256": "4207544ceb57faf7815cc4e07fdfa2963701afa29ca9ced26f7766f920633d3e",
+  "binaries": {
+    "scoped-c": "e72602f535e243bf3a03b6d1fcfd375e0df6d648a6964ce43da0ecb4940a73d7",
+    "a-serialize": "8f0df76a1b6a276aafa45171798196a6ab34db65c4ac19f76a8c954fa6e741cd",
+    "c-serialize": "4207544ceb57faf7815cc4e07fdfa2963701afa29ca9ced26f7766f920633d3e",
+    "normal-c": "32633174eab9c520f0c5ef67eafbed07199e374e4e9f0e727f227dcd4f30f72e"
+  },
+  "scoped_source_files": {
+    "crates/behavior-core/src/eval/work.rs": "5ee1407f65ec6b362b591c5417983deca8c29a3ceb0cca6d318f418f641b5a64",
+    "crates/behavior-core/src/canonical.rs": "55e1302d9a7c444f60bb4bca4f57877ba4e44baf48678f4305089f88fb0d8123",
+    "crates/behavior-core/src/record.rs": "3c1faad0d4821131ff964ba30134549f393305a26756b802b7e4a49f7d033fec",
+    "crates/behavior-core/src/eval.rs": "f564f6ec3b5a6116945acea9b618ef1e9038da2beb5130b8ea81b0ba08a05642",
+    "crates/behavior-core/src/eval/prepared.rs": "cf0e9828a1037149dc9386fc2814f75169254b929eef1cff23100bec04051ccd",
+    "crates/behavior-core/src/facts.rs": "f8d440f692548e8fa9985a756755f29c5458a003867db09481a51b29e444d39a",
+    "crates/behavior-store/src/documents.rs": "b00e27490d2d7e4c5c6b2eec9a9511197d4fd11d89bdd10cc7e2b045cdcfebca",
+    "crates/behavior-store/src/store.rs": "89d6450b5473e6eaf6735e5948afc8f71fc0a7091b76a812fc9e55b66f11b8cb",
+    "crates/behavior-store/src/store/incremental/mod.rs": "7fa5d4a8af57f5c03e62a00a60e1e6eea9b96b7514d7245f8bf3a5ea6d94febe",
+    "crates/behavior-store/src/memory.rs": "cb30fcf07c0bc8695f8e378382f466c89474dd2219a396b6cbf13554d6b31795",
+    "crates/behavior-store/examples/residual_phase_profile.rs": "82147271b29666062519f1643b19cf9a5899b82cdb841f8672f45b60e370183a"
+  },
+  "locks": {
+    "Cargo.lock": "9c0a8fdf3ec777f8fbf11dc8320199297553a94ba1b5dcf7949804fbe09af454",
+    "flake.lock": "ed16bd3f98b17e19e07d6ecafecdd20897024a170f7f3727ed6565c582a01bbe",
+    "rust-toolchain.toml": "706f35f67156a1a378d28055a67ba3bf84dac8091968a409fb0c27e7003bd83c"
+  }
+}

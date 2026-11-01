@@ -1,0 +1,5 @@
+{
+  "ambiguous_assembly_selector_matches": 2,
+  "resolution": "restrict to evaluate_decoded_request before stored_value",
+  "source_written_by_failed_preflight": false
+}

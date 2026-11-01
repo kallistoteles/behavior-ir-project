@@ -1,0 +1,88 @@
+{
+  "view": {
+    "binary": "/tmp/core-final-pmu-binaries-20261101/exec03",
+    "sha256": "b67661e009b3f8b0ea2a96d6f28aeff21e8d8d80bc5bb853fed4333912faddff",
+    "main_start": "0x183c70",
+    "main_end": "0x185d20",
+    "main_symbol": "_RNvCsf9Xslf3uODb_20allocation_pmu_probe4main",
+    "allocation_window_calls": [
+      "184541:\te8 da 17 00 00       \tcall   185d20 <allocation_pmu_probe::control>",
+      "184546:\tff 15 34 31 4c 00    \tcall   *0x4c3134(%rip)        # 647680 <_DYNAMIC+0x820> ; GOT => 60ae80 <std::time::Instant>::now",
+      "1845a5:\tff 15 15 2b 4c 00    \tcall   *0x4c2b15(%rip)        # 6470c0 <_DYNAMIC+0x260> ; GOT => 189800 __rustc::__rust_no_alloc_shim_is_unstable_v2",
+      "1845b3:\tff 15 0f 2b 4c 00    \tcall   *0x4c2b0f(%rip)        # 6470c8 <_DYNAMIC+0x268> ; GOT => 1897c0 __rustc::__rust_alloc",
+      "1845c6:\tff 15 7c 2b 4c 00    \tcall   *0x4c2b7c(%rip)        # 647148 <_DYNAMIC+0x2e8> ; GOT => 62fd71 alloc::raw_vec::handle_error",
+      "184612:\tff 15 70 30 4c 00    \tcall   *0x4c3070(%rip)        # 647688 <_DYNAMIC+0x828> ; GOT => 60ae90 <std::time::Instant>::elapsed",
+      "184647:\te8 d4 16 00 00       \tcall   185d20 <allocation_pmu_probe::control>"
+    ],
+    "ldd": "\tlinux-vdso.so.1 (0x00007ffff7fc2000)\n\tlibgcc_s.so.1 => /nix/store/604gsr59rj7dzd0nrhp143rpvf7gyiaz-gcc-15.3.0-lib/lib/libgcc_s.so.1 (0x00007ffff7f8d000)\n\tlibm.so.6 => /nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libm.so.6 (0x00007ffff7e95000)\n\tlibc.so.6 => /nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6 (0x00007ffff7400000)\n\t/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/ld-linux-x86-64.so.2 => /nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib64/ld-linux-x86-64.so.2 (0x00007ffff7fc4000)\n"
+  },
+  "original": {
+    "binary": "/tmp/core-final-pmu-binaries-20261101/exec00",
+    "sha256": "c52800a329d41b159ccd2983ac881f7559e0e4c999f31f92958e62c8c4876ff3",
+    "main_start": "0x1818a0",
+    "main_end": "0x183950",
+    "main_symbol": "_RNvCsf9Xslf3uODb_20allocation_pmu_probe4main",
+    "allocation_window_calls": [
+      "182171:\te8 da 17 00 00       \tcall   183950 <allocation_pmu_probe::control>",
+      "182176:\tff 15 bc 2b 4c 00    \tcall   *0x4c2bbc(%rip)        # 644d38 <_DYNAMIC+0x820> ; GOT => 6086f0 <std::time::Instant>::now",
+      "1821d5:\tff 15 9d 25 4c 00    \tcall   *0x4c259d(%rip)        # 644778 <_DYNAMIC+0x260> ; GOT => 187430 __rustc::__rust_no_alloc_shim_is_unstable_v2",
+      "1821e3:\tff 15 97 25 4c 00    \tcall   *0x4c2597(%rip)        # 644780 <_DYNAMIC+0x268> ; GOT => 1873f0 __rustc::__rust_alloc",
+      "1821f6:\tff 15 04 26 4c 00    \tcall   *0x4c2604(%rip)        # 644800 <_DYNAMIC+0x2e8> ; GOT => 62d541 alloc::raw_vec::handle_error",
+      "182242:\tff 15 f8 2a 4c 00    \tcall   *0x4c2af8(%rip)        # 644d40 <_DYNAMIC+0x828> ; GOT => 608700 <std::time::Instant>::elapsed",
+      "182277:\te8 d4 16 00 00       \tcall   183950 <allocation_pmu_probe::control>"
+    ],
+    "ldd": "\tlinux-vdso.so.1 (0x00007ffff7fc2000)\n\tlibgcc_s.so.1 => /nix/store/604gsr59rj7dzd0nrhp143rpvf7gyiaz-gcc-15.3.0-lib/lib/libgcc_s.so.1 (0x00007ffff7f8d000)\n\tlibm.so.6 => /nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libm.so.6 (0x00007ffff7e95000)\n\tlibc.so.6 => /nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6 (0x00007ffff7400000)\n\t/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/ld-linux-x86-64.so.2 => /nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib64/ld-linux-x86-64.so.2 (0x00007ffff7fc4000)\n"
+  },
+  "decode": {
+    "binary": "/tmp/core-final-pmu-binaries-20261101/exec01",
+    "sha256": "8d0b776368b077ea83bdc4cb0d6588ef0d8b14c27c41d6083e68eb045d9533ca",
+    "main_start": "0x1818a0",
+    "main_end": "0x183950",
+    "main_symbol": "_RNvCsf9Xslf3uODb_20allocation_pmu_probe4main",
+    "allocation_window_calls": [
+      "182171:\te8 da 17 00 00       \tcall   183950 <allocation_pmu_probe::control>",
+      "182176:\tff 15 7c 2a 4c 00    \tcall   *0x4c2a7c(%rip)        # 644bf8 <_DYNAMIC+0x820> ; GOT => 6085b0 <std::time::Instant>::now",
+      "1821d5:\tff 15 5d 24 4c 00    \tcall   *0x4c245d(%rip)        # 644638 <_DYNAMIC+0x260> ; GOT => 187430 __rustc::__rust_no_alloc_shim_is_unstable_v2",
+      "1821e3:\tff 15 57 24 4c 00    \tcall   *0x4c2457(%rip)        # 644640 <_DYNAMIC+0x268> ; GOT => 1873f0 __rustc::__rust_alloc",
+      "1821f6:\tff 15 c4 24 4c 00    \tcall   *0x4c24c4(%rip)        # 6446c0 <_DYNAMIC+0x2e8> ; GOT => 62d401 alloc::raw_vec::handle_error",
+      "182242:\tff 15 b8 29 4c 00    \tcall   *0x4c29b8(%rip)        # 644c00 <_DYNAMIC+0x828> ; GOT => 6085c0 <std::time::Instant>::elapsed",
+      "182277:\te8 d4 16 00 00       \tcall   183950 <allocation_pmu_probe::control>"
+    ],
+    "ldd": "\tlinux-vdso.so.1 (0x00007ffff7fc2000)\n\tlibgcc_s.so.1 => /nix/store/604gsr59rj7dzd0nrhp143rpvf7gyiaz-gcc-15.3.0-lib/lib/libgcc_s.so.1 (0x00007ffff7f8d000)\n\tlibm.so.6 => /nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libm.so.6 (0x00007ffff7e95000)\n\tlibc.so.6 => /nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6 (0x00007ffff7400000)\n\t/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/ld-linux-x86-64.so.2 => /nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib64/ld-linux-x86-64.so.2 (0x00007ffff7fc4000)\n"
+  },
+  "typed": {
+    "binary": "/tmp/core-final-pmu-binaries-20261101/exec02",
+    "sha256": "467b3b01d01e916217bc42a5bea52b18043f2bdd36731eb5a7e3f58864cc80cc",
+    "main_start": "0x181e00",
+    "main_end": "0x183eb0",
+    "main_symbol": "_RNvCsf9Xslf3uODb_20allocation_pmu_probe4main",
+    "allocation_window_calls": [
+      "1826d1:\te8 da 17 00 00       \tcall   183eb0 <allocation_pmu_probe::control>",
+      "1826d6:\tff 15 d4 c7 4b 00    \tcall   *0x4bc7d4(%rip)        # 63eeb0 <_DYNAMIC+0x820> ; GOT => 602870 <std::time::Instant>::now",
+      "182735:\tff 15 b5 c1 4b 00    \tcall   *0x4bc1b5(%rip)        # 63e8f0 <_DYNAMIC+0x260> ; GOT => 187990 __rustc::__rust_no_alloc_shim_is_unstable_v2",
+      "182743:\tff 15 af c1 4b 00    \tcall   *0x4bc1af(%rip)        # 63e8f8 <_DYNAMIC+0x268> ; GOT => 187950 __rustc::__rust_alloc",
+      "182756:\tff 15 1c c2 4b 00    \tcall   *0x4bc21c(%rip)        # 63e978 <_DYNAMIC+0x2e8> ; GOT => 6276c1 alloc::raw_vec::handle_error",
+      "1827a2:\tff 15 10 c7 4b 00    \tcall   *0x4bc710(%rip)        # 63eeb8 <_DYNAMIC+0x828> ; GOT => 602880 <std::time::Instant>::elapsed",
+      "1827d7:\te8 d4 16 00 00       \tcall   183eb0 <allocation_pmu_probe::control>"
+    ],
+    "ldd": "\tlinux-vdso.so.1 (0x00007ffff7fc2000)\n\tlibgcc_s.so.1 => /nix/store/604gsr59rj7dzd0nrhp143rpvf7gyiaz-gcc-15.3.0-lib/lib/libgcc_s.so.1 (0x00007ffff7f8d000)\n\tlibm.so.6 => /nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libm.so.6 (0x00007ffff7e95000)\n\tlibc.so.6 => /nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6 (0x00007ffff7400000)\n\t/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/ld-linux-x86-64.so.2 => /nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib64/ld-linux-x86-64.so.2 (0x00007ffff7fc4000)\n"
+  },
+  "libc": {
+    "path": "/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6",
+    "sha256": "b8cb091b34bdd88f6902eebff8761f9ea306e6789b4ac4d06d4470c0d568c80c",
+    "build_id": "67802a55cff437269d8d9608af391b6f583fca73",
+    "allocator_symbols": [
+      "00000000000aa5a0 t malloc_consolidate",
+      "00000000000abfe0 t sysmalloc",
+      "00000000000ac830 t _int_malloc",
+      "00000000000ae8b0 T __libc_malloc",
+      "00000000000ae8b0 T malloc"
+    ]
+  },
+  "tools": {
+    "nm": "/nix/store/z4c6k0mrlkwl3s4w9ysxc8vq1wylm3ms-gcc-wrapper-15.3.0/bin/nm",
+    "objdump": "/nix/store/z4c6k0mrlkwl3s4w9ysxc8vq1wylm3ms-gcc-wrapper-15.3.0/bin/objdump",
+    "ldd": "/nix/store/fdpy1l72q9gvq8d9snrdq67gm0j5s1dg-glibc-2.42-84-bin/bin/ldd",
+    "readelf": "/nix/store/z4c6k0mrlkwl3s4w9ysxc8vq1wylm3ms-gcc-wrapper-15.3.0/bin/readelf"
+  }
+}

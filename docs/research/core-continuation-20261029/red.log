@@ -1,0 +1,88 @@
+   Compiling libc v0.2.189
+   Compiling cfg-if v1.0.5
+   Compiling proc-macro2 v1.0.107
+   Compiling autocfg v1.5.1
+   Compiling unicode-ident v1.0.26
+   Compiling quote v1.0.47
+   Compiling num-traits v0.2.19
+   Compiling version_check v0.9.5
+   Compiling generic-array v0.14.7
+   Compiling getrandom v0.3.4
+   Compiling syn v3.0.6
+   Compiling typenum v1.20.1
+   Compiling serde_core v1.0.229
+   Compiling rustix v1.1.5
+   Compiling getrandom v0.4.3
+   Compiling zerocopy v0.8.57
+   Compiling rand_core v0.9.5
+   Compiling zmij v1.0.23
+   Compiling linux-raw-sys v0.12.1
+   Compiling serde v1.0.229
+   Compiling bitflags v2.13.2
+   Compiling serde_derive v1.0.229
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling num-integer v0.1.47
+   Compiling once_cell v1.21.4
+   Compiling thiserror v2.0.20
+   Compiling fastrand v2.5.0
+   Compiling rust_decimal v1.43.0
+   Compiling serde_json v1.0.151
+   Compiling tempfile v3.27.0
+   Compiling num-bigint v0.4.8
+   Compiling digest v0.10.7
+   Compiling thiserror-impl v2.0.20
+   Compiling ppv-lite86 v0.2.21
+   Compiling wait-timeout v0.2.1
+   Compiling quick-error v1.2.3
+   Compiling cpufeatures v0.2.17
+   Compiling itoa v1.0.18
+   Compiling memchr v2.8.3
+   Compiling fnv v1.0.7
+   Compiling arrayvec v0.7.8
+   Compiling bit-vec v0.8.0
+   Compiling bit-set v0.8.0
+   Compiling rusty-fork v0.3.1
+   Compiling sha2 v0.10.9
+   Compiling rand_chacha v0.9.0
+   Compiling num-rational v0.4.2
+   Compiling rand v0.9.5
+   Compiling rand_xorshift v0.4.0
+   Compiling regex-syntax v0.8.11
+   Compiling unarray v0.1.4
+   Compiling diff v0.1.13
+   Compiling yansi v1.0.1
+   Compiling behavior-core v0.16.0 (/tmp/behavior-ir-core-continuation-20261029/crates/behavior-core)
+   Compiling pretty_assertions v1.4.1
+   Compiling proptest v1.11.0
+    Finished `release` profile [optimized] target(s) in 1m 16s
+     Running tests/replay_materialization.rs (target/release/deps/replay_materialization-a8f7fb2aa68c584f)
+
+running 3 tests
+test same_call_reuse_retains_strict_lexical_ingress ... FAILED
+test replay_does_not_reparse_its_already_strictly_decoded_value ... FAILED
+test same_call_reuse_preserves_closed_validation_and_selected_error ... ok
+
+failures:
+
+---- same_call_reuse_retains_strict_lexical_ingress stdout ----
+
+thread 'same_call_reuse_retains_strict_lexical_ingress' (80086) panicked at crates/behavior-core/tests/replay_materialization.rs:68:9:
+assertion failed: outcome.diff.unwrap().starts_with("record is not valid JSON:")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- replay_does_not_reparse_its_already_strictly_decoded_value stdout ----
+
+thread 'replay_does_not_reparse_its_already_strictly_decoded_value' (80084) panicked at crates/behavior-core/tests/replay_materialization.rs:22:5:
+assertion `left == right` failed: replay must retain its ingress strict decode without a second DecisionRecord parse
+  left: 1
+ right: 0
+
+
+failures:
+    replay_does_not_reparse_its_already_strictly_decoded_value
+    same_call_reuse_retains_strict_lexical_ingress
+
+test result: FAILED. 1 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p behavior-core --test replay_materialization`

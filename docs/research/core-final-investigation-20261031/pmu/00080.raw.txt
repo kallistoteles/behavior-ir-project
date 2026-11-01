@@ -1,0 +1,410 @@
+
+0x228@/data/repos/behavior-ir-project/docs/research/core-final-investigation-20261031/pmu/raw-00080.perf.data [0x210]: event: 69
+.
+. ... raw event: size 528 bytes
+.  0000:  45 00 00 00 00 00 10 02 10 00 00 00 00 00 00 00  E...............
+.  0010:  d7 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+.  0020:  00 00 00 00 00 00 00 00 09 74 03 00 00 00 00 00  .........t......
+.  0030:  d8 01 00 00 00 00 00 00 01 00 00 00 00 00 00 00  ................
+.  0040:  01 00 00 00 00 00 00 00 09 74 03 00 00 00 00 00  .........t......
+.  0050:  d9 01 00 00 00 00 00 00 02 00 00 00 00 00 00 00  ................
+.  0060:  02 00 00 00 00 00 00 00 09 74 03 00 00 00 00 00  .........t......
+.  0070:  da 01 00 00 00 00 00 00 03 00 00 00 00 00 00 00  ................
+.  0080:  03 00 00 00 00 00 00 00 09 74 03 00 00 00 00 00  .........t......
+.  0090:  db 01 00 00 00 00 00 00 04 00 00 00 00 00 00 00  ................
+.  00a0:  04 00 00 00 00 00 00 00 09 74 03 00 00 00 00 00  .........t......
+.  00b0:  dc 01 00 00 00 00 00 00 05 00 00 00 00 00 00 00  ................
+.  00c0:  05 00 00 00 00 00 00 00 09 74 03 00 00 00 00 00  .........t......
+.  00d0:  dd 01 00 00 00 00 00 00 06 00 00 00 00 00 00 00  ................
+.  00e0:  06 00 00 00 00 00 00 00 09 74 03 00 00 00 00 00  .........t......
+.  00f0:  de 01 00 00 00 00 00 00 07 00 00 00 00 00 00 00  ................
+.  0100:  07 00 00 00 00 00 00 00 09 74 03 00 00 00 00 00  .........t......
+.  0110:  df 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+.  0120:  00 00 00 00 00 00 00 00 09 74 03 00 00 00 00 00  .........t......
+.  0130:  e0 01 00 00 00 00 00 00 01 00 00 00 00 00 00 00  ................
+.  0140:  01 00 00 00 00 00 00 00 09 74 03 00 00 00 00 00  .........t......
+.  0150:  e1 01 00 00 00 00 00 00 02 00 00 00 00 00 00 00  ................
+.  0160:  02 00 00 00 00 00 00 00 09 74 03 00 00 00 00 00  .........t......
+.  0170:  e2 01 00 00 00 00 00 00 03 00 00 00 00 00 00 00  ................
+.  0180:  03 00 00 00 00 00 00 00 09 74 03 00 00 00 00 00  .........t......
+.  0190:  e3 01 00 00 00 00 00 00 04 00 00 00 00 00 00 00  ................
+.  01a0:  04 00 00 00 00 00 00 00 09 74 03 00 00 00 00 00  .........t......
+.  01b0:  e4 01 00 00 00 00 00 00 05 00 00 00 00 00 00 00  ................
+.  01c0:  05 00 00 00 00 00 00 00 09 74 03 00 00 00 00 00  .........t......
+.  01d0:  e5 01 00 00 00 00 00 00 06 00 00 00 00 00 00 00  ................
+.  01e0:  06 00 00 00 00 00 00 00 09 74 03 00 00 00 00 00  .........t......
+.  01f0:  e6 01 00 00 00 00 00 00 07 00 00 00 00 00 00 00  ................
+.  0200:  07 00 00 00 00 00 00 00 09 74 03 00 00 00 00 00  .........t......
+
+0 0x228 [0x210]: PERF_RECORD_ID_INDEX nr: 16
+ ... id: 471  idx: 0  cpu: 0  tid: 226313
+ ... id: 472  idx: 1  cpu: 1  tid: 226313
+ ... id: 473  idx: 2  cpu: 2  tid: 226313
+ ... id: 474  idx: 3  cpu: 3  tid: 226313
+ ... id: 475  idx: 4  cpu: 4  tid: 226313
+ ... id: 476  idx: 5  cpu: 5  tid: 226313
+ ... id: 477  idx: 6  cpu: 6  tid: 226313
+ ... id: 478  idx: 7  cpu: 7  tid: 226313
+ ... id: 479  idx: 0  cpu: 0  tid: 226313
+ ... id: 480  idx: 1  cpu: 1  tid: 226313
+ ... id: 481  idx: 2  cpu: 2  tid: 226313
+ ... id: 482  idx: 3  cpu: 3  tid: 226313
+ ... id: 483  idx: 4  cpu: 4  tid: 226313
+ ... id: 484  idx: 5  cpu: 5  tid: 226313
+ ... id: 485  idx: 6  cpu: 6  tid: 226313
+ ... id: 486  idx: 7  cpu: 7  tid: 226313
+
+0x438@/data/repos/behavior-ir-project/docs/research/core-final-investigation-20261031/pmu/raw-00080.perf.data [0x20]: event: 78
+.
+. ... raw event: size 32 bytes
+.  0000:  4e 00 00 00 00 00 20 00 03 00 00 00 00 00 00 00  N..... .........
+.  0010:  d7 01 00 00 00 00 00 00 02 00 00 00 00 00 07 00  ................
+
+0 0x438 [0x20]: PERF_RECORD_EVENT_UPDATE
+... id:    471
+... 0-7
+
+0x458@/data/repos/behavior-ir-project/docs/research/core-final-investigation-20261031/pmu/raw-00080.perf.data [0x20]: event: 78
+.
+. ... raw event: size 32 bytes
+.  0000:  4e 00 00 00 00 00 20 00 03 00 00 00 00 00 00 00  N..... .........
+.  0010:  df 01 00 00 00 00 00 00 02 00 00 00 00 00 07 00  ................
+
+0 0x458 [0x20]: PERF_RECORD_EVENT_UPDATE
+... id:    479
+... 0-7
+
+0x478@/data/repos/behavior-ir-project/docs/research/core-final-investigation-20261031/pmu/raw-00080.perf.data [0x28]: event: 73
+.
+. ... raw event: size 40 bytes
+.  0000:  49 00 00 00 00 00 28 00 01 00 00 00 00 00 00 00  I.....(.........
+.  0010:  09 74 03 00 00 00 00 00 00 00 00 00 00 00 00 00  .t..............
+.  0020:  00 00 00 00 00 00 00 00                          ........        
+
+0 0x478 [0x28]: PERF_RECORD_THREAD_MAP nr: 1 thread: 226313
+
+0x4a0@/data/repos/behavior-ir-project/docs/research/core-final-investigation-20261031/pmu/raw-00080.perf.data [0x10]: event: 74
+.
+. ... raw event: size 16 bytes
+.  0000:  4a 00 00 00 00 00 10 00 02 00 00 00 00 00 07 00  J...............
+
+0 0x4a0 [0x10]: PERF_RECORD_CPU_MAP: 0-7
+
+0x4b0@/data/repos/behavior-ir-project/docs/research/core-final-investigation-20261031/pmu/raw-00080.perf.data [0x38]: event: 3
+.
+. ... raw event: size 56 bytes
+.  0000:  03 00 00 00 00 00 38 00 09 74 03 00 09 74 03 00  ......8..t...t..
+.  0010:  70 65 72 66 2d 65 78 65 63 00 00 00 00 00 00 00  perf-exec.......
+.  0020:  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+.  0030:  00 00 00 00 00 00 00 00                          ........        
+
+0 0x4b0 [0x38]: PERF_RECORD_COMM: perf-exec:226313/226313
+
+0x4e8@/data/repos/behavior-ir-project/docs/research/core-final-investigation-20261031/pmu/raw-00080.perf.data [0x8]: event: 82
+.
+. ... raw event: size 8 bytes
+.  0000:  52 00 00 00 00 00 08 00                          R.......        
+
+0 0x4e8 [0x8]: PERF_RECORD_FINISHED_INIT: unhandled!
+
+0xb78@/data/repos/behavior-ir-project/docs/research/core-final-investigation-20261031/pmu/raw-00080.perf.data [0x8]: event: 68
+.
+. ... raw event: size 8 bytes
+.  0000:  44 00 00 00 00 00 08 00                          D.......        
+
+0 0xb78 [0x8]: PERF_RECORD_FINISHED_ROUND
+
+0xd30@/data/repos/behavior-ir-project/docs/research/core-final-investigation-20261031/pmu/raw-00080.perf.data [0x8]: event: 68
+.
+. ... raw event: size 8 bytes
+.  0000:  44 00 00 00 00 00 08 00                          D.......        
+
+0 0xd30 [0x8]: PERF_RECORD_FINISHED_ROUND
+
+0x4f0@/data/repos/behavior-ir-project/docs/research/core-final-investigation-20261031/pmu/raw-00080.perf.data [0x30]: event: 3
+.
+. ... raw event: size 48 bytes
+.  0000:  03 00 00 00 00 20 30 00 09 74 03 00 09 74 03 00  ..... 0..t...t..
+.  0010:  74 61 73 6b 73 65 74 00 09 74 03 00 09 74 03 00  taskset..t...t..
+.  0020:  91 2f 84 b9 71 bf 00 00 e5 01 00 00 00 00 00 00  ./..q...........
+
+210495164657553 0x4f0 [0x30]: PERF_RECORD_COMM exec: taskset:226313/226313
+
+0x520@/data/repos/behavior-ir-project/docs/research/core-final-investigation-20261031/pmu/raw-00080.perf.data [0xb0]: event: 10
+.
+. ... raw event: size 176 bytes
+.  0000:  0a 00 00 00 02 40 b0 00 09 74 03 00 09 74 03 00  .....@...t...t..
+.  0010:  00 a0 15 07 b0 5a 00 00 00 b0 00 00 00 00 00 00  .....Z..........
+.  0020:  00 30 00 00 00 00 00 00 14 00 00 00 29 8b 6b 14  .0..........).k.
+.  0030:  13 fb d7 f0 32 6c b2 58 20 6a 45 13 81 c9 b8 13  ....2l.X jE.....
+.  0040:  05 00 00 00 02 00 00 00 2f 6e 69 78 2f 73 74 6f  ......../nix/sto
+.  0050:  72 65 2f 35 6d 32 61 68 39 7a 66 38 7a 73 70 37  re/5m2ah9zf8zsp7
+.  0060:  61 36 79 31 68 76 32 6c 66 71 36 67 7a 68 76 32  a6y1hv2lfq6gzhv2
+.  0070:  35 78 68 2d 75 74 69 6c 2d 6c 69 6e 75 78 2d 32  5xh-util-linux-2
+.  0080:  2e 34 32 2e 33 2d 62 69 6e 2f 62 69 6e 2f 74 61  .42.3-bin/bin/ta
+.  0090:  73 6b 73 65 74 00 00 00 09 74 03 00 09 74 03 00  skset....t...t..
+.  00a0:  fc ee 84 b9 71 bf 00 00 e5 01 00 00 00 00 00 00  ....q...........
+
+210495164706556 0x520 [0xb0]: PERF_RECORD_MMAP2 226313/226313: [0x5ab00715a000(0xb000) @ 0x3000 <298b6b1413fbd7f0326cb258206a451381c9b813>]: r-xp /nix/store/5m2ah9zf8zsp7a6y1hv2lfq6gzhv25xh-util-linux-2.42.3-bin/bin/taskset
+
+0x5d0@/data/repos/behavior-ir-project/docs/research/core-final-investigation-20261031/pmu/raw-00080.perf.data [0xb8]: event: 10
+.
+. ... raw event: size 184 bytes
+.  0000:  0a 00 00 00 02 40 b8 00 09 74 03 00 09 74 03 00  .....@...t...t..
+.  0010:  00 00 69 51 10 72 00 00 00 b0 02 00 00 00 00 00  ..iQ.r..........
+.  0020:  00 10 00 00 00 00 00 00 14 00 00 00 b4 5a 99 e4  .............Z..
+.  0030:  25 bc 6a fc eb 4f ef 9a 21 02 42 ed a8 42 ce 02  %.j..O..!.B..B..
+.  0040:  05 00 00 00 02 00 00 00 2f 6e 69 78 2f 73 74 6f  ......../nix/sto
+.  0050:  72 65 2f 7a 6e 62 33 71 36 67 31 69 6b 33 34 34  re/znb3q6g1ik344
+.  0060:  35 34 6a 33 76 63 6a 78 38 32 34 68 31 38 37 31  54j3vcjx824h1871
+.  0070:  61 73 67 2d 67 6c 69 62 63 2d 32 2e 34 32 2d 38  asg-glibc-2.42-8
+.  0080:  34 2f 6c 69 62 2f 6c 64 2d 6c 69 6e 75 78 2d 78  4/lib/ld-linux-x
+.  0090:  38 36 2d 36 34 2e 73 6f 2e 32 00 00 00 00 00 00  86-64.so.2......
+.  00a0:  09 74 03 00 09 74 03 00 62 92 85 b9 71 bf 00 00  .t...t..b...q...
+.  00b0:  e5 01 00 00 00 00 00 00                          ........        
+
+210495164748386 0x5d0 [0xb8]: PERF_RECORD_MMAP2 226313/226313: [0x721051690000(0x2b000) @ 0x1000 <b45a99e425bc6afceb4fef9a210242eda842ce02>]: r-xp /nix/store/znb3q6g1ik34454j3vcjx824h1871asg-glibc-2.42-84/lib/ld-linux-x86-64.so.2
+
+0x688@/data/repos/behavior-ir-project/docs/research/core-final-investigation-20261031/pmu/raw-00080.perf.data [0x68]: event: 10
+.
+. ... raw event: size 104 bytes
+.  0000:  0a 00 00 00 02 00 68 00 09 74 03 00 09 74 03 00  ......h..t...t..
+.  0010:  00 d0 68 51 10 72 00 00 00 20 00 00 00 00 00 00  ..hQ.r... ......
+.  0020:  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+.  0030:  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+.  0040:  05 00 00 00 02 00 00 00 5b 76 64 73 6f 5d 00 00  ........[vdso]..
+.  0050:  09 74 03 00 09 74 03 00 f2 2f 86 b9 71 bf 00 00  .t...t.../..q...
+.  0060:  e5 01 00 00 00 00 00 00                          ........        
+
+210495164788722 0x688 [0x68]: PERF_RECORD_MMAP2 226313/226313: [0x72105168d000(0x2000) @ 0 00:00 0 0]: r-xp [vdso]
+
+0x6f0@/data/repos/behavior-ir-project/docs/research/core-final-investigation-20261031/pmu/raw-00080.perf.data [0xa8]: event: 10
+.
+. ... raw event: size 168 bytes
+.  0000:  0a 00 00 00 02 40 a8 00 09 74 03 00 09 74 03 00  .....@...t...t..
+.  0010:  00 80 42 51 10 72 00 00 00 f0 17 00 00 00 00 00  ..BQ.r..........
+.  0020:  00 80 02 00 00 00 00 00 14 00 00 00 c1 60 d0 0a  .............`..
+.  0030:  fa b6 7b 9f 67 df 42 97 ae 03 3e d1 d3 71 3b 87  ..{.g.B...>..q;.
+.  0040:  05 00 00 00 02 00 00 00 2f 6e 69 78 2f 73 74 6f  ......../nix/sto
+.  0050:  72 65 2f 7a 6e 62 33 71 36 67 31 69 6b 33 34 34  re/znb3q6g1ik344
+.  0060:  35 34 6a 33 76 63 6a 78 38 32 34 68 31 38 37 31  54j3vcjx824h1871
+.  0070:  61 73 67 2d 67 6c 69 62 63 2d 32 2e 34 32 2d 38  asg-glibc-2.42-8
+.  0080:  34 2f 6c 69 62 2f 6c 69 62 63 2e 73 6f 2e 36 00  4/lib/libc.so.6.
+.  0090:  09 74 03 00 09 74 03 00 68 5d 89 b9 71 bf 00 00  .t...t..h]..q...
+.  00a0:  e5 01 00 00 00 00 00 00                          ........        
+
+210495164996968 0x6f0 [0xa8]: PERF_RECORD_MMAP2 226313/226313: [0x721051428000(0x17f000) @ 0x28000 <c160d00afab67b9f67df4297ae033ed1d3713b87>]: r-xp /nix/store/znb3q6g1ik34454j3vcjx824h1871asg-glibc-2.42-84/lib/libc.so.6
+
+0x798@/data/repos/behavior-ir-project/docs/research/core-final-investigation-20261031/pmu/raw-00080.perf.data [0x30]: event: 3
+.
+. ... raw event: size 48 bytes
+.  0000:  03 00 00 00 00 20 30 00 09 74 03 00 09 74 03 00  ..... 0..t...t..
+.  0010:  65 78 65 63 30 32 00 00 09 74 03 00 09 74 03 00  exec02...t...t..
+.  0020:  06 04 96 b9 71 bf 00 00 e6 01 00 00 00 00 00 00  ....q...........
+
+210495165826054 0x798 [0x30]: PERF_RECORD_COMM exec: exec02:226313/226313
+
+0x7c8@/data/repos/behavior-ir-project/docs/research/core-final-investigation-20261031/pmu/raw-00080.perf.data [0x90]: event: 10
+.
+. ... raw event: size 144 bytes
+.  0000:  0a 00 00 00 02 00 90 00 09 74 03 00 09 74 03 00  .........t...t..
+.  0010:  00 60 74 0b c1 63 00 00 00 f0 51 00 00 00 00 00  .`t..c....Q.....
+.  0020:  00 30 11 00 00 00 00 00 fd 00 00 00 02 00 00 00  .0..............
+.  0030:  d7 86 12 00 00 00 00 00 ad 1d 38 fc 00 00 00 00  ..........8.....
+.  0040:  05 00 00 00 02 00 00 00 2f 74 6d 70 2f 63 6f 72  ......../tmp/cor
+.  0050:  65 2d 66 69 6e 61 6c 2d 70 6d 75 2d 62 69 6e 61  e-final-pmu-bina
+.  0060:  72 69 65 73 2d 32 30 32 36 31 31 30 31 2f 65 78  ries-20261101/ex
+.  0070:  65 63 30 32 00 00 00 00 09 74 03 00 09 74 03 00  ec02.....t...t..
+.  0080:  b0 a1 96 b9 71 bf 00 00 e6 01 00 00 00 00 00 00  ....q...........
+
+210495165866416 0x7c8 [0x90]: PERF_RECORD_MMAP2 226313/226313: [0x63c10b746000(0x51f000) @ 0x113000 fd:02 1214167 4231536045]: r-xp /tmp/core-final-pmu-binaries-20261101/exec02
+
+0x858@/data/repos/behavior-ir-project/docs/research/core-final-investigation-20261031/pmu/raw-00080.perf.data [0xb8]: event: 10
+.
+. ... raw event: size 184 bytes
+.  0000:  0a 00 00 00 02 40 b8 00 09 74 03 00 09 74 03 00  .....@...t...t..
+.  0010:  00 80 a4 28 93 7a 00 00 00 b0 02 00 00 00 00 00  ...(.z..........
+.  0020:  00 10 00 00 00 00 00 00 14 00 00 00 cd a0 9b 1b  ................
+.  0030:  1c 97 f3 bc 48 0e 67 11 8d 12 39 e7 51 f6 14 4c  ....H.g...9.Q..L
+.  0040:  05 00 00 00 02 00 00 00 2f 6e 69 78 2f 73 74 6f  ......../nix/sto
+.  0050:  72 65 2f 6c 6d 33 70 6b 6e 78 69 30 69 70 79 70  re/lm3pknxi0ipyp
+.  0060:  79 33 6c 78 68 31 77 6d 6d 38 77 76 76 61 76 64  y3lxh1wmm8wvvavd
+.  0070:  77 72 6e 2d 67 6c 69 62 63 2d 32 2e 34 32 2d 38  wrn-glibc-2.42-8
+.  0080:  34 2f 6c 69 62 2f 6c 64 2d 6c 69 6e 75 78 2d 78  4/lib/ld-linux-x
+.  0090:  38 36 2d 36 34 2e 73 6f 2e 32 00 00 00 00 00 00  86-64.so.2......
+.  00a0:  09 74 03 00 09 74 03 00 97 45 97 b9 71 bf 00 00  .t...t...E..q...
+.  00b0:  e6 01 00 00 00 00 00 00                          ........        
+
+210495165908375 0x858 [0xb8]: PERF_RECORD_MMAP2 226313/226313: [0x7a9328a48000(0x2b000) @ 0x1000 <cda09b1b1c97f3bc480e67118d1239e751f6144c>]: r-xp /nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/ld-linux-x86-64.so.2
+
+0x910@/data/repos/behavior-ir-project/docs/research/core-final-investigation-20261031/pmu/raw-00080.perf.data [0x68]: event: 10
+.
+. ... raw event: size 104 bytes
+.  0000:  0a 00 00 00 02 00 68 00 09 74 03 00 09 74 03 00  ......h..t...t..
+.  0010:  00 50 a4 28 93 7a 00 00 00 20 00 00 00 00 00 00  .P.(.z... ......
+.  0020:  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+.  0030:  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+.  0040:  05 00 00 00 02 00 00 00 5b 76 64 73 6f 5d 00 00  ........[vdso]..
+.  0050:  09 74 03 00 09 74 03 00 3a 9b 97 b9 71 bf 00 00  .t...t..:...q...
+.  0060:  e6 01 00 00 00 00 00 00                          ........        
+
+210495165930298 0x910 [0x68]: PERF_RECORD_MMAP2 226313/226313: [0x7a9328a45000(0x2000) @ 0 00:00 0 0]: r-xp [vdso]
+
+0x978@/data/repos/behavior-ir-project/docs/research/core-final-investigation-20261031/pmu/raw-00080.perf.data [0xb0]: event: 10
+.
+. ... raw event: size 176 bytes
+.  0000:  0a 00 00 00 02 00 b0 00 09 74 03 00 09 74 03 00  .........t...t..
+.  0010:  00 40 a1 28 93 7a 00 00 00 30 02 00 00 00 00 00  .@.(.z...0......
+.  0020:  00 40 00 00 00 00 00 00 fd 00 00 00 02 00 00 00  .@..............
+.  0030:  f3 22 0c 00 00 00 00 00 3b e6 d4 7d 00 00 00 00  ."......;..}....
+.  0040:  05 00 00 00 02 00 00 00 2f 6e 69 78 2f 73 74 6f  ......../nix/sto
+.  0050:  72 65 2f 77 6b 69 71 6a 62 34 34 6e 35 6b 30 66  re/wkiqjb44n5k0f
+.  0060:  77 68 6d 63 35 32 33 64 76 66 6c 73 70 64 34 37  whmc523dvflspd47
+.  0070:  71 33 62 2d 67 63 63 2d 31 35 2e 33 2e 30 2d 6c  q3b-gcc-15.3.0-l
+.  0080:  69 62 67 63 63 2f 6c 69 62 2f 6c 69 62 67 63 63  ibgcc/lib/libgcc
+.  0090:  5f 73 2e 73 6f 2e 31 00 09 74 03 00 09 74 03 00  _s.so.1..t...t..
+.  00a0:  2b 0c 9b b9 71 bf 00 00 e6 01 00 00 00 00 00 00  +...q...........
+
+210495166155819 0x978 [0xb0]: PERF_RECORD_MMAP2 226313/226313: [0x7a9328a14000(0x23000) @ 0x4000 fd:02 795379 2111104571]: r-xp /nix/store/wkiqjb44n5k0fwhmc523dvflspd47q3b-gcc-15.3.0-libgcc/lib/libgcc_s.so.1
+
+0xa28@/data/repos/behavior-ir-project/docs/research/core-final-investigation-20261031/pmu/raw-00080.perf.data [0xa8]: event: 10
+.
+. ... raw event: size 168 bytes
+.  0000:  0a 00 00 00 02 40 a8 00 09 74 03 00 09 74 03 00  .....@...t...t..
+.  0010:  00 90 92 28 93 7a 00 00 00 50 08 00 00 00 00 00  ...(.z...P......
+.  0020:  00 10 01 00 00 00 00 00 14 00 00 00 17 8c 32 2b  ..............2+
+.  0030:  26 19 1a 40 b1 da e6 43 bb 8a 34 bf 8f ff c7 dd  &..@...C..4.....
+.  0040:  05 00 00 00 02 00 00 00 2f 6e 69 78 2f 73 74 6f  ......../nix/sto
+.  0050:  72 65 2f 6c 6d 33 70 6b 6e 78 69 30 69 70 79 70  re/lm3pknxi0ipyp
+.  0060:  79 33 6c 78 68 31 77 6d 6d 38 77 76 76 61 76 64  y3lxh1wmm8wvvavd
+.  0070:  77 72 6e 2d 67 6c 69 62 63 2d 32 2e 34 32 2d 38  wrn-glibc-2.42-8
+.  0080:  34 2f 6c 69 62 2f 6c 69 62 6d 2e 73 6f 2e 36 00  4/lib/libm.so.6.
+.  0090:  09 74 03 00 09 74 03 00 cf 46 9c b9 71 bf 00 00  .t...t...F..q...
+.  00a0:  e6 01 00 00 00 00 00 00                          ........        
+
+210495166236367 0xa28 [0xa8]: PERF_RECORD_MMAP2 226313/226313: [0x7a9328929000(0x85000) @ 0x11000 <178c322b26191a40b1dae643bb8a34bf8fffc7dd>]: r-xp /nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libm.so.6
+
+0xad0@/data/repos/behavior-ir-project/docs/research/core-final-investigation-20261031/pmu/raw-00080.perf.data [0xa8]: event: 10
+.
+. ... raw event: size 168 bytes
+.  0000:  0a 00 00 00 02 40 a8 00 09 74 03 00 09 74 03 00  .....@...t...t..
+.  0010:  00 80 62 28 93 7a 00 00 00 f0 17 00 00 00 00 00  ..b(.z..........
+.  0020:  00 80 02 00 00 00 00 00 14 00 00 00 67 80 2a 55  ............g.*U
+.  0030:  cf f4 37 26 9d 8d 96 08 af 39 1b 6f 58 3f ca 73  ..7&.....9.oX?.s
+.  0040:  05 00 00 00 02 00 00 00 2f 6e 69 78 2f 73 74 6f  ......../nix/sto
+.  0050:  72 65 2f 6c 6d 33 70 6b 6e 78 69 30 69 70 79 70  re/lm3pknxi0ipyp
+.  0060:  79 33 6c 78 68 31 77 6d 6d 38 77 76 76 61 76 64  y3lxh1wmm8wvvavd
+.  0070:  77 72 6e 2d 67 6c 69 62 63 2d 32 2e 34 32 2d 38  wrn-glibc-2.42-8
+.  0080:  34 2f 6c 69 62 2f 6c 69 62 63 2e 73 6f 2e 36 00  4/lib/libc.so.6.
+.  0090:  09 74 03 00 09 74 03 00 56 89 9d b9 71 bf 00 00  .t...t..V...q...
+.  00a0:  e6 01 00 00 00 00 00 00                          ........        
+
+210495166318934 0xad0 [0xa8]: PERF_RECORD_MMAP2 226313/226313: [0x7a9328628000(0x17f000) @ 0x28000 <67802a55cff437269d8d9608af391b6f583fca73>]: r-xp /nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6
+
+0xb80@/data/repos/behavior-ir-project/docs/research/core-final-investigation-20261031/pmu/raw-00080.perf.data [0x30]: event: 9
+.
+. ... raw event: size 48 bytes
+.  0000:  09 00 00 00 02 00 30 00 29 a5 6a 28 93 7a 00 00  ......0.).j(.z..
+.  0010:  09 74 03 00 09 74 03 00 98 22 f6 cb 71 bf 00 00  .t...t..."..q...
+.  0020:  de 01 00 00 00 00 00 00 00 a7 07 00 00 00 00 00  ................
+
+210495474115224 0xb80 [0x30]: PERF_RECORD_SAMPLE(IP, 0x2): 226313/226313: 0x7a93286aa529 period: 501504 addr: 0
+ ... thread: exec02:226313
+ ...... dso: /nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6
+          exec02  226313 210495.474115:     501504 cycles:u:      7a93286aa529 unlink_chunk.isra.0+0x79 (/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6)
+
+0xbb0@/data/repos/behavior-ir-project/docs/research/core-final-investigation-20261031/pmu/raw-00080.perf.data [0x30]: event: 9
+.
+. ... raw event: size 48 bytes
+.  0000:  09 00 00 00 02 00 30 00 d7 a4 6a 28 93 7a 00 00  ......0...j(.z..
+.  0010:  09 74 03 00 09 74 03 00 02 1d fa cb 71 bf 00 00  .t...t......q...
+.  0020:  de 01 00 00 00 00 00 00 00 a7 07 00 00 00 00 00  ................
+
+210495474375938 0xbb0 [0x30]: PERF_RECORD_SAMPLE(IP, 0x2): 226313/226313: 0x7a93286aa4d7 period: 501504 addr: 0
+ ... thread: exec02:226313
+ ...... dso: /nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6
+          exec02  226313 210495.474375:     501504 cycles:u:      7a93286aa4d7 unlink_chunk.isra.0+0x27 (/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6)
+
+0xbe0@/data/repos/behavior-ir-project/docs/research/core-final-investigation-20261031/pmu/raw-00080.perf.data [0x30]: event: 9
+.
+. ... raw event: size 48 bytes
+.  0000:  09 00 00 00 02 00 30 00 f4 a6 6a 28 93 7a 00 00  ......0...j(.z..
+.  0010:  09 74 03 00 09 74 03 00 95 30 fd cb 71 bf 00 00  .t...t...0..q...
+.  0020:  de 01 00 00 00 00 00 00 67 a9 07 00 00 00 00 00  ........g.......
+
+210495474577557 0xbe0 [0x30]: PERF_RECORD_SAMPLE(IP, 0x2): 226313/226313: 0x7a93286aa6f4 period: 502119 addr: 0
+ ... thread: exec02:226313
+ ...... dso: /nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6
+          exec02  226313 210495.474577:     502119 cycles:u:      7a93286aa6f4 malloc_consolidate+0x154 (/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6)
+
+0xc10@/data/repos/behavior-ir-project/docs/research/core-final-investigation-20261031/pmu/raw-00080.perf.data [0x30]: event: 9
+.
+. ... raw event: size 48 bytes
+.  0000:  09 00 00 00 02 00 30 00 d7 a4 6a 28 93 7a 00 00  ......0...j(.z..
+.  0010:  09 74 03 00 09 74 03 00 43 82 01 cc 71 bf 00 00  .t...t..C...q...
+.  0020:  de 01 00 00 00 00 00 00 2b 60 0a 00 00 00 00 00  ........+`......
+
+210495474860611 0xc10 [0x30]: PERF_RECORD_SAMPLE(IP, 0x2): 226313/226313: 0x7a93286aa4d7 period: 679979 addr: 0
+ ... thread: exec02:226313
+ ...... dso: /nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6
+          exec02  226313 210495.474860:     679979 cycles:u:      7a93286aa4d7 unlink_chunk.isra.0+0x27 (/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6)
+
+0xc40@/data/repos/behavior-ir-project/docs/research/core-final-investigation-20261031/pmu/raw-00080.perf.data [0x30]: event: 9
+.
+. ... raw event: size 48 bytes
+.  0000:  09 00 00 00 02 00 30 00 c8 a6 6a 28 93 7a 00 00  ......0...j(.z..
+.  0010:  09 74 03 00 09 74 03 00 bd d7 07 cc 71 bf 00 00  .t...t......q...
+.  0020:  de 01 00 00 00 00 00 00 f4 86 0f 00 00 00 00 00  ................
+
+210495475275709 0xc40 [0x30]: PERF_RECORD_SAMPLE(IP, 0x2): 226313/226313: 0x7a93286aa6c8 period: 1017588 addr: 0
+ ... thread: exec02:226313
+ ...... dso: /nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6
+          exec02  226313 210495.475275:    1017588 cycles:u:      7a93286aa6c8 malloc_consolidate+0x128 (/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6)
+
+0xc70@/data/repos/behavior-ir-project/docs/research/core-final-investigation-20261031/pmu/raw-00080.perf.data [0x30]: event: 9
+.
+. ... raw event: size 48 bytes
+.  0000:  09 00 00 00 02 00 30 00 65 a6 6a 28 93 7a 00 00  ......0.e.j(.z..
+.  0010:  09 74 03 00 09 74 03 00 a3 3e 11 cc 71 bf 00 00  .t...t...>..q...
+.  0020:  de 01 00 00 00 00 00 00 a7 98 16 00 00 00 00 00  ................
+
+210495475891875 0xc70 [0x30]: PERF_RECORD_SAMPLE(IP, 0x2): 226313/226313: 0x7a93286aa665 period: 1480871 addr: 0
+ ... thread: exec02:226313
+ ...... dso: /nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6
+          exec02  226313 210495.475891:    1480871 cycles:u:      7a93286aa665 malloc_consolidate+0xc5 (/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6)
+
+0xca0@/data/repos/behavior-ir-project/docs/research/core-final-investigation-20261031/pmu/raw-00080.perf.data [0x30]: event: 9
+.
+. ... raw event: size 48 bytes
+.  0000:  09 00 00 00 02 00 30 00 b0 a4 6a 28 93 7a 00 00  ......0...j(.z..
+.  0010:  09 74 03 00 09 74 03 00 ef d8 1b cc 71 bf 00 00  .t...t......q...
+.  0020:  de 01 00 00 00 00 00 00 bc 98 1a 00 00 00 00 00  ................
+
+210495476586735 0xca0 [0x30]: PERF_RECORD_SAMPLE(IP, 0x2): 226313/226313: 0x7a93286aa4b0 period: 1743036 addr: 0
+ ... thread: exec02:226313
+ ...... dso: /nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6
+          exec02  226313 210495.476586:    1743036 cycles:u:      7a93286aa4b0 unlink_chunk.isra.0+0x0 (/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6)
+
+0xcd0@/data/repos/behavior-ir-project/docs/research/core-final-investigation-20261031/pmu/raw-00080.perf.data [0x30]: event: 9
+.
+. ... raw event: size 48 bytes
+.  0000:  09 00 00 00 02 00 30 00 d7 a4 6a 28 93 7a 00 00  ......0...j(.z..
+.  0010:  09 74 03 00 09 74 03 00 a0 b3 27 cc 71 bf 00 00  .t...t....'.q...
+.  0020:  de 01 00 00 00 00 00 00 98 9e 1d 00 00 00 00 00  ................
+
+210495477363616 0xcd0 [0x30]: PERF_RECORD_SAMPLE(IP, 0x2): 226313/226313: 0x7a93286aa4d7 period: 1941144 addr: 0
+ ... thread: exec02:226313
+ ...... dso: /nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6
+          exec02  226313 210495.477363:    1941144 cycles:u:      7a93286aa4d7 unlink_chunk.isra.0+0x27 (/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6)
+
+0xd00@/data/repos/behavior-ir-project/docs/research/core-final-investigation-20261031/pmu/raw-00080.perf.data [0x30]: event: 9
+.
+. ... raw event: size 48 bytes
+.  0000:  09 00 00 00 02 00 30 00 f9 ca 6a 28 93 7a 00 00  ......0...j(.z..
+.  0010:  09 74 03 00 09 74 03 00 8f ed 34 cc 71 bf 00 00  .t...t....4.q...
+.  0020:  de 01 00 00 00 00 00 00 ed 39 20 00 00 00 00 00  .........9 .....
+
+210495478230415 0xd00 [0x30]: PERF_RECORD_SAMPLE(IP, 0x2): 226313/226313: 0x7a93286acaf9 period: 2111981 addr: 0
+ ... thread: exec02:226313
+ ...... dso: /nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6
+          exec02  226313 210495.478230:    2111981 cycles:u:      7a93286acaf9 _int_malloc+0x2c9 (/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6)

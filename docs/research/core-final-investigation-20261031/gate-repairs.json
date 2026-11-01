@@ -1,0 +1,6 @@
+{
+  "attempt1": "Full clippy found duplicate_mod in prior materialization controls and missing fixture expect_used allowance.",
+  "fix": "Share one test-only command model at Core root, following existing unit-test fixture allowances; use aliases from prepared/materialization tests. No fixture-body or runtime behavior change.",
+  "attempt2": "The shared test fixture was also used by the earlier replay_materialization integration test. Move expect_used allowance to the test-only fixture itself; remove redundant root allowance. Fixture function bodies and runtime behavior unchanged.",
+  "attempt3": "Full Store lib-test clippy found the new hash tests and existing research031 workload loading the same execution fixture. Share one test-only complete workload at Store root; both tests alias its fixture. Runtime paths unchanged."
+}

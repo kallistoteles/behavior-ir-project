@@ -1,0 +1,199 @@
+{
+  "status": "Complete",
+  "attempts": 224,
+  "normative_bytes_equal": true,
+  "artifacts": [
+    {
+      "path": "128-display-decode.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "128-display-typed.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "128-display-moved.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "128-display-view.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "128-vec-decode.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "128-vec-view.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "128-vec-moved.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "128-vec-typed.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "128-writer128-moved.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "128-writer128-view.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "128-writer128-decode.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "128-writer128-typed.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "128-writer-full-moved.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "128-writer-full-typed.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "128-writer-full-decode.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "128-writer-full-view.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "512-display-decode.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "512-display-view.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "512-display-moved.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "512-display-typed.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "512-writer-full-decode.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "512-writer-full-typed.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "512-writer-full-moved.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "512-writer-full-view.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "512-writer128-moved.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "512-writer128-typed.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "512-writer128-decode.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "512-writer128-view.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "512-vec-moved.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "512-vec-view.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "512-vec-decode.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "512-vec-typed.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "status": "Passed",
+  "measured_attempts": 105,
+  "stat_attempts": 70,
+  "record_attempts": 35,
+  "auxiliary_commands": 140,
+  "complete_outputs": 105,
+  "source_archives": 4,
+  "record_condition": {
+    "legacy_gap_reproduced": true,
+    "v2_gap_reproduced": true,
+    "collect_record": true
+  }
+}

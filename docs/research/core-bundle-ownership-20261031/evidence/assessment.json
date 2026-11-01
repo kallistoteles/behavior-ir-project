@@ -1,0 +1,93 @@
+{
+  "status": "Complete",
+  "samples": 56,
+  "full_samples": 6,
+  "successful_attempts": 62,
+  "normative_bytes_equal": true,
+  "artifacts": [
+    {
+      "path": "baseline-128.record.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "moved-128.record.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "moved-512.record.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "baseline-512.record.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "baseline-2048.record.json.gz",
+      "sha256": "32627e99b6f4c4c268836ed9adec5c74eecc4c3847597c44ef125fe228c740f6",
+      "bytes": 1019335,
+      "gzip_bytes": 26214
+    },
+    {
+      "path": "moved-2048.record.json.gz",
+      "sha256": "32627e99b6f4c4c268836ed9adec5c74eecc4c3847597c44ef125fe228c740f6",
+      "bytes": 1019335,
+      "gzip_bytes": 26214
+    },
+    {
+      "path": "moved-8192.record.json.gz",
+      "sha256": "3d12595e689ebbc01d587eabe533d0583ff8f22eb9fee4a61fda1a94f985d878",
+      "bytes": 4085191,
+      "gzip_bytes": 94113
+    },
+    {
+      "path": "baseline-8192.record.json.gz",
+      "sha256": "3d12595e689ebbc01d587eabe533d0583ff8f22eb9fee4a61fda1a94f985d878",
+      "bytes": 4085191,
+      "gzip_bytes": 94113
+    },
+    {
+      "path": "ordinary-baseline.json.gz",
+      "sha256": "fb71eb1e1ff6834655f175014cf77a918ee1783410592ebe3cf2c5693f891559",
+      "bytes": 63842,
+      "gzip_bytes": 4348
+    },
+    {
+      "path": "ordinary-moved.json.gz",
+      "sha256": "fb71eb1e1ff6834655f175014cf77a918ee1783410592ebe3cf2c5693f891559",
+      "bytes": 63842,
+      "gzip_bytes": 4348
+    },
+    {
+      "path": "commands-references-moved.json.gz",
+      "sha256": "7724275aea5cdf468333009409dbf45a9848d1141e0c23129a344cdbda41961c",
+      "bytes": 166153,
+      "gzip_bytes": 7728
+    },
+    {
+      "path": "commands-references-baseline.json.gz",
+      "sha256": "7724275aea5cdf468333009409dbf45a9848d1141e0c23129a344cdbda41961c",
+      "bytes": 166153,
+      "gzip_bytes": 7728
+    },
+    {
+      "path": "history-update-baseline.json.gz",
+      "sha256": "adc3ac4fed90d808130c60e6227e1ea64c537a65f3fecef4de00413411d5fdec",
+      "bytes": 150744,
+      "gzip_bytes": 7067
+    },
+    {
+      "path": "history-update-moved.json.gz",
+      "sha256": "adc3ac4fed90d808130c60e6227e1ea64c537a65f3fecef4de00413411d5fdec",
+      "bytes": 150744,
+      "gzip_bytes": 7067
+    }
+  ]
+}

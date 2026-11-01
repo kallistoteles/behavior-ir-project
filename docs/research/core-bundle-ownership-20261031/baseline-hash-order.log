@@ -1,0 +1,11 @@
+{"command": ["cargo", "test", "--locked", "--release", "-p", "behavior-store", "--features", "validation-work", "--test", "bundle_hash_order"], "utc": "2026-10-31T18:24:31.699083+00:00"}
+   Compiling behavior-store v0.16.0 (/tmp/behavior-ir-core-bundle-20261031/crates/behavior-store)
+    Finished `release` profile [optimized] target(s) in 6.45s
+     Running tests/bundle_hash_order.rs (/tmp/behavior-ir-core-continuation-20261029/target/release/deps/bundle_hash_order-9018e7d4b1c8af97)
+
+running 2 tests
+test earlier_timestamp_refusal_precedes_archive_hash_refusal ... ok
+test archive_hash_still_refuses_legacy_context_before_publication ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+

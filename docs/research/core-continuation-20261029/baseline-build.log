@@ -1,0 +1,15 @@
+{"command": ["cargo", "build", "--locked", "--release", "-p", "behavior-store", "--example", "replay_materialization_profile", "--example", "execution_evidence_bench"], "utc": "2026-10-30T18:29:06.396065+00:00"}
+   Compiling semver v1.0.28
+   Compiling syn v2.0.119
+   Compiling zeroize v1.9.0
+   Compiling signature v2.2.0
+   Compiling rustc_version v0.4.1
+   Compiling subtle v2.6.1
+   Compiling ed25519 v2.2.3
+   Compiling curve25519-dalek v4.1.3
+   Compiling behavior-core v0.16.0 (/tmp/behavior-ir-core-continuation-20261029/crates/behavior-core)
+   Compiling curve25519-dalek-derive v0.1.1
+   Compiling ed25519-dalek v2.2.0
+   Compiling behavior-verify v0.16.0 (/tmp/behavior-ir-core-continuation-20261029/crates/behavior-verify)
+   Compiling behavior-store v0.16.0 (/tmp/behavior-ir-core-continuation-20261029/crates/behavior-store)
+    Finished `release` profile [optimized] target(s) in 1m 26s

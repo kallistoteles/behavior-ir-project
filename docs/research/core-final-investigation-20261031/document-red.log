@@ -1,0 +1,49 @@
+{"command": ["cargo", "test", "--locked", "--release", "-p", "behavior-store", "--lib", "documents::hash_view_tests", "--", "--nocapture"], "utc": "2026-10-31T22:29:41.685639+00:00"}
+   Compiling behavior-core v0.16.0 (/tmp/behavior-ir-core-final-20261031/crates/behavior-core)
+   Compiling behavior-verify v0.16.0 (/tmp/behavior-ir-core-final-20261031/crates/behavior-verify)
+   Compiling behavior-store v0.16.0 (/tmp/behavior-ir-core-final-20261031/crates/behavior-store)
+    Finished `release` profile [optimized] target(s) in 1m 41s
+     Running unittests src/lib.rs (/tmp/behavior-ir-core-continuation-20261029/target/release/deps/behavior_store-f796434fff2d2144)
+
+running 7 tests
+test documents::hash_view_tests::generic_hash_of_retains_value_conversion_and_map_reduction_semantics ... ok
+
+thread 'documents::hash_view_tests::legacy_event_does_not_materialize_known_json_again' (163263) panicked at crates/behavior-store/src/documents/hash_view_tests.rs:38:5:
+assertion `left == right` failed: known document hashing must borrow large JSON inputs
+  left: 1
+ right: 0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test documents::hash_view_tests::canonical_error_order_is_over_the_whole_composed_document ... ok
+test documents::hash_view_tests::legacy_event_does_not_materialize_known_json_again ... FAILED
+
+thread 'documents::hash_view_tests::legacy_bundle_does_not_materialize_known_json_again' (163262) panicked at crates/behavior-store/src/documents/hash_view_tests.rs:38:5:
+assertion `left == right` failed: known document hashing must borrow large JSON inputs
+  left: 1
+ right: 0
+test documents::hash_view_tests::legacy_bundle_does_not_materialize_known_json_again ... FAILED
+
+thread 'documents::hash_view_tests::v2_event_does_not_materialize_known_json_again' (163266) panicked at crates/behavior-store/src/documents/hash_view_tests.rs:38:5:
+assertion `left == right` failed: known document hashing must borrow large JSON inputs
+  left: 3
+ right: 0
+test documents::hash_view_tests::v2_event_does_not_materialize_known_json_again ... FAILED
+
+thread 'documents::hash_view_tests::v2_bundle_does_not_materialize_known_json_again' (163265) panicked at crates/behavior-store/src/documents/hash_view_tests.rs:38:5:
+assertion `left == right` failed: known document hashing must borrow large JSON inputs
+  left: 2
+ right: 0
+test documents::hash_view_tests::v2_bundle_does_not_materialize_known_json_again ... FAILED
+typed-document differential cases=176
+test documents::hash_view_tests::typed_hashes_match_frozen_methods_for_field_mutations_and_omissions ... ok
+
+failures:
+
+failures:
+    documents::hash_view_tests::legacy_bundle_does_not_materialize_known_json_again
+    documents::hash_view_tests::legacy_event_does_not_materialize_known_json_again
+    documents::hash_view_tests::v2_bundle_does_not_materialize_known_json_again
+    documents::hash_view_tests::v2_event_does_not_materialize_known_json_again
+
+test result: FAILED. 3 passed; 4 failed; 0 ignored; 0 measured; 92 filtered out; finished in 0.22s
+
+error: test failed, to rerun pass `-p behavior-store --lib`

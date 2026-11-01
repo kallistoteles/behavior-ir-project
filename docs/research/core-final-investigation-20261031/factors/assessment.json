@@ -1,0 +1,487 @@
+{
+  "status": "Complete",
+  "attempts": 560,
+  "normative_bytes_equal": true,
+  "artifacts": [
+    {
+      "path": "n128-c0-display-sham-decode.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "n128-c0-display-sham-typed.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "n128-c0-display-sham-view.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "n128-c0-display-touch-decode.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "n128-c0-display-touch-view.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "n128-c0-display-touch-typed.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "n128-c0-display128-sham-decode.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "n128-c0-display128-sham-view.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "n128-c0-display128-sham-typed.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "n128-c0-display128-touch-view.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "n128-c0-display128-touch-decode.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "n128-c0-display128-touch-typed.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "n128-c0-display-full-sham-view.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "n128-c0-display-full-sham-decode.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "n128-c0-display-full-sham-typed.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "n128-c0-display-full-touch-view.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "n128-c0-display-full-touch-typed.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "n128-c0-display-full-touch-decode.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "n128-c0-writer-full-sham-view.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "n128-c0-writer-full-sham-typed.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "n128-c0-writer-full-sham-decode.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "n128-c0-writer-full-touch-typed.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "n128-c0-writer-full-touch-view.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "n128-c0-writer-full-touch-decode.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "n512-c0-display-sham-decode.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "n512-c0-display-sham-view.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "n512-c0-display-sham-typed.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "n512-c0-display-touch-view.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "n512-c0-display-touch-decode.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "n512-c0-display-touch-typed.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "n512-c0-writer-full-sham-typed.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "n512-c0-writer-full-sham-view.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "n512-c0-writer-full-sham-decode.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "n512-c0-writer-full-touch-typed.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "n512-c0-writer-full-touch-decode.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "n512-c0-writer-full-touch-view.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "n512-c0-display-full-sham-view.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "n512-c0-display-full-sham-typed.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "n512-c0-display-full-sham-decode.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "n512-c0-display-full-touch-typed.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "n512-c0-display-full-touch-view.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "n512-c0-display-full-touch-decode.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "n512-c0-display128-sham-view.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "n512-c0-display128-sham-decode.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "n512-c0-display128-sham-typed.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "n512-c0-display128-touch-view.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "n512-c0-display128-touch-typed.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "n512-c0-display128-touch-decode.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "n128-c2-display-full-sham-original.json.gz",
+      "sha256": "c996820d87cbee2c4d1af21cf2197c82e40c9cfd80f95a1e78397d60d8532d45",
+      "bytes": 66414,
+      "gzip_bytes": 3023
+    },
+    {
+      "path": "n128-c2-display-full-sham-view.json.gz",
+      "sha256": "c996820d87cbee2c4d1af21cf2197c82e40c9cfd80f95a1e78397d60d8532d45",
+      "bytes": 66414,
+      "gzip_bytes": 3023
+    },
+    {
+      "path": "n128-c2-display-full-touch-original.json.gz",
+      "sha256": "c996820d87cbee2c4d1af21cf2197c82e40c9cfd80f95a1e78397d60d8532d45",
+      "bytes": 66414,
+      "gzip_bytes": 3023
+    },
+    {
+      "path": "n128-c2-display-full-touch-view.json.gz",
+      "sha256": "c996820d87cbee2c4d1af21cf2197c82e40c9cfd80f95a1e78397d60d8532d45",
+      "bytes": 66414,
+      "gzip_bytes": 3023
+    },
+    {
+      "path": "n128-c2-writer-full-sham-original.json.gz",
+      "sha256": "c996820d87cbee2c4d1af21cf2197c82e40c9cfd80f95a1e78397d60d8532d45",
+      "bytes": 66414,
+      "gzip_bytes": 3023
+    },
+    {
+      "path": "n128-c2-writer-full-sham-view.json.gz",
+      "sha256": "c996820d87cbee2c4d1af21cf2197c82e40c9cfd80f95a1e78397d60d8532d45",
+      "bytes": 66414,
+      "gzip_bytes": 3023
+    },
+    {
+      "path": "n128-c2-writer-full-touch-original.json.gz",
+      "sha256": "c996820d87cbee2c4d1af21cf2197c82e40c9cfd80f95a1e78397d60d8532d45",
+      "bytes": 66414,
+      "gzip_bytes": 3023
+    },
+    {
+      "path": "n128-c2-writer-full-touch-view.json.gz",
+      "sha256": "c996820d87cbee2c4d1af21cf2197c82e40c9cfd80f95a1e78397d60d8532d45",
+      "bytes": 66414,
+      "gzip_bytes": 3023
+    },
+    {
+      "path": "n128-c2-display-sham-original.json.gz",
+      "sha256": "c996820d87cbee2c4d1af21cf2197c82e40c9cfd80f95a1e78397d60d8532d45",
+      "bytes": 66414,
+      "gzip_bytes": 3023
+    },
+    {
+      "path": "n128-c2-display-sham-view.json.gz",
+      "sha256": "c996820d87cbee2c4d1af21cf2197c82e40c9cfd80f95a1e78397d60d8532d45",
+      "bytes": 66414,
+      "gzip_bytes": 3023
+    },
+    {
+      "path": "n128-c2-display-touch-original.json.gz",
+      "sha256": "c996820d87cbee2c4d1af21cf2197c82e40c9cfd80f95a1e78397d60d8532d45",
+      "bytes": 66414,
+      "gzip_bytes": 3023
+    },
+    {
+      "path": "n128-c2-display-touch-view.json.gz",
+      "sha256": "c996820d87cbee2c4d1af21cf2197c82e40c9cfd80f95a1e78397d60d8532d45",
+      "bytes": 66414,
+      "gzip_bytes": 3023
+    },
+    {
+      "path": "n128-c2-display128-sham-original.json.gz",
+      "sha256": "c996820d87cbee2c4d1af21cf2197c82e40c9cfd80f95a1e78397d60d8532d45",
+      "bytes": 66414,
+      "gzip_bytes": 3023
+    },
+    {
+      "path": "n128-c2-display128-sham-view.json.gz",
+      "sha256": "c996820d87cbee2c4d1af21cf2197c82e40c9cfd80f95a1e78397d60d8532d45",
+      "bytes": 66414,
+      "gzip_bytes": 3023
+    },
+    {
+      "path": "n128-c2-display128-touch-original.json.gz",
+      "sha256": "c996820d87cbee2c4d1af21cf2197c82e40c9cfd80f95a1e78397d60d8532d45",
+      "bytes": 66414,
+      "gzip_bytes": 3023
+    },
+    {
+      "path": "n128-c2-display128-touch-view.json.gz",
+      "sha256": "c996820d87cbee2c4d1af21cf2197c82e40c9cfd80f95a1e78397d60d8532d45",
+      "bytes": 66414,
+      "gzip_bytes": 3023
+    },
+    {
+      "path": "n512-c2-display-full-sham-original.json.gz",
+      "sha256": "f3c1f7510817087e4b2628446c137c5f07398785eab2cf2cbec4645c71004a15",
+      "bytes": 256494,
+      "gzip_bytes": 7834
+    },
+    {
+      "path": "n512-c2-display-full-sham-view.json.gz",
+      "sha256": "f3c1f7510817087e4b2628446c137c5f07398785eab2cf2cbec4645c71004a15",
+      "bytes": 256494,
+      "gzip_bytes": 7834
+    },
+    {
+      "path": "n512-c2-display-full-touch-original.json.gz",
+      "sha256": "f3c1f7510817087e4b2628446c137c5f07398785eab2cf2cbec4645c71004a15",
+      "bytes": 256494,
+      "gzip_bytes": 7834
+    },
+    {
+      "path": "n512-c2-display-full-touch-view.json.gz",
+      "sha256": "f3c1f7510817087e4b2628446c137c5f07398785eab2cf2cbec4645c71004a15",
+      "bytes": 256494,
+      "gzip_bytes": 7834
+    },
+    {
+      "path": "n512-c2-display128-sham-original.json.gz",
+      "sha256": "f3c1f7510817087e4b2628446c137c5f07398785eab2cf2cbec4645c71004a15",
+      "bytes": 256494,
+      "gzip_bytes": 7834
+    },
+    {
+      "path": "n512-c2-display128-sham-view.json.gz",
+      "sha256": "f3c1f7510817087e4b2628446c137c5f07398785eab2cf2cbec4645c71004a15",
+      "bytes": 256494,
+      "gzip_bytes": 7834
+    },
+    {
+      "path": "n512-c2-display128-touch-original.json.gz",
+      "sha256": "f3c1f7510817087e4b2628446c137c5f07398785eab2cf2cbec4645c71004a15",
+      "bytes": 256494,
+      "gzip_bytes": 7834
+    },
+    {
+      "path": "n512-c2-display128-touch-view.json.gz",
+      "sha256": "f3c1f7510817087e4b2628446c137c5f07398785eab2cf2cbec4645c71004a15",
+      "bytes": 256494,
+      "gzip_bytes": 7834
+    },
+    {
+      "path": "n512-c2-display-sham-original.json.gz",
+      "sha256": "f3c1f7510817087e4b2628446c137c5f07398785eab2cf2cbec4645c71004a15",
+      "bytes": 256494,
+      "gzip_bytes": 7834
+    },
+    {
+      "path": "n512-c2-display-sham-view.json.gz",
+      "sha256": "f3c1f7510817087e4b2628446c137c5f07398785eab2cf2cbec4645c71004a15",
+      "bytes": 256494,
+      "gzip_bytes": 7834
+    },
+    {
+      "path": "n512-c2-display-touch-original.json.gz",
+      "sha256": "f3c1f7510817087e4b2628446c137c5f07398785eab2cf2cbec4645c71004a15",
+      "bytes": 256494,
+      "gzip_bytes": 7834
+    },
+    {
+      "path": "n512-c2-display-touch-view.json.gz",
+      "sha256": "f3c1f7510817087e4b2628446c137c5f07398785eab2cf2cbec4645c71004a15",
+      "bytes": 256494,
+      "gzip_bytes": 7834
+    },
+    {
+      "path": "n512-c2-writer-full-sham-original.json.gz",
+      "sha256": "f3c1f7510817087e4b2628446c137c5f07398785eab2cf2cbec4645c71004a15",
+      "bytes": 256494,
+      "gzip_bytes": 7834
+    },
+    {
+      "path": "n512-c2-writer-full-sham-view.json.gz",
+      "sha256": "f3c1f7510817087e4b2628446c137c5f07398785eab2cf2cbec4645c71004a15",
+      "bytes": 256494,
+      "gzip_bytes": 7834
+    },
+    {
+      "path": "n512-c2-writer-full-touch-original.json.gz",
+      "sha256": "f3c1f7510817087e4b2628446c137c5f07398785eab2cf2cbec4645c71004a15",
+      "bytes": 256494,
+      "gzip_bytes": 7834
+    },
+    {
+      "path": "n512-c2-writer-full-touch-view.json.gz",
+      "sha256": "f3c1f7510817087e4b2628446c137c5f07398785eab2cf2cbec4645c71004a15",
+      "bytes": 256494,
+      "gzip_bytes": 7834
+    }
+  ]
+}

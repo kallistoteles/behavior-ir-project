@@ -1,0 +1,3 @@
+{"command": ["cargo", "build", "--locked", "--release", "-p", "behavior-store", "--example", "serialization_history_probe"], "utc": "2026-10-31T12:17:44.349351+00:00"}
+   Compiling behavior-store v0.16.0 (/tmp/behavior-ir-core-profile-20261031/crates/behavior-store)
+    Finished `release` profile [optimized] target(s) in 6.20s

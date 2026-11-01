@@ -1,0 +1,40 @@
+{"command": ["cargo", "test", "--locked", "--release", "-p", "behavior-core", "--lib", "typed_materialization_tests", "--", "--nocapture"], "utc": "2026-10-31T10:23:24.471943+00:00"}
+   Compiling behavior-core v0.16.0 (/tmp/behavior-ir-core-continuation-20261029/crates/behavior-core)
+    Finished `release` profile [optimized] target(s) in 44.02s
+     Running unittests src/lib.rs (target/release/deps/behavior_core-6865ee59b065067b)
+
+running 5 tests
+
+thread 'record::typed_materialization_tests::current_object_record_reuses_its_common_typed_fields' (101732) panicked at crates/behavior-core/src/record/typed_materialization_tests.rs:63:50:
+called `Result::unwrap()` on an `Err` value: AdmissionResult { ok: false, behavior_version: None, errors: [AdmissionError { code: "DECODE_ERROR", message: "at $.actions[0].preconditions[0]: missing key `expr`", loc: None, related_locs: [] }], evaluation_order: [], items: {} }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'record::typed_materialization_tests::sequence_forms_and_compound_errors_keep_their_original_order' (101734) panicked at crates/behavior-core/src/record/typed_materialization_tests.rs:63:50:
+called `Result::unwrap()` on an `Err` value: AdmissionResult { ok: false, behavior_version: None, errors: [AdmissionError { code: "DECODE_ERROR", message: "at $.actions[0].preconditions[0]: missing key `expr`", loc: None, related_locs: [] }], evaluation_order: [], items: {} }
+
+thread 'record::typed_materialization_tests::typed_trace_conversion_needs_a_sequence_fallback' (101735) panicked at crates/behavior-core/src/record/typed_materialization_tests.rs:63:50:
+called `Result::unwrap()` on an `Err` value: AdmissionResult { ok: false, behavior_version: None, errors: [AdmissionError { code: "DECODE_ERROR", message: "at $.actions[0].preconditions[0]: missing key `expr`", loc: None, related_locs: [] }], evaluation_order: [], items: {} }
+
+thread 'record::typed_materialization_tests::all_seed_records_remain_valid_with_exact_command_bags' (101731) panicked at crates/behavior-core/src/record/typed_materialization_tests.rs:63:50:
+called `Result::unwrap()` on an `Err` value: AdmissionResult { ok: false, behavior_version: None, errors: [AdmissionError { code: "DECODE_ERROR", message: "at $.actions[0].preconditions[0]: missing key `expr`", loc: None, related_locs: [] }], evaluation_order: [], items: {} }
+
+thread 'record::typed_materialization_tests::public_constructor_matches_frozen_errors_over_field_mutations' (101733) panicked at crates/behavior-core/src/record/typed_materialization_tests.rs:63:50:
+called `Result::unwrap()` on an `Err` value: AdmissionResult { ok: false, behavior_version: None, errors: [AdmissionError { code: "DECODE_ERROR", message: "at $.actions[0].preconditions[0]: missing key `expr`", loc: None, related_locs: [] }], evaluation_order: [], items: {} }
+test record::typed_materialization_tests::current_object_record_reuses_its_common_typed_fields ... FAILED
+test record::typed_materialization_tests::sequence_forms_and_compound_errors_keep_their_original_order ... FAILED
+test record::typed_materialization_tests::all_seed_records_remain_valid_with_exact_command_bags ... FAILED
+test record::typed_materialization_tests::typed_trace_conversion_needs_a_sequence_fallback ... FAILED
+test record::typed_materialization_tests::public_constructor_matches_frozen_errors_over_field_mutations ... FAILED
+
+failures:
+
+failures:
+    record::typed_materialization_tests::all_seed_records_remain_valid_with_exact_command_bags
+    record::typed_materialization_tests::current_object_record_reuses_its_common_typed_fields
+    record::typed_materialization_tests::public_constructor_matches_frozen_errors_over_field_mutations
+    record::typed_materialization_tests::sequence_forms_and_compound_errors_keep_their_original_order
+    record::typed_materialization_tests::typed_trace_conversion_needs_a_sequence_fallback
+
+test result: FAILED. 0 passed; 5 failed; 0 ignored; 0 measured; 39 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p behavior-core --lib`

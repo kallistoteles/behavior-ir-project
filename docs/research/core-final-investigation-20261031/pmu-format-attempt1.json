@@ -1,0 +1,7 @@
+{
+  "utc": "2026-11-01T00:49:19.169439+00:00",
+  "status": "Failed before any diagnostic compilation or measurement",
+  "command": "rustfmt --edition 2024 allocation_pmu_probe.rs",
+  "reason": "Formatting the staging copy tried to resolve the example-relative fixture path outside a Core checkout.",
+  "resolution": "Use skip_children=true to format only the staging source. Existing binary directory was empty and is checked empty on retry."
+}

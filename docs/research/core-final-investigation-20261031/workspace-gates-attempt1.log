@@ -1,0 +1,24 @@
+{"command": ["scripts/gates.sh"], "utc": "2026-10-31T23:10:54.350198+00:00"}
+gates: cargo fmt
+gates: clippy
+error: file is loaded as a module multiple times: `crates/behavior-core/src/eval/../../tests/support/commands.rs`
+  |
+  = help: replace all but one `mod` item with `use` items
+  = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#duplicate_mod
+  = note: `-D clippy::duplicate-mod` implied by `-D warnings`
+  = help: to override `-D warnings` add `#[allow(clippy::duplicate_mod)]`
+
+error: used `expect()` on an `Option` value
+   --> crates/behavior-core/src/record/../../tests/support/commands.rs:110:5
+    |
+110 | /     w["actions"][0]["command_effects"]
+111 | |         .as_array_mut()
+112 | |         .expect("fixture has an emission bag")
+    | |______________________________________________^
+    |
+    = note: if this value is `None`, it will panic
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#expect_used
+    = note: requested on the command line with `-D clippy::expect-used`
+
+error: could not compile `behavior-core` (lib test) due to 2 previous errors
+gates: FAILED clippy

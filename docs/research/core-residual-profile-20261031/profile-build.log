@@ -1,0 +1,7 @@
+{"command": ["cargo", "build", "--locked", "--release", "-p", "behavior-store", "--features", "validation-work", "--example", "residual_phase_profile"], "utc": "2026-10-31T12:27:16.295794+00:00"}
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on build directory
+   Compiling behavior-store v0.16.0 (/tmp/behavior-ir-core-profile-20261031/crates/behavior-store)
+    Finished `release` profile [optimized] target(s) in 2m 16s

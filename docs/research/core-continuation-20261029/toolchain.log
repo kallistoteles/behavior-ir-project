@@ -1,0 +1,8 @@
+{"command": ["rustc", "-vV"], "utc": "2026-10-30T18:38:17.051622+00:00"}
+rustc 1.98.1 (48a229cea 2026-09-01)
+binary: rustc
+commit-hash: 48a229ceaefd4985c50990b14116b6d856af0985
+commit-date: 2026-09-01
+host: x86_64-unknown-linux-gnu
+release: 1.98.1
+LLVM version: 22.1.8

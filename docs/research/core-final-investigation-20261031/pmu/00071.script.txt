@@ -1,0 +1,8 @@
+    501504      7461d46aa60a malloc_consolidate (/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6)
+    501504      7461d46aa61a malloc_consolidate (/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6)
+    501504      7461d46aa6f4 malloc_consolidate (/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6)
+    724519      7461d46aa4d7 unlink_chunk.isra.0 (/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6)
+   1021199      7461d46aa684 malloc_consolidate (/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6)
+   1356749      7461d46aa720 malloc_consolidate (/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6)
+   1740066      7461d46aa4d7 unlink_chunk.isra.0 (/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6)
+   1936693      7461d46aa660 malloc_consolidate (/nix/store/lm3pknxi0ipypy3lxh1wmm8wvvavdwrn-glibc-2.42-84/lib/libc.so.6)

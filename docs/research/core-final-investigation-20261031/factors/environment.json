@@ -1,0 +1,21 @@
+{
+  "utc": "2026-11-01T00:43:56.802098+00:00",
+  "factor_precollection_sha256": "f38c4436495028113afa67c06ac3c573d095d4365ffdb4b5461bf97dd0e9bf0c",
+  "primary_precollection_sha256": "9ecdadc9822f2e2908274f815858083fb39d0f30722e033d9f488813bbadb43f",
+  "child_cpu": 7,
+  "address_space_limit_bytes": 8589934592,
+  "timeout_seconds": 180,
+  "declared_attempts": 560,
+  "binaries": {
+    "original": "cfab52cfbf6322e0641c5da8024f80c5de5e0bd704a96d10a8d43ffb95ee915a",
+    "decode": "2df5400f1acca0562ed7439271206939163990f4165237d3afcb62cfa2a9ad80",
+    "typed": "c719c466642eef80ca3dffcbe69ac406bc1049fee1e52827f499f8d501787b50",
+    "view": "b2448cec84779f5c5b405130e6dbc38fcbfb33738e7f642d0a475862e114904f"
+  },
+  "inputs": {
+    "n128-c0": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+    "n512-c0": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+    "n128-c2": "c996820d87cbee2c4d1af21cf2197c82e40c9cfd80f95a1e78397d60d8532d45",
+    "n512-c2": "f3c1f7510817087e4b2628446c137c5f07398785eab2cf2cbec4645c71004a15"
+  }
+}

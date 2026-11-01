@@ -1,0 +1,11 @@
+test_counter_receipts_require_both_events_and_running_time (pmu_controls.PmuControls.test_counter_receipts_require_both_events_and_running_time) ... ok
+test_exact_matrix_and_arm_position_coverage (pmu_controls.PmuControls.test_exact_matrix_and_arm_position_coverage) ... ok
+test_nonzero_exit_retains_available_output (pmu_controls.PmuControls.test_nonzero_exit_retains_available_output) ... ok
+test_sample_parser_preserves_spaced_symbols_unknowns_and_zero_weights (pmu_controls.PmuControls.test_sample_parser_preserves_spaced_symbols_unknowns_and_zero_weights) ... ok
+test_sampling_requires_both_diagnostic_gaps (pmu_controls.PmuControls.test_sampling_requires_both_diagnostic_gaps) ... ok
+test_timeout_kills_process_group_and_retains_partial_streams (pmu_controls.PmuControls.test_timeout_kills_process_group_and_retains_partial_streams) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.008s
+
+OK

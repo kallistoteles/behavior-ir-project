@@ -1,0 +1,2 @@
+{"command": ["python", "allocation_pmu.py", "collect"], "utc": "2026-11-01T01:01:21.681943+00:00"}
+{"legacy_gap_reproduced": true, "v2_gap_reproduced": true, "collect_record": true}

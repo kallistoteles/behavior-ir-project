@@ -1,0 +1,22 @@
+{
+  "store-tests.log": {
+    "passed": 671,
+    "failed": 0,
+    "ignored": 24
+  },
+  "baseline-hash-order.log": {
+    "passed": 2,
+    "failed": 0,
+    "ignored": 0
+  },
+  "red.log": {
+    "passed": 1,
+    "failed": 2,
+    "ignored": 0
+  },
+  "collector_tests": 8,
+  "targeted_clippy": "Passed, warnings denied",
+  "targeted_format": "Passed",
+  "normal_builds": "Both passed",
+  "research_example_feature_failure": "Retained in baseline-store-tests.log; corrected to --lib --tests"
+}

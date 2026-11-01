@@ -1,0 +1,6 @@
+{
+  "status": "Passed",
+  "original_reference_controls": 6,
+  "expected_wrong_oracle_failures": 2,
+  "frozen_oracles": 12
+}

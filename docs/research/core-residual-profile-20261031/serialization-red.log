@@ -1,0 +1,35 @@
+{"command": ["cargo", "test", "--locked", "--release", "-p", "behavior-store", "--example", "serialization_history_probe"], "utc": "2026-10-31T12:13:04.704423+00:00"}
+    Blocking waiting for file lock on build directory
+   Compiling behavior-core v0.16.0 (/tmp/behavior-ir-core-profile-20261031/crates/behavior-core)
+   Compiling behavior-verify v0.16.0 (/tmp/behavior-ir-core-profile-20261031/crates/behavior-verify)
+   Compiling behavior-store v0.16.0 (/tmp/behavior-ir-core-profile-20261031/crates/behavior-store)
+    Finished `release` profile [optimized] target(s) in 1m 53s
+     Running unittests examples/serialization_history_probe.rs (/tmp/behavior-ir-core-continuation-20261029/target/release/examples/serialization_history_probe-40f46316df32fb58)
+
+running 2 tests
+test tests::order_controls_have_distinct_declared_prefixes ... FAILED
+test tests::every_schedule_keeps_first_original_and_eight_calls_per_object ... FAILED
+
+failures:
+
+---- tests::order_controls_have_distinct_declared_prefixes stdout ----
+
+thread 'tests::order_controls_have_distinct_declared_prefixes' (116313) panicked at crates/behavior-store/examples/serialization_history_probe.rs:26:46:
+range end index 3 out of range for slice of length 0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- tests::every_schedule_keeps_first_original_and_eight_calls_per_object stdout ----
+
+thread 'tests::every_schedule_keeps_first_original_and_eight_calls_per_object' (116312) panicked at crates/behavior-store/examples/serialization_history_probe.rs:17:13:
+assertion `left == right` failed
+  left: 0
+ right: 16
+
+
+failures:
+    tests::every_schedule_keeps_first_original_and_eight_calls_per_object
+    tests::order_controls_have_distinct_declared_prefixes
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p behavior-store --example serialization_history_probe`

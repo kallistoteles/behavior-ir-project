@@ -1,0 +1,16 @@
+{"command": ["cargo", "test", "--locked", "--release", "-p", "behavior-core", "--lib", "canonical::hash_stream_tests"], "utc": "2026-10-31T22:42:19.370020+00:00"}
+   Compiling behavior-core v0.16.0 (/tmp/behavior-ir-core-final-20261031/crates/behavior-core)
+    Finished `release` profile [optimized] target(s) in 45.27s
+     Running unittests src/lib.rs (/tmp/behavior-ir-core-continuation-20261029/target/release/deps/behavior_core-6865ee59b065067b)
+
+running 7 tests
+test canonical::hash_stream_tests::canonical_string_contract_remains_compact_ordered_utf8 ... ok
+test canonical::hash_stream_tests::full_value_errors_precede_top_level_hash_exclusion ... ok
+test canonical::hash_stream_tests::composed_view_matches_materialized_objects_and_exact_float_paths ... ok
+test canonical::hash_stream_tests::owned_root_views_match_borrowed_roots_and_keep_nested_hashes ... ok
+test canonical::hash_stream_tests::composed_view_hash_does_not_materialize_canonical_text ... ok
+test canonical::hash_stream_tests::tagged_hash_does_not_materialize_a_canonical_output_string ... ok
+test canonical::hash_stream_tests::scalar_nested_and_large_documents_match_frozen_hashing ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 47 filtered out; finished in 0.01s
+

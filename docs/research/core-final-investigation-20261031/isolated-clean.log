@@ -1,0 +1,2 @@
+{"command": ["cargo", "clean", "--release", "-p", "behavior-core", "-p", "behavior-store", "-p", "behavior-verify", "-p", "behavior-engine", "-p", "behavior-cli"], "utc": "2026-10-31T22:54:36.061830+00:00"}
+     Removed 1145 files, 1.3GiB total

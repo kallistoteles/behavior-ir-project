@@ -1,0 +1,405 @@
+{
+  "summary": [
+    {
+      "n": 128,
+      "baseline": {
+        "evaluate_ms": 6.566569,
+        "commit_ms": 19.624784,
+        "record_serialization_ms": 1.2532050000000001,
+        "evaluate_plus_commit_ms": 26.336805000000002,
+        "evaluated_serialized_ms": 27.586734000000003,
+        "process_ms": 85.93774097971618
+      },
+      "moved": {
+        "evaluate_ms": 6.496066,
+        "commit_ms": 18.691785999999997,
+        "record_serialization_ms": 1.040751,
+        "evaluate_plus_commit_ms": 25.262441000000003,
+        "evaluated_serialized_ms": 26.295442,
+        "process_ms": 84.01803602464497
+      },
+      "moved_vs_baseline_percent": {
+        "evaluate_ms": -1.0736657149266304,
+        "commit_ms": -4.754182262592044,
+        "record_serialization_ms": -16.95285288520235,
+        "evaluate_plus_commit_ms": -4.079325491455776,
+        "evaluated_serialized_ms": -4.680844060772116,
+        "process_ms": -2.233832229223154
+      },
+      "paired_changes_percent": [
+        {
+          "repetition": 0,
+          "evaluate_ms": 13.229755373849695,
+          "commit_ms": -6.647088647763066,
+          "record_serialization_ms": -13.522528237598808,
+          "evaluate_plus_commit_ms": -1.5800849855511112,
+          "evaluated_serialized_ms": -2.1010517511613203,
+          "process_ms": -0.7408751176854245
+        },
+        {
+          "repetition": 1,
+          "evaluate_ms": -1.0210017901543411,
+          "commit_ms": -5.197317996902562,
+          "record_serialization_ms": -17.73185540021167,
+          "evaluate_plus_commit_ms": -4.150698047750023,
+          "evaluated_serialized_ms": -4.773835717146024,
+          "process_ms": -2.4500480814420023
+        },
+        {
+          "repetition": 2,
+          "evaluate_ms": -1.5290029035096797,
+          "commit_ms": -0.9437331444318353,
+          "record_serialization_ms": -13.487924051878208,
+          "evaluate_plus_commit_ms": -1.0931432824863085,
+          "evaluated_serialized_ms": -1.6578665065007603,
+          "process_ms": 0.2798248120864377
+        },
+        {
+          "repetition": 3,
+          "evaluate_ms": -1.0736657149266304,
+          "commit_ms": -7.030234742771901,
+          "record_serialization_ms": -17.809411574577428,
+          "evaluate_plus_commit_ms": -5.545080354279874,
+          "evaluated_serialized_ms": -6.10076567961978,
+          "process_ms": -1.429122192175869
+        },
+        {
+          "repetition": 4,
+          "evaluate_ms": -3.7083658403970876,
+          "commit_ms": -6.07311570662914,
+          "record_serialization_ms": -17.859269926264254,
+          "evaluate_plus_commit_ms": -5.4683484091010754,
+          "evaluated_serialized_ms": -6.025247494852815,
+          "process_ms": -1.2520799460530085
+        },
+        {
+          "repetition": 5,
+          "evaluate_ms": -0.11099247332290174,
+          "commit_ms": -1.0448904628195144,
+          "record_serialization_ms": -12.568065269232253,
+          "evaluate_plus_commit_ms": -0.8085342305457099,
+          "evaluated_serialized_ms": -1.3406071479794113,
+          "process_ms": -0.6451784363585622
+        },
+        {
+          "repetition": 6,
+          "evaluate_ms": -3.316484051216828,
+          "commit_ms": -4.241157507771787,
+          "record_serialization_ms": -17.879554691808952,
+          "evaluate_plus_commit_ms": -4.003791636061715,
+          "evaluated_serialized_ms": -4.639339753600247,
+          "process_ms": -3.854656408779933
+        }
+      ],
+      "adverse_pair_counts": {
+        "evaluate_ms": 1,
+        "commit_ms": 0,
+        "record_serialization_ms": 0,
+        "evaluate_plus_commit_ms": 0,
+        "evaluated_serialized_ms": 0,
+        "process_ms": 1
+      }
+    },
+    {
+      "n": 512,
+      "baseline": {
+        "evaluate_ms": 24.989535,
+        "commit_ms": 80.480571,
+        "record_serialization_ms": 6.250057,
+        "evaluate_plus_commit_ms": 105.4177,
+        "evaluated_serialized_ms": 111.589095,
+        "process_ms": 323.5686169937253
+      },
+      "moved": {
+        "evaluate_ms": 24.849491,
+        "commit_ms": 76.912244,
+        "record_serialization_ms": 4.241566000000001,
+        "evaluate_plus_commit_ms": 101.50115500000001,
+        "evaluated_serialized_ms": 105.74272100000002,
+        "process_ms": 318.2504220167175
+      },
+      "moved_vs_baseline_percent": {
+        "evaluate_ms": -0.5604105878720844,
+        "commit_ms": -4.433774457191653,
+        "record_serialization_ms": -32.13556292366613,
+        "evaluate_plus_commit_ms": -3.715263186352946,
+        "evaluated_serialized_ms": -5.239198328474648,
+        "process_ms": -1.6436065482552498
+      },
+      "paired_changes_percent": [
+        {
+          "repetition": 0,
+          "evaluate_ms": 12.173776332699205,
+          "commit_ms": 4.310516197483527,
+          "record_serialization_ms": -34.49351605048256,
+          "evaluate_plus_commit_ms": 6.169452528244457,
+          "evaluated_serialized_ms": 3.756610238028202,
+          "process_ms": 1.6716167776694713
+        },
+        {
+          "repetition": 1,
+          "evaluate_ms": 15.409730311682623,
+          "commit_ms": -1.394681502299755,
+          "record_serialization_ms": -2.252812583565722,
+          "evaluate_plus_commit_ms": 2.591641740592765,
+          "evaluated_serialized_ms": 2.3148970023445736,
+          "process_ms": 5.563836611097117
+        },
+        {
+          "repetition": 2,
+          "evaluate_ms": 0.11331487706116583,
+          "commit_ms": -4.835027475597975,
+          "record_serialization_ms": -32.400088511192784,
+          "evaluate_plus_commit_ms": -3.6583280714006516,
+          "evaluated_serialized_ms": -5.283303385536331,
+          "process_ms": -0.6147921128940137
+        },
+        {
+          "repetition": 3,
+          "evaluate_ms": -0.9822520443902527,
+          "commit_ms": -4.557461085622183,
+          "record_serialization_ms": -29.683042313687825,
+          "evaluate_plus_commit_ms": -3.715263186352946,
+          "evaluated_serialized_ms": -5.120733899784624,
+          "process_ms": -1.0534511840290972
+        },
+        {
+          "repetition": 4,
+          "evaluate_ms": -1.12444669338585,
+          "commit_ms": -5.00298431635704,
+          "record_serialization_ms": -24.767088163434625,
+          "evaluate_plus_commit_ms": -4.082797549021933,
+          "evaluated_serialized_ms": -5.198900266749162,
+          "process_ms": -1.679189772706502
+        },
+        {
+          "repetition": 5,
+          "evaluate_ms": -1.790565804615718,
+          "commit_ms": -2.739293987311675,
+          "record_serialization_ms": -34.33979478325042,
+          "evaluate_plus_commit_ms": -2.508713594386347,
+          "evaluated_serialized_ms": -4.34088115868313,
+          "process_ms": -1.6645884965981739
+        },
+        {
+          "repetition": 6,
+          "evaluate_ms": -0.3620719997212474,
+          "commit_ms": -5.937057777584598,
+          "record_serialization_ms": -31.53781380267744,
+          "evaluate_plus_commit_ms": -4.618157163983172,
+          "evaluated_serialized_ms": -6.109971379474899,
+          "process_ms": -2.549158595617129
+        }
+      ],
+      "adverse_pair_counts": {
+        "evaluate_ms": 3,
+        "commit_ms": 1,
+        "record_serialization_ms": 0,
+        "evaluate_plus_commit_ms": 2,
+        "evaluated_serialized_ms": 2,
+        "process_ms": 2
+      }
+    },
+    {
+      "n": 2048,
+      "baseline": {
+        "evaluate_ms": 117.741617,
+        "commit_ms": 379.484209,
+        "record_serialization_ms": 10.56969,
+        "evaluate_plus_commit_ms": 497.22582600000004,
+        "evaluated_serialized_ms": 507.78031000000004,
+        "process_ms": 1365.017419011565
+      },
+      "moved": {
+        "evaluate_ms": 117.799684,
+        "commit_ms": 378.97572,
+        "record_serialization_ms": 9.755180000000001,
+        "evaluate_plus_commit_ms": 496.77540400000004,
+        "evaluated_serialized_ms": 506.51862600000004,
+        "process_ms": 1365.104494994739
+      },
+      "moved_vs_baseline_percent": {
+        "evaluate_ms": 0.049317311482144355,
+        "commit_ms": -0.1339947718351553,
+        "record_serialization_ms": -7.706091663993919,
+        "evaluate_plus_commit_ms": -0.09058700824602361,
+        "evaluated_serialized_ms": -0.24847044581149946,
+        "process_ms": 0.006379111501542134
+      },
+      "paired_changes_percent": [
+        {
+          "repetition": 0,
+          "evaluate_ms": -4.176651546862519,
+          "commit_ms": -1.814916672978928,
+          "record_serialization_ms": -3.0644604356160454,
+          "evaluate_plus_commit_ms": -2.3818716689928854,
+          "evaluated_serialized_ms": -2.3956454097609714,
+          "process_ms": -0.9662959057893938
+        },
+        {
+          "repetition": 1,
+          "evaluate_ms": 0.6681939981128204,
+          "commit_ms": -0.9910157705414702,
+          "record_serialization_ms": -5.573224556921719,
+          "evaluate_plus_commit_ms": -0.6038815728359404,
+          "evaluated_serialized_ms": -0.7085033680862995,
+          "process_ms": -0.003756592681924964
+        },
+        {
+          "repetition": 2,
+          "evaluate_ms": 2.969985327109703,
+          "commit_ms": 0.25563632194862684,
+          "record_serialization_ms": -12.565037501036224,
+          "evaluate_plus_commit_ms": 0.8957167466829175,
+          "evaluated_serialized_ms": 0.6030560781044247,
+          "process_ms": 0.8401122534749561
+        },
+        {
+          "repetition": 3,
+          "evaluate_ms": 0.7858961553492083,
+          "commit_ms": 0.23289094086302864,
+          "record_serialization_ms": -4.49367010763797,
+          "evaluate_plus_commit_ms": 0.3634994965624694,
+          "evaluated_serialized_ms": 0.2618680233362314,
+          "process_ms": 0.04972263345257577
+        },
+        {
+          "repetition": 4,
+          "evaluate_ms": 0.96926144728815,
+          "commit_ms": 0.1489864411658992,
+          "record_serialization_ms": -9.794562489984592,
+          "evaluate_plus_commit_ms": 0.3408493697928172,
+          "evaluated_serialized_ms": 0.13088749649246,
+          "process_ms": 0.4994165165279174
+        },
+        {
+          "repetition": 5,
+          "evaluate_ms": 0.049317311482144355,
+          "commit_ms": -0.1339947718351553,
+          "record_serialization_ms": -7.686420293024265,
+          "evaluate_plus_commit_ms": -0.09058700824602361,
+          "evaluated_serialized_ms": -0.24847044581149946,
+          "process_ms": 0.006379111501542134
+        },
+        {
+          "repetition": 6,
+          "evaluate_ms": -2.835579729799109,
+          "commit_ms": 0.014950665772994753,
+          "record_serialization_ms": -7.588611224077324,
+          "evaluate_plus_commit_ms": -0.6772658048592173,
+          "evaluated_serialized_ms": -0.8194717855908085,
+          "process_ms": -0.07522676045065291
+        }
+      ],
+      "adverse_pair_counts": {
+        "evaluate_ms": 5,
+        "commit_ms": 4,
+        "record_serialization_ms": 0,
+        "evaluate_plus_commit_ms": 3,
+        "evaluated_serialized_ms": 3,
+        "process_ms": 4
+      }
+    },
+    {
+      "n": 8192,
+      "baseline": {
+        "evaluate_ms": 467.999476,
+        "commit_ms": 1571.540006,
+        "record_serialization_ms": 40.806427,
+        "evaluate_plus_commit_ms": 2058.84008,
+        "evaluated_serialized_ms": 2100.559984,
+        "process_ms": 5529.361221997533
+      },
+      "moved": {
+        "evaluate_ms": 468.164447,
+        "commit_ms": 1548.15433,
+        "record_serialization_ms": 39.236084,
+        "evaluate_plus_commit_ms": 2018.216961,
+        "evaluated_serialized_ms": 2056.9627800000003,
+        "process_ms": 5493.446704000235
+      },
+      "moved_vs_baseline_percent": {
+        "evaluate_ms": 0.03525025314343733,
+        "commit_ms": -1.4880738581719455,
+        "record_serialization_ms": -3.8482737045318904,
+        "evaluate_plus_commit_ms": -1.9731070613313473,
+        "evaluated_serialized_ms": -2.0755038814449622,
+        "process_ms": -0.6495238157785632
+      },
+      "paired_changes_percent": [
+        {
+          "repetition": 0,
+          "evaluate_ms": 1.8097658907930025,
+          "commit_ms": -1.8454006873832918,
+          "record_serialization_ms": -9.964650595030932,
+          "evaluate_plus_commit_ms": -1.0109210802650925,
+          "evaluated_serialized_ms": -1.191484042317681,
+          "process_ms": 0.3295269106875942
+        },
+        {
+          "repetition": 1,
+          "evaluate_ms": -0.7174895778872314,
+          "commit_ms": -2.8896304464802958,
+          "record_serialization_ms": -3.5849532301035714,
+          "evaluate_plus_commit_ms": -2.389631868834896,
+          "evaluated_serialized_ms": -2.4124853323882034,
+          "process_ms": -3.3637932024794703
+        },
+        {
+          "repetition": 2,
+          "evaluate_ms": 2.1537679903805174,
+          "commit_ms": -0.8240538127108343,
+          "record_serialization_ms": -5.049714350143919,
+          "evaluate_plus_commit_ms": -0.14610453481392893,
+          "evaluated_serialized_ms": -0.24314676822277947,
+          "process_ms": 1.8089600847078557
+        },
+        {
+          "repetition": 3,
+          "evaluate_ms": -1.8750048153510779,
+          "commit_ms": -2.905033968317572,
+          "record_serialization_ms": -3.1254866305822193,
+          "evaluate_plus_commit_ms": -2.6713015391001904,
+          "evaluated_serialized_ms": -2.6801587142738836,
+          "process_ms": -1.8042009071512433
+        },
+        {
+          "repetition": 4,
+          "evaluate_ms": -0.01856331995355731,
+          "commit_ms": 3.2568518608433905,
+          "record_serialization_ms": 10.925041917641988,
+          "evaluate_plus_commit_ms": 2.5119092785487185,
+          "evaluated_serialized_ms": 2.679005238062282,
+          "process_ms": 4.584804751246208
+        },
+        {
+          "repetition": 5,
+          "evaluate_ms": -6.533163419679644,
+          "commit_ms": 0.08330998764392028,
+          "record_serialization_ms": 0.7663433274326836,
+          "evaluate_plus_commit_ms": -1.5331685573305331,
+          "evaluated_serialized_ms": -1.4888597817790727,
+          "process_ms": -3.1109442147300714
+        },
+        {
+          "repetition": 6,
+          "evaluate_ms": -0.515560833662132,
+          "commit_ms": -8.807086257034612,
+          "record_serialization_ms": -10.264839158260353,
+          "evaluate_plus_commit_ms": -7.010326994776673,
+          "evaluated_serialized_ms": -7.076682050959504,
+          "process_ms": -2.7030519630673044
+        }
+      ],
+      "adverse_pair_counts": {
+        "evaluate_ms": 2,
+        "commit_ms": 2,
+        "record_serialization_ms": 2,
+        "evaluate_plus_commit_ms": 1,
+        "evaluated_serialized_ms": 1,
+        "process_ms": 3
+      }
+    }
+  ],
+  "sign_convention": "negative means moved faster; ratio of cohort medians and per-repetition paired ratios are distinct"
+}

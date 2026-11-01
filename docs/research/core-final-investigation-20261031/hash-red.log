@@ -1,0 +1,28 @@
+{"command": ["cargo", "test", "--locked", "--release", "-p", "behavior-core", "--lib", "canonical::hash_stream_tests"], "utc": "2026-10-31T22:23:31.786540+00:00"}
+   Compiling behavior-core v0.16.0 (/tmp/behavior-ir-core-final-20261031/crates/behavior-core)
+    Finished `release` profile [optimized] target(s) in 44.06s
+     Running unittests src/lib.rs (/tmp/behavior-ir-core-continuation-20261029/target/release/deps/behavior_core-6865ee59b065067b)
+
+running 4 tests
+test canonical::hash_stream_tests::full_value_errors_precede_top_level_hash_exclusion ... ok
+test canonical::hash_stream_tests::canonical_string_contract_remains_compact_ordered_utf8 ... ok
+test canonical::hash_stream_tests::tagged_hash_does_not_materialize_a_canonical_output_string ... FAILED
+test canonical::hash_stream_tests::scalar_nested_and_large_documents_match_frozen_hashing ... ok
+
+failures:
+
+---- canonical::hash_stream_tests::tagged_hash_does_not_materialize_a_canonical_output_string stdout ----
+
+thread 'canonical::hash_stream_tests::tagged_hash_does_not_materialize_a_canonical_output_string' (162563) panicked at crates/behavior-core/src/canonical/hash_stream_tests.rs:37:5:
+assertion `left == right` failed: hash should stream canonical bytes
+  left: 65566
+ right: 0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    canonical::hash_stream_tests::tagged_hash_does_not_materialize_a_canonical_output_string
+
+test result: FAILED. 3 passed; 1 failed; 0 ignored; 0 measured; 47 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p behavior-core --lib`

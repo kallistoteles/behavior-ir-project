@@ -1,0 +1,480 @@
+{
+  "status": "Complete",
+  "samples": 40,
+  "byte_equal": true,
+  "summary": [
+    {
+      "n": 128,
+      "record_bytes": 64742,
+      "baseline": {
+        "evaluate_ms": 6.343816,
+        "commit_ms": 23.122767,
+        "evaluate_plus_commit_ms": 29.48898,
+        "process_ms": 88.1576829997357
+      },
+      "candidate": {
+        "evaluate_ms": 6.341177,
+        "commit_ms": 20.613589,
+        "evaluate_plus_commit_ms": 26.951548,
+        "process_ms": 85.78019800188486
+      },
+      "commit_change_percent": -10.851547308330357,
+      "evaluate_plus_commit_change_percent": -8.604678764745344
+    },
+    {
+      "n": 512,
+      "record_bytes": 254822,
+      "baseline": {
+        "evaluate_ms": 25.83809,
+        "commit_ms": 97.476778,
+        "evaluate_plus_commit_ms": 124.017766,
+        "process_ms": 342.84642299462575
+      },
+      "candidate": {
+        "evaluate_ms": 25.355149,
+        "commit_ms": 88.07840999999999,
+        "evaluate_plus_commit_ms": 113.62063899999998,
+        "process_ms": 330.28624100552406
+      },
+      "commit_change_percent": -9.641648188248498,
+      "evaluate_plus_commit_change_percent": -8.383578688234083
+    },
+    {
+      "n": 2048,
+      "record_bytes": 1019335,
+      "baseline": {
+        "evaluate_ms": 111.22061900000001,
+        "commit_ms": 436.363584,
+        "evaluate_plus_commit_ms": 546.3986520000001,
+        "process_ms": 1404.651542994543
+      },
+      "candidate": {
+        "evaluate_ms": 111.832897,
+        "commit_ms": 398.67834000000005,
+        "evaluate_plus_commit_ms": 507.96683,
+        "process_ms": 1362.1882860024925
+      },
+      "commit_change_percent": -8.636202786344327,
+      "evaluate_plus_commit_change_percent": -7.033659738970233
+    },
+    {
+      "n": 8192,
+      "record_bytes": 4085191,
+      "baseline": {
+        "evaluate_ms": 455.03513899999996,
+        "commit_ms": 1870.26981,
+        "evaluate_plus_commit_ms": 2325.304949,
+        "process_ms": 5729.825508999056
+      },
+      "candidate": {
+        "evaluate_ms": 455.37606200000005,
+        "commit_ms": 1705.7571469999998,
+        "evaluate_plus_commit_ms": 2164.320332,
+        "process_ms": 5556.500083999708
+      },
+      "commit_change_percent": -8.796199463862397,
+      "evaluate_plus_commit_change_percent": -6.923161500569275
+    }
+  ],
+  "full_paths": [
+    {
+      "case": {
+        "case_id": "ordinary",
+        "n": 8,
+        "history": 0,
+        "steps": 2,
+        "batch": 1,
+        "rules": 1,
+        "padding": 0,
+        "filter_terms": 1,
+        "operation": "create",
+        "commands": 0,
+        "relations": false,
+        "global": "count"
+      },
+      "arm": "baseline",
+      "process_ms": 53.635397998732515,
+      "observation_sha256": "fb71eb1e1ff6834655f175014cf77a918ee1783410592ebe3cf2c5693f891559",
+      "result": {
+        "case_id": "ordinary",
+        "changed_identities": 2,
+        "execution_outcome": "ALLOW",
+        "final_members": 10,
+        "final_position": 2,
+        "metrics": {
+          "artifact_write_ms": 0.163345,
+          "audit_serialization_ms": 0.5277339999999999,
+          "behavior_replay_ms": 10.009016,
+          "commit_ms": 6.250837,
+          "cycle_ms": 9.526954,
+          "data_replay_ms": 3.519724,
+          "drain_ms": 1.148341,
+          "evaluate_ms": 2.0770159999999995,
+          "first_eval_ms": 1.948338,
+          "history_ms": 0.00013099999999999999,
+          "page_ms": 6.9876249999999995,
+          "read_ms": 0.625292,
+          "reference_replay_ms": 3.893176,
+          "reopen_ms": 1.578943,
+          "setup_ms": 5.193074
+        },
+        "mode": "production-like",
+        "observation_bytes": 63842,
+        "prepared_history_position": 0,
+        "process_hwm": "VmHWM:\t    9684 kB",
+        "work": {
+          "cycle": null,
+          "page": null,
+          "read": null
+        }
+      }
+    },
+    {
+      "case": {
+        "case_id": "ordinary",
+        "n": 8,
+        "history": 0,
+        "steps": 2,
+        "batch": 1,
+        "rules": 1,
+        "padding": 0,
+        "filter_terms": 1,
+        "operation": "create",
+        "commands": 0,
+        "relations": false,
+        "global": "count"
+      },
+      "arm": "candidate",
+      "process_ms": 52.22733299888205,
+      "observation_sha256": "fb71eb1e1ff6834655f175014cf77a918ee1783410592ebe3cf2c5693f891559",
+      "result": {
+        "case_id": "ordinary",
+        "changed_identities": 2,
+        "execution_outcome": "ALLOW",
+        "final_members": 10,
+        "final_position": 2,
+        "metrics": {
+          "artifact_write_ms": 0.15493700000000002,
+          "audit_serialization_ms": 0.508296,
+          "behavior_replay_ms": 9.463021,
+          "commit_ms": 6.093024000000001,
+          "cycle_ms": 9.415089,
+          "data_replay_ms": 3.532028,
+          "drain_ms": 1.1514749999999998,
+          "evaluate_ms": 2.1183810000000003,
+          "first_eval_ms": 1.9618959999999999,
+          "history_ms": 0.000129,
+          "page_ms": 6.312733,
+          "read_ms": 0.7008230000000001,
+          "reference_replay_ms": 3.832732,
+          "reopen_ms": 1.578764,
+          "setup_ms": 5.353471
+        },
+        "mode": "production-like",
+        "observation_bytes": 63842,
+        "prepared_history_position": 0,
+        "process_hwm": "VmHWM:\t    9784 kB",
+        "work": {
+          "cycle": null,
+          "page": null,
+          "read": null
+        }
+      }
+    },
+    {
+      "case": {
+        "case_id": "commands-references",
+        "n": 8,
+        "history": 2,
+        "steps": 2,
+        "batch": 1,
+        "rules": 1,
+        "padding": 0,
+        "filter_terms": 1,
+        "operation": "create",
+        "commands": 2,
+        "relations": true,
+        "global": "filtered"
+      },
+      "arm": "baseline",
+      "process_ms": 775.4499900038354,
+      "observation_sha256": "7724275aea5cdf468333009409dbf45a9848d1141e0c23129a344cdbda41961c",
+      "result": {
+        "case_id": "commands-references",
+        "changed_identities": 2,
+        "execution_outcome": "ALLOW",
+        "final_members": 10,
+        "final_position": 4,
+        "metrics": {
+          "artifact_write_ms": 0.27193999999999996,
+          "audit_serialization_ms": 1.3026330000000002,
+          "behavior_replay_ms": 159.260288,
+          "commit_ms": 57.604515,
+          "cycle_ms": 107.39839900000001,
+          "data_replay_ms": 116.927454,
+          "drain_ms": 17.582791,
+          "evaluate_ms": 32.141207,
+          "first_eval_ms": 17.592149000000003,
+          "history_ms": 57.441535,
+          "page_ms": 139.908874,
+          "read_ms": 4.356136,
+          "reference_replay_ms": 117.595612,
+          "reopen_ms": 19.075074,
+          "setup_ms": 5.689244
+        },
+        "mode": "production-like",
+        "observation_bytes": 166153,
+        "prepared_history_position": 2,
+        "process_hwm": "VmHWM:\t   12952 kB",
+        "work": {
+          "cycle": null,
+          "page": null,
+          "read": null
+        }
+      }
+    },
+    {
+      "case": {
+        "case_id": "commands-references",
+        "n": 8,
+        "history": 2,
+        "steps": 2,
+        "batch": 1,
+        "rules": 1,
+        "padding": 0,
+        "filter_terms": 1,
+        "operation": "create",
+        "commands": 2,
+        "relations": true,
+        "global": "filtered"
+      },
+      "arm": "candidate",
+      "process_ms": 786.1552060057875,
+      "observation_sha256": "7724275aea5cdf468333009409dbf45a9848d1141e0c23129a344cdbda41961c",
+      "result": {
+        "case_id": "commands-references",
+        "changed_identities": 2,
+        "execution_outcome": "ALLOW",
+        "final_members": 10,
+        "final_position": 4,
+        "metrics": {
+          "artifact_write_ms": 0.314974,
+          "audit_serialization_ms": 1.346643,
+          "behavior_replay_ms": 157.632598,
+          "commit_ms": 57.92572,
+          "cycle_ms": 108.100716,
+          "data_replay_ms": 117.318743,
+          "drain_ms": 17.709518,
+          "evaluate_ms": 32.357597,
+          "first_eval_ms": 17.181009,
+          "history_ms": 57.570907,
+          "page_ms": 150.496137,
+          "read_ms": 4.358045,
+          "reference_replay_ms": 117.666052,
+          "reopen_ms": 18.926712,
+          "setup_ms": 5.806197
+        },
+        "mode": "production-like",
+        "observation_bytes": 166153,
+        "prepared_history_position": 2,
+        "process_hwm": "VmHWM:\t   12952 kB",
+        "work": {
+          "cycle": null,
+          "page": null,
+          "read": null
+        }
+      }
+    },
+    {
+      "case": {
+        "case_id": "history-update",
+        "n": 8,
+        "history": 8,
+        "steps": 2,
+        "batch": 1,
+        "rules": 1,
+        "padding": 0,
+        "filter_terms": 1,
+        "operation": "update",
+        "commands": 2,
+        "relations": false,
+        "global": "count"
+      },
+      "arm": "baseline",
+      "process_ms": 1016.3887550006621,
+      "observation_sha256": "adc3ac4fed90d808130c60e6227e1ea64c537a65f3fecef4de00413411d5fdec",
+      "result": {
+        "case_id": "history-update",
+        "changed_identities": 1,
+        "execution_outcome": "ALLOW",
+        "final_members": 8,
+        "final_position": 10,
+        "metrics": {
+          "artifact_write_ms": 0.287027,
+          "audit_serialization_ms": 1.290342,
+          "behavior_replay_ms": 233.58232,
+          "commit_ms": 41.655452,
+          "cycle_ms": 71.027427,
+          "data_replay_ms": 167.809435,
+          "drain_ms": 9.823253000000001,
+          "evaluate_ms": 19.476487,
+          "first_eval_ms": 10.720409,
+          "history_ms": 195.919401,
+          "page_ms": 124.73051000000001,
+          "read_ms": 2.467969,
+          "reference_replay_ms": 168.03530999999998,
+          "reopen_ms": 12.099127,
+          "setup_ms": 5.658625
+        },
+        "mode": "production-like",
+        "observation_bytes": 150744,
+        "prepared_history_position": 8,
+        "process_hwm": "VmHWM:\t   13288 kB",
+        "work": {
+          "cycle": null,
+          "page": null,
+          "read": null
+        }
+      }
+    },
+    {
+      "case": {
+        "case_id": "history-update",
+        "n": 8,
+        "history": 8,
+        "steps": 2,
+        "batch": 1,
+        "rules": 1,
+        "padding": 0,
+        "filter_terms": 1,
+        "operation": "update",
+        "commands": 2,
+        "relations": false,
+        "global": "count"
+      },
+      "arm": "candidate",
+      "process_ms": 1021.310595999239,
+      "observation_sha256": "adc3ac4fed90d808130c60e6227e1ea64c537a65f3fecef4de00413411d5fdec",
+      "result": {
+        "case_id": "history-update",
+        "changed_identities": 1,
+        "execution_outcome": "ALLOW",
+        "final_members": 8,
+        "final_position": 10,
+        "metrics": {
+          "artifact_write_ms": 0.306889,
+          "audit_serialization_ms": 1.2875180000000002,
+          "behavior_replay_ms": 232.073593,
+          "commit_ms": 41.931957,
+          "cycle_ms": 71.5171,
+          "data_replay_ms": 168.473335,
+          "drain_ms": 9.929799,
+          "evaluate_ms": 19.58495,
+          "first_eval_ms": 11.632769,
+          "history_ms": 196.475911,
+          "page_ms": 125.43072,
+          "read_ms": 2.473433,
+          "reference_replay_ms": 169.186,
+          "reopen_ms": 12.558923,
+          "setup_ms": 5.6085199999999995
+        },
+        "mode": "production-like",
+        "observation_bytes": 150744,
+        "prepared_history_position": 8,
+        "process_hwm": "VmHWM:\t   13304 kB",
+        "work": {
+          "cycle": null,
+          "page": null,
+          "read": null
+        }
+      }
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "baseline-128.record.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "candidate-128.record.json.gz",
+      "sha256": "6c08398fbcc101fb757568edbfa6f28ed9a5da6b095b1e6007429947e6906e91",
+      "bytes": 64742,
+      "gzip_bytes": 2608
+    },
+    {
+      "path": "baseline-512.record.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "candidate-512.record.json.gz",
+      "sha256": "cac6824081a11815491caba54210cc870b6d67b4b6dfee504334bd221cb4fcb6",
+      "bytes": 254822,
+      "gzip_bytes": 7356
+    },
+    {
+      "path": "baseline-2048.record.json.gz",
+      "sha256": "32627e99b6f4c4c268836ed9adec5c74eecc4c3847597c44ef125fe228c740f6",
+      "bytes": 1019335,
+      "gzip_bytes": 26214
+    },
+    {
+      "path": "candidate-2048.record.json.gz",
+      "sha256": "32627e99b6f4c4c268836ed9adec5c74eecc4c3847597c44ef125fe228c740f6",
+      "bytes": 1019335,
+      "gzip_bytes": 26214
+    },
+    {
+      "path": "baseline-8192.record.json.gz",
+      "sha256": "3d12595e689ebbc01d587eabe533d0583ff8f22eb9fee4a61fda1a94f985d878",
+      "bytes": 4085191,
+      "gzip_bytes": 94113
+    },
+    {
+      "path": "candidate-8192.record.json.gz",
+      "sha256": "3d12595e689ebbc01d587eabe533d0583ff8f22eb9fee4a61fda1a94f985d878",
+      "bytes": 4085191,
+      "gzip_bytes": 94113
+    },
+    {
+      "path": "ordinary-baseline.json.gz",
+      "sha256": "fb71eb1e1ff6834655f175014cf77a918ee1783410592ebe3cf2c5693f891559",
+      "bytes": 63842,
+      "gzip_bytes": 4348
+    },
+    {
+      "path": "ordinary-candidate.json.gz",
+      "sha256": "fb71eb1e1ff6834655f175014cf77a918ee1783410592ebe3cf2c5693f891559",
+      "bytes": 63842,
+      "gzip_bytes": 4348
+    },
+    {
+      "path": "commands-references-baseline.json.gz",
+      "sha256": "7724275aea5cdf468333009409dbf45a9848d1141e0c23129a344cdbda41961c",
+      "bytes": 166153,
+      "gzip_bytes": 7728
+    },
+    {
+      "path": "commands-references-candidate.json.gz",
+      "sha256": "7724275aea5cdf468333009409dbf45a9848d1141e0c23129a344cdbda41961c",
+      "bytes": 166153,
+      "gzip_bytes": 7728
+    },
+    {
+      "path": "history-update-baseline.json.gz",
+      "sha256": "adc3ac4fed90d808130c60e6227e1ea64c537a65f3fecef4de00413411d5fdec",
+      "bytes": 150744,
+      "gzip_bytes": 7067
+    },
+    {
+      "path": "history-update-candidate.json.gz",
+      "sha256": "adc3ac4fed90d808130c60e6227e1ea64c537a65f3fecef4de00413411d5fdec",
+      "bytes": 150744,
+      "gzip_bytes": 7067
+    }
+  ],
+  "comparison_controls": "changed byte, omitted sample and duplicate sample rejected"
+}

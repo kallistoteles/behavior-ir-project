@@ -1,0 +1,22 @@
+--- a/crates/behavior-store/src/store.rs
++++ b/crates/behavior-store/src/store.rs
+@@ -2603,6 +2603,7 @@
+             state: acc.state_id()?,
+             position,
+         };
++        let bundle_hash = archived_bundle.hash()?;
+         let record = TransitionRecord {
+             format: if v2 {
+                 crate::documents::TAG_TRANSITION_RECORD_V2
+@@ -2613,9 +2614,9 @@
+             position,
+             previous_record: head.last_record.clone(),
+             kind: if v2 { Some("action".into()) } else { None },
+-            bundle: Some(archived_bundle.clone()),
++            bundle: Some(archived_bundle),
+             migration: None,
+-            bundle_hash: archived_bundle.hash()?,
++            bundle_hash,
+             evaluated_against: parent.clone(),
+             committed_on: parent.clone(),
+             result_state: result_state.clone(),

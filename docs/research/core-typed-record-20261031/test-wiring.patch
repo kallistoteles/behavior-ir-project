@@ -1,0 +1,19 @@
+--- a/crates/behavior-core/src/record.rs
++++ b/crates/behavior-core/src/record.rs
+@@ -1194,6 +1194,8 @@
+ }
+ 
+ fn validate_record07(raw: &Json) -> Result<crate::commands::CommandIntentBag, RecordError> {
++    #[cfg(test)]
++    typed_materialization_tests::note07_decode();
+     let record: Record07 =
+         serde_json::from_value(raw.clone()).map_err(|e| record_error(e.to_string()))?;
+     if record.record_version != RECORD_VERSION_COMMANDS || record.semantic_profile != "0.8" {
+@@ -1317,3 +1319,7 @@
+     );
+     Ok(bag)
+ }
++
++#[cfg(test)]
++#[path = "record/typed_materialization_tests.rs"]
++mod typed_materialization_tests;

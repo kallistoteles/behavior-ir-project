@@ -1,0 +1,1 @@
+{"command": ["rustfmt", "--check", "--edition", "2024", "--config", "skip_children=true", "crates/behavior-core/src/record.rs", "crates/behavior-core/src/record/typed_materialization_tests.rs"], "utc": "2026-10-31T10:42:24.418488+00:00"}

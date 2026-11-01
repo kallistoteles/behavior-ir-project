@@ -1,0 +1,130 @@
+diff --git a/crates/behavior-core/src/record.rs b/crates/behavior-core/src/record.rs
+index f09f6a8..18dfb3e 100644
+--- a/crates/behavior-core/src/record.rs
++++ b/crates/behavior-core/src/record.rs
+@@ -523,7 +523,9 @@ fn replay_profile(module: &Module, stored: &Json) -> Result<RecordExecution, Rec
+     let command_module = module.semantic_profile() == SemanticProfile::CommandIntents;
+     match stored.get("record_version").and_then(Json::as_str) {
+         Some(RECORD_VERSION_CURRENT) => {
+-            DecisionRecord::from_json(&stored.to_string())?;
++            // reproduce_record already strictly decoded this immutable value.
++            // Retain every typed/profile check without a second text round trip.
++            validate_record08(stored)?;
+             if command_module != stored.get("semantic_profile").is_some() {
+                 return Err(record_error("record/module profile mismatch"));
+             }
+@@ -1011,7 +1013,7 @@ fn reject_null_fields(raw: &Json, fields: &[&str]) -> Result<(), RecordError> {
+ 
+ fn validate_record08(raw: &Json) -> Result<crate::commands::CommandIntentBag, RecordError> {
+     let record: Record08 =
+-        serde_json::from_value(raw.clone()).map_err(|error| record_error(error.to_string()))?;
++        serde::Deserialize::deserialize(raw).map_err(|error| record_error(error.to_string()))?;
+     if record.record_version != RECORD_VERSION_CURRENT
+         || record.validation_profile != VALIDATION_PROFILE_CURRENT
+     {
+@@ -1155,13 +1157,62 @@ fn validate_record08(raw: &Json) -> Result<crate::commands::CommandIntentBag, Re
+             &step.field,
+         );
+     }
++    // Positional CurrentTrace has extra fields that the old projected parser
++    // can reject. Preserve that exact path after all current-profile checks.
++    let object_trace = raw
++        .get("trace")
++        .and_then(Json::as_array)
++        .is_some_and(|steps| steps.iter().all(Json::is_object));
++    if !object_trace {
++        return validate_record07(&project_current_record(raw, record.commands.is_some()));
++    }
++    let common = Record07 {
++        record_version: RECORD_VERSION_COMMANDS.into(),
++        semantic_profile: "0.8".into(),
++        behavior_version: record.behavior_version,
++        data_version: record.data_version,
++        git_revision: record.git_revision,
++        action: record.action,
++        state: record.state,
++        input: record.input,
++        context: record.context,
++        facts: record.facts,
++        result: record.result,
++        reasons: record.reasons,
++        trace: record
++            .trace
++            .into_iter()
++            .map(|step| SemanticTrace {
++                phase: step.phase,
++                hash: step.hash,
++                reads: step.reads,
++                outcome: step.outcome,
++                param: step.param,
++                role: step.role,
++                rescales: step.rescales,
++                emission: step.emission,
++                canonical_index: step.canonical_index,
++                field: step.field,
++            })
++            .collect(),
++        derived: record.derived,
++        changes: record.changes,
++        lifecycle: record.lifecycle,
++        commands: record
++            .commands
++            .unwrap_or_else(|| json!({"declarations":[],"types":[],"intents":[]})),
++    };
++    validate_record07_fields(common)
++}
++
++fn project_current_record(raw: &Json, has_commands: bool) -> Json {
+     let mut common = raw.clone();
+     if let Some(object) = common.as_object_mut() {
+         object.remove("validation_profile");
+         object.remove("refused_request");
+         object.insert("record_version".into(), json!(RECORD_VERSION_COMMANDS));
+         object.insert("semantic_profile".into(), json!("0.8"));
+-        if record.commands.is_none() {
++        if !has_commands {
+             object.insert(
+                 "commands".into(),
+                 json!({"declarations":[],"types":[],"intents":[]}),
+@@ -1177,23 +1228,20 @@ fn validate_record08(raw: &Json) -> Result<crate::commands::CommandIntentBag, Re
+             }
+         }
+     }
+-    let bag = validate_record07(&common)?;
+-    let _ = (
+-        record.behavior_version,
+-        record.data_version,
+-        record.git_revision,
+-        record.action,
+-        record.state,
+-        record.input,
+-        record.context,
+-        record.reasons,
+-    );
+-    Ok(bag)
++    common
+ }
+ 
+ fn validate_record07(raw: &Json) -> Result<crate::commands::CommandIntentBag, RecordError> {
++    #[cfg(test)]
++    typed_materialization_tests::note07_decode();
+     let record: Record07 =
+-        serde_json::from_value(raw.clone()).map_err(|e| record_error(e.to_string()))?;
++        serde::Deserialize::deserialize(raw).map_err(|e| record_error(e.to_string()))?;
++    validate_record07_fields(record)
++}
++
++fn validate_record07_fields(
++    record: Record07,
++) -> Result<crate::commands::CommandIntentBag, RecordError> {
+     if record.record_version != RECORD_VERSION_COMMANDS || record.semantic_profile != "0.8" {
+         return Err(record_error("unsupported record/profile pair"));
+     }
+@@ -1315,3 +1363,7 @@ fn validate_record07(raw: &Json) -> Result<crate::commands::CommandIntentBag, Re
+     );
+     Ok(bag)
+ }
++
++#[cfg(test)]
++#[path = "record/typed_materialization_tests.rs"]
++mod typed_materialization_tests;

@@ -1,0 +1,18 @@
+# To display the perf.data header info, please use --header/--header-only options.
+#
+#
+# Total Lost Samples: 0
+#
+# Samples: 8  of event 'cycles:u'
+# Event count (approx.): 8605686
+#
+# Overhead       Samples        Period  Shared Object  Symbol                   IPC   [IPC Coverage]
+# ........  ............  ............  .............  .......................  ....................
+#
+    66.56%             6       5727766  libc.so.6      [.] malloc_consolidate   -      -            
+    33.44%             2       2877920  libc.so.6      [.] unlink_chunk.isra.0  -      -            
+
+
+#
+# (Tip: For hierarchical output, try: perf report --hierarchy)
+#

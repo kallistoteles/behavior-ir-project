@@ -1,0 +1,12 @@
+{
+  "status": "Complete",
+  "measured_attempts": 105,
+  "stat_attempts": 70,
+  "record_attempts": 35,
+  "normative_bytes_equal": true,
+  "record_condition": {
+    "legacy_gap_reproduced": true,
+    "v2_gap_reproduced": true,
+    "collect_record": true
+  }
+}

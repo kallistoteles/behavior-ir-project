@@ -1,0 +1,10 @@
+{
+  "status": "Verified",
+  "frozen_inputs_unchanged": 23,
+  "timed_samples": 60,
+  "complete_attempts": 69,
+  "gzip_artifacts": 21,
+  "byte_equal_triplets": 7,
+  "full_observation_runs": 9,
+  "precollection_sha256": "f025c71470ef1add2ad2e06c85416eb63c169a2d07a1adce6711ac36df941bad"
+}

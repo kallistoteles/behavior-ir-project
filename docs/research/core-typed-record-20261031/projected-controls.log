@@ -1,0 +1,20 @@
+{"command": ["cargo", "test", "--locked", "--release", "-p", "behavior-core", "--lib", "typed_materialization_tests", "--", "--nocapture"], "utc": "2026-10-31T10:35:28.939985+00:00"}
+   Compiling behavior-core v0.16.0 (/tmp/behavior-ir-core-continuation-20261029/crates/behavior-core)
+    Finished `release` profile [optimized] target(s) in 43.49s
+     Running unittests src/lib.rs (target/release/deps/behavior_core-6865ee59b065067b)
+
+running 8 tests
+test record::typed_materialization_tests::child_semantic_failure_precedes_sequence_projection_failure ... ok
+test record::typed_materialization_tests::current_object_record_reuses_its_common_typed_fields ... ok
+test record::typed_materialization_tests::typed_trace_conversion_needs_a_sequence_fallback ... ok
+test record::typed_materialization_tests::sequence_forms_and_compound_errors_keep_their_original_order ... ok
+test record::typed_materialization_tests::all_seed_records_remain_valid_with_exact_command_bags ... ok
+TYPED_MATERIALIZATION_INTEGER_CASES=472
+test record::typed_materialization_tests::integer_bounds_keep_their_typed_and_semantic_errors ... ok
+TYPED_MATERIALIZATION_SEQUENCE_CASES=1767
+test record::typed_materialization_tests::nested_struct_sequences_preserve_accepted_forms_and_errors ... ok
+TYPED_MATERIALIZATION_DIFFERENTIAL_CASES=18917
+test record::typed_materialization_tests::public_constructor_matches_frozen_errors_over_field_mutations ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 39 filtered out; finished in 9.80s
+

@@ -1,0 +1,1 @@
+{"command": ["rustfmt", "--check", "--edition", "2024", "--config", "skip_children=true", "crates/behavior-store/src/store.rs", "crates/behavior-core/src/eval/work.rs", "crates/behavior-store/tests/bundle_ownership.rs", "crates/behavior-store/tests/bundle_hash_order.rs"], "utc": "2026-10-31T18:27:50.846311+00:00"}

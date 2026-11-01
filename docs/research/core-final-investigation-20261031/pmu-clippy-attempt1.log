@@ -1,0 +1,19 @@
+{"command": ["cargo", "clippy", "--locked", "-p", "behavior-store", "--example", "allocation_pmu_probe", "--", "-D", "warnings"], "utc": "2026-11-01T00:49:20.382668+00:00"}
+    Checking serde v1.0.229
+    Checking thiserror v2.0.20
+    Checking rust_decimal v1.43.0
+    Checking behavior-core v0.16.0 (/tmp/behavior-ir-core-final-20261031/crates/behavior-core)
+    Checking behavior-verify v0.16.0 (/tmp/behavior-ir-core-final-20261031/crates/behavior-verify)
+    Checking behavior-store v0.16.0 (/tmp/behavior-ir-core-final-20261031/crates/behavior-store)
+error: this assertion has a constant value
+  --> crates/behavior-store/examples/allocation_pmu_probe.rs:22:5
+   |
+22 |     assert!(!cfg!(feature = "validation-work"));
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: consider moving this into a const block: `const { assert!(..) }`
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#assertions_on_constants
+   = note: `-D clippy::assertions-on-constants` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(clippy::assertions_on_constants)]`
+
+error: could not compile `behavior-store` (example "allocation_pmu_probe") due to 1 previous error

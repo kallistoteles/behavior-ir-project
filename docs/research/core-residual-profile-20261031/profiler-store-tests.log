@@ -1,0 +1,17 @@
+{"command": ["cargo", "test", "--locked", "--release", "-p", "behavior-store", "--features", "validation-work", "--test", "residual_profile_counters"], "utc": "2026-10-31T12:27:16.280646+00:00"}
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on build directory
+   Compiling behavior-verify v0.16.0 (/tmp/behavior-ir-core-profile-20261031/crates/behavior-verify)
+   Compiling behavior-store v0.16.0 (/tmp/behavior-ir-core-profile-20261031/crates/behavior-store)
+    Finished `release` profile [optimized] target(s) in 2m 10s
+     Running tests/residual_profile_counters.rs (/tmp/behavior-ir-core-continuation-20261029/target/release/deps/residual_profile_counters-9c9b3242786d742d)
+
+running 2 tests
+test both_diagnostic_byte_serializations_are_counted_and_named ... ok
+test disabling_byte_serializations_preserves_hash_decode_and_call_counts ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

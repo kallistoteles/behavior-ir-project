@@ -1,0 +1,2 @@
+{"command": ["cargo", "build", "--locked", "--release", "-p", "behavior-store", "--features", "validation-work", "--example", "residual_phase_profile"], "utc": "2026-10-31T12:34:20.962817+00:00"}
+    Finished `release` profile [optimized] target(s) in 0.19s

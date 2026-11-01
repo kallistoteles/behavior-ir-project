@@ -1,0 +1,20 @@
+{"command": ["cargo", "test", "--locked", "--release", "-p", "behavior-store", "--lib", "documents::hash_view_tests", "--", "--nocapture"], "utc": "2026-10-31T23:01:42.489525+00:00"}
+   Compiling behavior-store v0.16.0 (/tmp/behavior-ir-core-final-20261031/crates/behavior-store)
+    Finished `release` profile [optimized] target(s) in 39.41s
+     Running unittests src/lib.rs (target/release/deps/behavior_store-f796434fff2d2144)
+
+running 10 tests
+test documents::hash_view_tests::generic_serialize_failure_after_a_float_precedes_canonical_validation ... ok
+test documents::hash_view_tests::generic_hash_of_retains_value_conversion_and_map_reduction_semantics ... ok
+test documents::hash_view_tests::canonical_error_order_is_over_the_whole_composed_document ... ok
+test documents::hash_view_tests::legacy_event_does_not_materialize_known_json_again ... ok
+test documents::hash_view_tests::nested_legacy_bundle_does_not_gain_new_semantic_validation ... ok
+test documents::hash_view_tests::legacy_bundle_does_not_materialize_known_json_again ... ok
+test documents::hash_view_tests::some_null_context_is_included_while_none_is_omitted ... ok
+test documents::hash_view_tests::v2_bundle_does_not_materialize_known_json_again ... ok
+test documents::hash_view_tests::v2_event_does_not_materialize_known_json_again ... ok
+typed-document differential cases=176
+test documents::hash_view_tests::typed_hashes_match_frozen_methods_for_field_mutations_and_omissions ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 92 filtered out; finished in 0.21s
+

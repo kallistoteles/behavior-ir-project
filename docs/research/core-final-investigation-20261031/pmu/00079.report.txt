@@ -1,0 +1,18 @@
+# To display the perf.data header info, please use --header/--header-only options.
+#
+#
+# Total Lost Samples: 0
+#
+# Samples: 9  of event 'cycles:u'
+# Event count (approx.): 9886553
+#
+# Overhead       Samples        Period  Shared Object  Symbol                   IPC   [IPC Coverage]
+# ........  ............  ............  .............  .......................  ....................
+#
+    74.30%             7       7346127  libc.so.6      [.] malloc_consolidate   -      -            
+    25.70%             2       2540426  libc.so.6      [.] unlink_chunk.isra.0  -      -            
+
+
+#
+# (Tip: To see how parallelism changes over time, try: perf report -F time,latency,parallelism --time-quantum=1s)
+#

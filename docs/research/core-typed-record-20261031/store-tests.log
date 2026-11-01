@@ -1,0 +1,135 @@
+{"command": ["cargo", "test", "--locked", "--release", "-p", "behavior-store", "--test", "archive_action_profiles022", "--test", "command_governance", "--test", "trusted_governance", "--test", "strict_bundle_evidence", "--test", "resulting_state_reuse", "--test", "resulting_state_commit_faults", "--test", "research031"], "utc": "2026-10-31T10:38:01.457177+00:00"}
+    Blocking waiting for file lock on build directory
+   Compiling behavior-store v0.16.0 (/tmp/behavior-ir-core-continuation-20261029/crates/behavior-store)
+    Finished `release` profile [optimized] target(s) in 2m 26s
+     Running tests/archive_action_profiles022.rs (target/release/deps/archive_action_profiles022-7cfbabeaa48243e7)
+
+running 16 tests
+test archived_04_error ... ok
+test archived_04_allow ... ok
+test archived_05_error ... ok
+test archived_05_allow ... ok
+test archived_05_refusal ... ok
+test archived_04_refusal ... ok
+test archived_07_refusal ... ok
+test archived_07_error ... ok
+test archived_06_allow ... ok
+test current_08_allow ... ok
+test archived_06_refusal ... ok
+test archived_06_error ... ok
+test archived_07_allow ... ok
+test current_08_refusal ... ok
+test current_08_error ... ok
+test original_capture_inputs_reproduce_canonical_store_coordinates ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running tests/command_governance.rs (target/release/deps/command_governance-777693bf7d9331a1)
+
+running 7 tests
+test signature_only_tamper_keeps_content_identity_but_fails_authentication_and_wrong_role_fails ... ok
+test omitted_or_wrong_profile_proof_envelopes_cannot_satisfy_command_authorization ... ok
+test independent_context_time_policy_and_missing_evidence_refuse_without_writes ... ok
+test none_policy_retains_normal_independent_rederivation_without_a_signature ... ok
+test authorization_cannot_be_rebound_to_other_payload_declaration_or_multiplicity ... ok
+test exact_store_and_head_bindings_prevent_cross_lineage_and_stale_authorization_reuse ... ok
+test full_trusted_proof_allows_exact_mixed_command_commit_and_archived_replay ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+
+     Running tests/research031.rs (target/release/deps/research031-34e5a8349e1dce4f)
+
+running 5 tests
+test actual_distinct_creates_are_counted ... ok
+test prepared_history_is_outside_the_fixed_window ... ok
+test padding_changes_bytes_without_changing_the_window_or_population ... ok
+test commands_filters_and_parent_references_are_real_core_inputs ... ok
+test affected_count_boundary_allows_1000_and_refuses_1001 ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.92s
+
+     Running tests/resulting_state_commit_faults.rs (target/release/deps/resulting_state_commit_faults-31bc27385df51cdd)
+
+running 6 tests
+test an_invalid_child_never_produces_a_committable_candidate_or_command_occurrence ... ok
+test lost_acknowledgment_without_recovery_rebuilds_the_actual_child_before_reuse ... ok
+test stale_whole_state_candidate_cannot_replace_the_committed_child_certificate ... ok
+test removal_rebuilds_validity_without_forgetting_historical_identity_use ... ok
+test lost_acknowledgment_preserves_one_durable_event_and_recovery_publishes_no_speculative_certificate ... ok
+test valid_candidates_that_do_not_apply_publish_neither_child_cache_nor_commands ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.17s
+
+     Running tests/resulting_state_reuse.rs (target/release/deps/resulting_state_reuse-0204813b6d9c86b0)
+
+running 12 tests
+test schema_substitution_is_refused_even_when_old_parent_validation_is_warm ... ok
+test changed_behavior_with_identical_schema_and_profile_never_reuses_parent_validity ... ok
+test actual_used_errors_keep_the_existing_fact_provider_error_route_with_a_warm_snapshot ... ok
+test semantically_redundant_failed_reads_are_omitted_using_exact_captured_evidence ... ok
+test backend_mut_invalidation_and_reopen_reestablish_cache_from_canonical_state ... ok
+test changed_language_profile_with_the_same_schema_establishes_its_own_complete_capture ... ok
+test cold_warm_reopen_and_cache_loss_preserve_the_complete_record_and_bundle ... ok
+test equal_state_content_at_another_history_position_keeps_distinct_identity_lifetime ... ok
+test warm_creation_uses_captured_rows_but_checks_historical_freshness ... ok
+test warm_evaluation_and_invocation_capture_full_evidence_without_backend_enumeration ... ok
+test repeated_update_and_creation_reads_retain_committed_child_validity ... ok
+test warm_commit_rederives_the_same_complete_candidate_without_reloading_the_universe ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.28s
+
+     Running tests/strict_bundle_evidence.rs (target/release/deps/strict_bundle_evidence-cfada3c476d1be00)
+
+running 22 tests
+test actual_legacy_preparation_keeps_legacy_migration_dispatch ... ok
+test capture_projection_fixtures ... ignored, explicit maintenance writer; normal tests reproduce and never refresh fixtures
+test checked_candidate_preserves_original_claim_and_cannot_certify_a_mutation ... ok
+test actual_v2_prepared_migration_has_empty_facts_and_matching_archive ... ok
+test actual_prepared_migration_refuses_action_bundle_and_semantic_observations ... ok
+test actual_typed_capture_and_field_values_include_bool_integer_and_option_null ... ok
+test checked_raw_bundle_hash_rejects_a_stale_candidate_identity ... ok
+test locally_consistent_false_query_instance_cannot_publish ... ok
+test freshly_authorized_forged_members_cannot_publish ... ok
+test old_authorization_cannot_attach_to_a_new_locally_valid_claim ... ok
+test actual_mixed_producers_emit_all_five_sections ... ok
+test omitted_and_null_empty_bundle_observations_share_the_checked_adapter ... ok
+test locally_consistent_forged_members_cannot_publish ... ok
+test locally_consistent_false_query_capture_cannot_publish ... ok
+test locally_consistent_false_query_definition_or_entity_cannot_publish ... ok
+test trusted_attachment_rechecks_local_integrity_after_public_bundle_mutation ... ok
+test raw_candidate_projection_keeps_every_original_integrity_field ... ok
+test actual_authenticated_query_commands_exist_only_after_committed_history ... ok
+test actual_query_archives_reopen_recover_after_later_commit_and_replay ... ok
+test projection_fixtures_match_actual_producers ... ok
+test bounded_generated_producer_round_trips_and_seed_permutations ... ok
+test producer_laws_all_supported_versions_and_routes ... ok
+
+test result: ok. 21 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 4.25s
+
+     Running tests/trusted_governance.rs (target/release/deps/trusted_governance-d4773c183ec9795d)
+
+running 21 tests
+test current_010_policy_is_explicit_and_does_not_rewrite_frozen_09_policy ... ok
+test historical_required_store_recovery_remains_read_only_and_structural ... ok
+test exact_behavior_and_store_rederived_delta_cannot_be_substituted_after_authorization ... ok
+test bound_bundle_time_is_checked_without_changing_candidate_identity ... ok
+test legacy_required_store_refuses_a_new_self_hashed_allow_before_mutation ... ok
+test legacy_adoption_exports_exact_live_state_into_a_distinct_v2_lineage ... ok
+test cross_store_candidate_and_authorization_cannot_be_reused ... ok
+test independent_context_substitution_is_refused_even_with_valid_signed_context ... ok
+test migration_uses_the_same_trusted_relation_and_independent_context ... ok
+test authenticated_commit_requires_independent_context_and_archives_the_compared_value ... ok
+test missing_required_verification_cannot_be_replaced_with_a_valid_authorizer_signature ... ok
+test v2_genesis_rejects_noncanonical_seed_identity_and_declaration_representations ... ok
+test none_policy_still_rejects_supplied_invalid_evidence_before_any_write ... ok
+test v2_migration_rejects_legacy_raw_verification_instead_of_claiming_authenticated_proof ... ok
+test authenticated_recovery_uses_original_archived_context_after_later_commits ... ok
+test v2_migration_replay_binds_candidate_to_actual_source_reads_and_transformation ... ok
+test both_replays_check_authenticated_history_and_archived_policy_context ... ok
+test new_governance_and_store_schemas_match_closed_fixture_and_runtime_shapes ... ok
+test schema_current_action08_and_archived07_nested_records ... ok
+test schema_nested_current_profile_closure_controls ... ok
+test schema_current_verifier010_and_authentic_archive08_09_provenance ... ok
+
+test result: ok. 21 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 15.70s
+

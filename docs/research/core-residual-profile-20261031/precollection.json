@@ -1,0 +1,24 @@
+{
+  "status": "FrozenBeforeMeasurements",
+  "utc": "2026-10-31T12:36:43.125523+00:00",
+  "phase_attempts": 36,
+  "serialization_attempts": 120,
+  "inputs": {
+    "protocol.md": "4bddc811843c33095165d1b1cbacc54f60c80cc7b238b1bab22fa59a838b1b92",
+    "profiler.rs": "dafac2b3c3e01a072df26a2b53fbee3138d3c608caf5c5dee16f89a380e41bc6",
+    "instrument.py": "7687a6ce3d9aa90fcb4001bc23b9f582d443f688b53fbc80000bee9f53702a02",
+    "instrumentation-inventory.json": "f13e618a7b87cbfcca1b630721d3d48a2064857cc0bc421884bdae8fc367bf2d",
+    "instrumentation.patch": "0c5cff035a1f977c570584e155f3eddedb862ad822083643365d489a7c97e7d4",
+    "profile-source.tar.gz": "43deab2747ea934364e9ba752c2e994e959f60d27edddd84a030f454a87f6fe2",
+    "serialization_history_probe.rs": "81adb33074f987fcf0fafca9e63e41375b2ce4251dcc502835b27e87b3024c27",
+    "residual_phase_profile.rs": "82147271b29666062519f1643b19cf9a5899b82cdb841f8672f45b60e370183a",
+    "residual_profiler.rs": "83abafd92a24b962e8ef45c6c53d39d3cd30d56db287df4b268f343ea0175ded",
+    "residual_profile_counters.rs": "407a70a957cc7fe83eb957f4605be8db8452f7881af0696b27cca4024a201e25",
+    "collect.py": "270204c84607ce3cfcb4c00b77ced0526bc3a2fefaf2844ac011b3b6cb93ec51",
+    "common.py": "eda4e9ccb3179deaa9dcd1cd8c667535be0eb5f1233ccba8d0be2467163fe24e",
+    "test_collector.py": "0977bdaf6ff926a9f83489e0006bd743849de7a11a46fc721321dbdaf180683a",
+    "collector-tests.log": "cfe31b3640a9b13fc7fa945fee3d8cca42f75c4557a4fe3d5c22f31b502715a2",
+    "builds.json": "68d55339421201df6bab72b58feebb66fa77a6457cf41dd268643b06b8359761",
+    "validation.json": "f6e44075e6fc4197b08811db5aae07f8201145e3f217357bf9f7cad8a9a2cb2e"
+  }
+}

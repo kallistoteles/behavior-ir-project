@@ -1,0 +1,53 @@
+{"command": ["cargo", "test", "--locked", "--release", "-p", "behavior-core", "--features", "validation-work", "--test", "residual_profiler"], "utc": "2026-10-31T12:13:03.758348+00:00"}
+   Compiling behavior-core v0.16.0 (/tmp/behavior-ir-core-profile-20261031/crates/behavior-core)
+    Finished `release` profile [optimized] target(s) in 43.26s
+     Running tests/residual_profiler.rs (/tmp/behavior-ir-core-continuation-20261029/target/release/deps/residual_profiler-5e2cc6d66382ce69)
+
+running 5 tests
+test excluded_noncanonical_hash_metadata_still_refuses_before_digest ... FAILED
+test early_error_cleans_up_scope_stack_without_changing_result ... FAILED
+test nested_scopes_partition_elapsed_time_and_count_calls ... FAILED
+test canonical_hash_scopes_keep_the_actual_hash_and_partition_work ... FAILED
+test profile_read_disables_new_scopes_and_reset_discards_old_totals ... ok
+
+failures:
+
+---- excluded_noncanonical_hash_metadata_still_refuses_before_digest stdout ----
+
+thread 'excluded_noncanonical_hash_metadata_still_refuses_before_digest' (116077) panicked at crates/behavior-core/tests/residual_profiler.rs:57:5:
+assertion `left == right` failed
+  left: Null
+ right: 1
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- early_error_cleans_up_scope_stack_without_changing_result stdout ----
+
+thread 'early_error_cleans_up_scope_stack_without_changing_result' (116076) panicked at crates/behavior-core/tests/residual_profiler.rs:28:5:
+assertion `left == right` failed
+  left: Null
+ right: 1
+
+---- nested_scopes_partition_elapsed_time_and_count_calls stdout ----
+
+thread 'nested_scopes_partition_elapsed_time_and_count_calls' (116078) panicked at crates/behavior-core/tests/residual_profiler.rs:15:5:
+assertion `left == right` failed
+  left: Null
+ right: 1
+
+---- canonical_hash_scopes_keep_the_actual_hash_and_partition_work stdout ----
+
+thread 'canonical_hash_scopes_keep_the_actual_hash_and_partition_work' (116075) panicked at crates/behavior-core/tests/residual_profiler.rs:48:9:
+assertion `left == right` failed: core::to_canonical_string
+  left: Null
+ right: 1
+
+
+failures:
+    canonical_hash_scopes_keep_the_actual_hash_and_partition_work
+    early_error_cleans_up_scope_stack_without_changing_result
+    excluded_noncanonical_hash_metadata_still_refuses_before_digest
+    nested_scopes_partition_elapsed_time_and_count_calls
+
+test result: FAILED. 1 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p behavior-core --test residual_profiler`

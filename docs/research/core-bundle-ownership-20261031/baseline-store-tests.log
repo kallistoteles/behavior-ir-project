@@ -1,0 +1,17 @@
+{"command": ["cargo", "test", "--locked", "--release", "-p", "behavior-store", "--features", "validation-work"], "utc": "2026-10-31T18:19:35.523690+00:00"}
+   Compiling behavior-store v0.16.0 (/tmp/behavior-ir-core-bundle-20261031/crates/behavior-store)
+error[E0425]: cannot find function `profile_reset` in module `core_api::eval::work`
+ --> crates/behavior-store/examples/replay_materialization_profile.rs:9:36
+  |
+9 | fn start() { core_api::eval::work::profile_reset(); core_api::eval::work::reset(); }
+  |                                    ^^^^^^^^^^^^^ not found in `core_api::eval::work`
+
+error[E0425]: cannot find function `profile_read` in module `core_api::eval::work`
+  --> crates/behavior-store/examples/replay_materialization_profile.rs:13:58
+   |
+13 | fn stats() -> Json {json!({"spans":core_api::eval::work::profile_read(),"work":core_api::eval::work::read()})}
+   |                                                          ^^^^^^^^^^^^ not found in `core_api::eval::work`
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `behavior-store` (example "replay_materialization_profile") due to 2 previous errors
+warning: build failed, waiting for other jobs to finish...

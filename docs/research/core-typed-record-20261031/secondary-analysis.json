@@ -1,0 +1,906 @@
+{
+  "source_samples_sha256": "e7e65d9bc0566b7a798bc071f27b0539d39c32c8389406dd1810c44f1350776e",
+  "summary": [
+    {
+      "n": 128,
+      "baseline": {
+        "evaluate_ms": 6.715409999999999,
+        "commit_ms": 20.688004,
+        "evaluate_plus_commit_ms": 27.981337,
+        "process_ms": 87.09530500345863,
+        "record_serialization_ms": 1.110388
+      },
+      "borrowed": {
+        "evaluate_ms": 6.520954,
+        "commit_ms": 20.27923,
+        "evaluate_plus_commit_ms": 26.872197999999997,
+        "process_ms": 86.60402300301939,
+        "record_serialization_ms": 1.095151
+      },
+      "projected": {
+        "evaluate_ms": 6.5183,
+        "commit_ms": 19.445806,
+        "evaluate_plus_commit_ms": 26.091564,
+        "process_ms": 88.10675298445858,
+        "record_serialization_ms": 1.202603
+      },
+      "comparisons": {
+        "borrowed_vs_baseline": {
+          "evaluate_ms": -2.895668321070488,
+          "commit_ms": -1.9758986898881115,
+          "evaluate_plus_commit_ms": -3.9638527637189114,
+          "process_ms": -0.56407403409372,
+          "record_serialization_ms": -1.3722230427562154
+        },
+        "projected_vs_baseline": {
+          "evaluate_ms": -2.9351893629726122,
+          "commit_ms": -6.004436194037854,
+          "evaluate_plus_commit_ms": -6.75369086187696,
+          "process_ms": 1.1613117158953523,
+          "record_serialization_ms": 8.304754734381149
+        },
+        "projected_vs_borrowed": {
+          "evaluate_ms": -0.040699566351787286,
+          "commit_ms": -4.109741839310455,
+          "evaluate_plus_commit_ms": -2.9049875265134473,
+          "process_ms": 1.7351734126563656,
+          "record_serialization_ms": 9.811615019298724
+        }
+      }
+    },
+    {
+      "n": 512,
+      "baseline": {
+        "evaluate_ms": 25.535657999999998,
+        "commit_ms": 87.669004,
+        "evaluate_plus_commit_ms": 113.204662,
+        "process_ms": 328.4706459962763,
+        "record_serialization_ms": 5.426567
+      },
+      "borrowed": {
+        "evaluate_ms": 25.223123,
+        "commit_ms": 83.693133,
+        "evaluate_plus_commit_ms": 108.916256,
+        "process_ms": 324.4352139881812,
+        "record_serialization_ms": 5.38027
+      },
+      "projected": {
+        "evaluate_ms": 25.567234000000003,
+        "commit_ms": 79.73746299999999,
+        "evaluate_plus_commit_ms": 105.24056599999999,
+        "process_ms": 321.2633990042377,
+        "record_serialization_ms": 6.0064
+      },
+      "comparisons": {
+        "borrowed_vs_baseline": {
+          "evaluate_ms": -1.2239159844637526,
+          "commit_ms": -4.5350931556151775,
+          "evaluate_plus_commit_ms": -3.788188511176327,
+          "process_ms": -1.2285517921564404,
+          "record_serialization_ms": -0.8531544897538379
+        },
+        "projected_vs_baseline": {
+          "evaluate_ms": 0.12365453829310535,
+          "commit_ms": -9.047143959796799,
+          "evaluate_plus_commit_ms": -7.035130761664221,
+          "process_ms": -2.194182974913461,
+          "record_serialization_ms": 10.685079535551667
+        },
+        "projected_vs_borrowed": {
+          "evaluate_ms": 1.364268017088932,
+          "commit_ms": -4.726397325811682,
+          "evaluate_plus_commit_ms": -3.374785486566867,
+          "process_ms": -0.97764202133096,
+          "record_serialization_ms": 11.637520050109007
+        }
+      }
+    },
+    {
+      "n": 2048,
+      "baseline": {
+        "evaluate_ms": 115.72934,
+        "commit_ms": 413.84625000000005,
+        "evaluate_plus_commit_ms": 535.496111,
+        "process_ms": 1396.642701991368,
+        "record_serialization_ms": 11.132793
+      },
+      "borrowed": {
+        "evaluate_ms": 114.52347999999999,
+        "commit_ms": 399.675694,
+        "evaluate_plus_commit_ms": 514.199174,
+        "process_ms": 1382.0157799927983,
+        "record_serialization_ms": 10.431647
+      },
+      "projected": {
+        "evaluate_ms": 115.297999,
+        "commit_ms": 366.482761,
+        "evaluate_plus_commit_ms": 479.449124,
+        "process_ms": 1349.777074996382,
+        "record_serialization_ms": 10.367383
+      },
+      "comparisons": {
+        "borrowed_vs_baseline": {
+          "evaluate_ms": -1.041965676119816,
+          "commit_ms": -3.4241112490447922,
+          "evaluate_plus_commit_ms": -3.9770479304190642,
+          "process_ms": -1.04729162137992,
+          "record_serialization_ms": -6.29802422446909
+        },
+        "projected_vs_baseline": {
+          "evaluate_ms": -0.3727153373552339,
+          "commit_ms": -11.44470657883213,
+          "evaluate_plus_commit_ms": -10.466366766947456,
+          "process_ms": -3.3555917292349635,
+          "record_serialization_ms": -6.875273796970793
+        },
+        "projected_vs_borrowed": {
+          "evaluate_ms": 0.6762971226511816,
+          "commit_ms": -8.304966626266753,
+          "evaluate_plus_commit_ms": -6.758091369473885,
+          "process_ms": -2.3327305999779835,
+          "record_serialization_ms": -0.6160484533266897
+        }
+      }
+    },
+    {
+      "n": 8192,
+      "baseline": {
+        "evaluate_ms": 484.905817,
+        "commit_ms": 1913.414782,
+        "evaluate_plus_commit_ms": 2398.320599,
+        "process_ms": 5920.813044009265,
+        "record_serialization_ms": 44.405744
+      },
+      "borrowed": {
+        "evaluate_ms": 487.994298,
+        "commit_ms": 1706.318294,
+        "evaluate_plus_commit_ms": 2191.280122,
+        "process_ms": 5741.609474993311,
+        "record_serialization_ms": 40.872308000000004
+      },
+      "projected": {
+        "evaluate_ms": 483.76023699999996,
+        "commit_ms": 1596.676058,
+        "evaluate_plus_commit_ms": 2097.946709,
+        "process_ms": 5581.027250998886,
+        "record_serialization_ms": 42.009817999999996
+      },
+      "comparisons": {
+        "borrowed_vs_baseline": {
+          "evaluate_ms": 0.6369238915523212,
+          "commit_ms": -10.82339751674397,
+          "evaluate_plus_commit_ms": -8.632727296189147,
+          "process_ms": -3.0266716358705814,
+          "record_serialization_ms": -7.9571597764469315
+        },
+        "projected_vs_baseline": {
+          "evaluate_ms": -0.23624793925705045,
+          "commit_ms": -16.553584041455373,
+          "evaluate_plus_commit_ms": -12.524342663997622,
+          "process_ms": -5.738836718618856,
+          "record_serialization_ms": -5.39553171319459
+        },
+        "projected_vs_borrowed": {
+          "evaluate_ms": -0.8676455887605572,
+          "commit_ms": -6.425661401248506,
+          "evaluate_plus_commit_ms": -4.259309983372372,
+          "process_ms": -2.796815504325323,
+          "record_serialization_ms": 2.7830823745015554
+        }
+      }
+    }
+  ],
+  "all_adverse_pairs": [
+    {
+      "n": 128,
+      "repetition": 1,
+      "comparison": "borrowed_vs_baseline",
+      "metric": "commit_ms",
+      "baseline": 20.688004,
+      "candidate": 21.259078000000002,
+      "change_percent": 2.760411299224441
+    },
+    {
+      "n": 128,
+      "repetition": 2,
+      "comparison": "borrowed_vs_baseline",
+      "metric": "process_ms",
+      "baseline": 86.39984700130299,
+      "candidate": 86.60402300301939,
+      "change_percent": 0.23631523527272158
+    },
+    {
+      "n": 128,
+      "repetition": 2,
+      "comparison": "borrowed_vs_baseline",
+      "metric": "record_serialization_ms",
+      "baseline": 1.061661,
+      "candidate": 1.094388,
+      "change_percent": 3.082622419020753
+    },
+    {
+      "n": 128,
+      "repetition": 3,
+      "comparison": "borrowed_vs_baseline",
+      "metric": "record_serialization_ms",
+      "baseline": 1.1156009999999998,
+      "candidate": 1.1182670000000001,
+      "change_percent": 0.238974328635444
+    },
+    {
+      "n": 128,
+      "repetition": 4,
+      "comparison": "borrowed_vs_baseline",
+      "metric": "evaluate_ms",
+      "baseline": 6.2978000000000005,
+      "candidate": 6.592968,
+      "change_percent": 4.686843024548248
+    },
+    {
+      "n": 128,
+      "repetition": 4,
+      "comparison": "borrowed_vs_baseline",
+      "metric": "evaluate_plus_commit_ms",
+      "baseline": 26.732611,
+      "candidate": 26.872197999999997,
+      "change_percent": 0.5221599940237631
+    },
+    {
+      "n": 128,
+      "repetition": 4,
+      "comparison": "borrowed_vs_baseline",
+      "metric": "process_ms",
+      "baseline": 84.06798899522983,
+      "candidate": 85.72892501251772,
+      "change_percent": 1.9757056605483214
+    },
+    {
+      "n": 128,
+      "repetition": 0,
+      "comparison": "projected_vs_baseline",
+      "metric": "record_serialization_ms",
+      "baseline": 1.11988,
+      "candidate": 1.7951869999999999,
+      "change_percent": 60.301728756652494
+    },
+    {
+      "n": 128,
+      "repetition": 1,
+      "comparison": "projected_vs_baseline",
+      "metric": "process_ms",
+      "baseline": 87.09530500345863,
+      "candidate": 88.10675298445858,
+      "change_percent": 1.1613117158953523
+    },
+    {
+      "n": 128,
+      "repetition": 1,
+      "comparison": "projected_vs_baseline",
+      "metric": "record_serialization_ms",
+      "baseline": 1.110388,
+      "candidate": 1.202603,
+      "change_percent": 8.304754734381149
+    },
+    {
+      "n": 128,
+      "repetition": 2,
+      "comparison": "projected_vs_baseline",
+      "metric": "commit_ms",
+      "baseline": 20.587946,
+      "candidate": 21.216549,
+      "change_percent": 3.053257474057891
+    },
+    {
+      "n": 128,
+      "repetition": 2,
+      "comparison": "projected_vs_baseline",
+      "metric": "evaluate_plus_commit_ms",
+      "baseline": 27.303355999999997,
+      "candidate": 27.734849,
+      "change_percent": 1.5803661645110711
+    },
+    {
+      "n": 128,
+      "repetition": 2,
+      "comparison": "projected_vs_baseline",
+      "metric": "process_ms",
+      "baseline": 86.39984700130299,
+      "candidate": 88.65348598919809,
+      "change_percent": 2.6083830771842953
+    },
+    {
+      "n": 128,
+      "repetition": 2,
+      "comparison": "projected_vs_baseline",
+      "metric": "record_serialization_ms",
+      "baseline": 1.061661,
+      "candidate": 1.264739,
+      "change_percent": 19.128328157481533
+    },
+    {
+      "n": 128,
+      "repetition": 3,
+      "comparison": "projected_vs_baseline",
+      "metric": "evaluate_ms",
+      "baseline": 6.470015,
+      "candidate": 6.645758,
+      "change_percent": 2.7162688185421446
+    },
+    {
+      "n": 128,
+      "repetition": 3,
+      "comparison": "projected_vs_baseline",
+      "metric": "record_serialization_ms",
+      "baseline": 1.1156009999999998,
+      "candidate": 1.192267,
+      "change_percent": 6.872170247247911
+    },
+    {
+      "n": 128,
+      "repetition": 4,
+      "comparison": "projected_vs_baseline",
+      "metric": "evaluate_ms",
+      "baseline": 6.2978000000000005,
+      "candidate": 6.383537,
+      "change_percent": 1.3613801645018686
+    },
+    {
+      "n": 128,
+      "repetition": 4,
+      "comparison": "projected_vs_baseline",
+      "metric": "record_serialization_ms",
+      "baseline": 1.0997839999999999,
+      "candidate": 1.200994,
+      "change_percent": 9.202716169720592
+    },
+    {
+      "n": 128,
+      "repetition": 0,
+      "comparison": "projected_vs_borrowed",
+      "metric": "evaluate_ms",
+      "baseline": 6.416009000000001,
+      "candidate": 6.675608,
+      "change_percent": 4.04611340164891
+    },
+    {
+      "n": 128,
+      "repetition": 0,
+      "comparison": "projected_vs_borrowed",
+      "metric": "process_ms",
+      "baseline": 88.19148899056017,
+      "candidate": 88.26302702073008,
+      "change_percent": 0.08111670523849313
+    },
+    {
+      "n": 128,
+      "repetition": 0,
+      "comparison": "projected_vs_borrowed",
+      "metric": "record_serialization_ms",
+      "baseline": 1.100606,
+      "candidate": 1.7951869999999999,
+      "change_percent": 63.108959972960335
+    },
+    {
+      "n": 128,
+      "repetition": 1,
+      "comparison": "projected_vs_borrowed",
+      "metric": "process_ms",
+      "baseline": 86.9179860164877,
+      "candidate": 88.10675298445858,
+      "change_percent": 1.3676881189416568
+    },
+    {
+      "n": 128,
+      "repetition": 1,
+      "comparison": "projected_vs_borrowed",
+      "metric": "record_serialization_ms",
+      "baseline": 1.095151,
+      "candidate": 1.202603,
+      "change_percent": 9.811615019298724
+    },
+    {
+      "n": 128,
+      "repetition": 2,
+      "comparison": "projected_vs_borrowed",
+      "metric": "commit_ms",
+      "baseline": 20.142727,
+      "candidate": 21.216549,
+      "change_percent": 5.331065649651112
+    },
+    {
+      "n": 128,
+      "repetition": 2,
+      "comparison": "projected_vs_borrowed",
+      "metric": "evaluate_plus_commit_ms",
+      "baseline": 26.663681,
+      "candidate": 27.734849,
+      "change_percent": 4.017329790286639
+    },
+    {
+      "n": 128,
+      "repetition": 2,
+      "comparison": "projected_vs_borrowed",
+      "metric": "process_ms",
+      "baseline": 86.60402300301939,
+      "candidate": 88.65348598919809,
+      "change_percent": 2.366475499766607
+    },
+    {
+      "n": 128,
+      "repetition": 2,
+      "comparison": "projected_vs_borrowed",
+      "metric": "record_serialization_ms",
+      "baseline": 1.094388,
+      "candidate": 1.264739,
+      "change_percent": 15.56586877780095
+    },
+    {
+      "n": 128,
+      "repetition": 3,
+      "comparison": "projected_vs_borrowed",
+      "metric": "evaluate_ms",
+      "baseline": 6.231490999999999,
+      "candidate": 6.645758,
+      "change_percent": 6.647959533280257
+    },
+    {
+      "n": 128,
+      "repetition": 3,
+      "comparison": "projected_vs_borrowed",
+      "metric": "process_ms",
+      "baseline": 84.54880499630235,
+      "candidate": 84.86151200486347,
+      "change_percent": 0.3698538478158264
+    },
+    {
+      "n": 128,
+      "repetition": 3,
+      "comparison": "projected_vs_borrowed",
+      "metric": "record_serialization_ms",
+      "baseline": 1.1182670000000001,
+      "candidate": 1.192267,
+      "change_percent": 6.617382074227329
+    },
+    {
+      "n": 128,
+      "repetition": 4,
+      "comparison": "projected_vs_borrowed",
+      "metric": "record_serialization_ms",
+      "baseline": 1.072265,
+      "candidate": 1.200994,
+      "change_percent": 12.005334502198606
+    },
+    {
+      "n": 512,
+      "repetition": 0,
+      "comparison": "borrowed_vs_baseline",
+      "metric": "record_serialization_ms",
+      "baseline": 5.293282,
+      "candidate": 5.465846,
+      "change_percent": 3.260056804077327
+    },
+    {
+      "n": 512,
+      "repetition": 3,
+      "comparison": "borrowed_vs_baseline",
+      "metric": "evaluate_ms",
+      "baseline": 24.940503,
+      "candidate": 25.181541000000003,
+      "change_percent": 0.9664520398806831
+    },
+    {
+      "n": 512,
+      "repetition": 4,
+      "comparison": "borrowed_vs_baseline",
+      "metric": "evaluate_ms",
+      "baseline": 25.098694000000002,
+      "candidate": 25.119682,
+      "change_percent": 0.08362188088351097
+    },
+    {
+      "n": 512,
+      "repetition": 0,
+      "comparison": "projected_vs_baseline",
+      "metric": "record_serialization_ms",
+      "baseline": 5.293282,
+      "candidate": 6.0064,
+      "change_percent": 13.472133168042078
+    },
+    {
+      "n": 512,
+      "repetition": 1,
+      "comparison": "projected_vs_baseline",
+      "metric": "record_serialization_ms",
+      "baseline": 5.467473,
+      "candidate": 5.816625,
+      "change_percent": 6.385984896496066
+    },
+    {
+      "n": 512,
+      "repetition": 2,
+      "comparison": "projected_vs_baseline",
+      "metric": "evaluate_ms",
+      "baseline": 25.535657999999998,
+      "candidate": 25.574469999999998,
+      "change_percent": 0.15199138396981837
+    },
+    {
+      "n": 512,
+      "repetition": 2,
+      "comparison": "projected_vs_baseline",
+      "metric": "record_serialization_ms",
+      "baseline": 5.43818,
+      "candidate": 5.896094,
+      "change_percent": 8.420353868389796
+    },
+    {
+      "n": 512,
+      "repetition": 3,
+      "comparison": "projected_vs_baseline",
+      "metric": "evaluate_ms",
+      "baseline": 24.940503,
+      "candidate": 25.97449,
+      "change_percent": 4.145814541110093
+    },
+    {
+      "n": 512,
+      "repetition": 3,
+      "comparison": "projected_vs_baseline",
+      "metric": "process_ms",
+      "baseline": 326.59802498528734,
+      "candidate": 329.60847701178864,
+      "change_percent": 0.9217606342343698
+    },
+    {
+      "n": 512,
+      "repetition": 3,
+      "comparison": "projected_vs_baseline",
+      "metric": "record_serialization_ms",
+      "baseline": 5.426567,
+      "candidate": 6.053526,
+      "change_percent": 11.553510718655069
+    },
+    {
+      "n": 512,
+      "repetition": 4,
+      "comparison": "projected_vs_baseline",
+      "metric": "evaluate_ms",
+      "baseline": 25.098694000000002,
+      "candidate": 25.567234000000003,
+      "change_percent": 1.8667903596896407
+    },
+    {
+      "n": 512,
+      "repetition": 4,
+      "comparison": "projected_vs_baseline",
+      "metric": "record_serialization_ms",
+      "baseline": 5.368098,
+      "candidate": 6.0075520000000004,
+      "change_percent": 11.912114868245705
+    },
+    {
+      "n": 512,
+      "repetition": 0,
+      "comparison": "projected_vs_borrowed",
+      "metric": "evaluate_ms",
+      "baseline": 25.346436,
+      "candidate": 25.503103,
+      "change_percent": 0.6181026792090094
+    },
+    {
+      "n": 512,
+      "repetition": 0,
+      "comparison": "projected_vs_borrowed",
+      "metric": "record_serialization_ms",
+      "baseline": 5.465846,
+      "candidate": 6.0064,
+      "change_percent": 9.889667583023742
+    },
+    {
+      "n": 512,
+      "repetition": 1,
+      "comparison": "projected_vs_borrowed",
+      "metric": "record_serialization_ms",
+      "baseline": 5.437654,
+      "candidate": 5.816625,
+      "change_percent": 6.96938422341693
+    },
+    {
+      "n": 512,
+      "repetition": 2,
+      "comparison": "projected_vs_borrowed",
+      "metric": "evaluate_ms",
+      "baseline": 25.223123,
+      "candidate": 25.574469999999998,
+      "change_percent": 1.392955979321031
+    },
+    {
+      "n": 512,
+      "repetition": 2,
+      "comparison": "projected_vs_borrowed",
+      "metric": "record_serialization_ms",
+      "baseline": 5.289122,
+      "candidate": 5.896094,
+      "change_percent": 11.475855538972258
+    },
+    {
+      "n": 512,
+      "repetition": 3,
+      "comparison": "projected_vs_borrowed",
+      "metric": "evaluate_ms",
+      "baseline": 25.181541000000003,
+      "candidate": 25.97449,
+      "change_percent": 3.1489296068099915
+    },
+    {
+      "n": 512,
+      "repetition": 3,
+      "comparison": "projected_vs_borrowed",
+      "metric": "process_ms",
+      "baseline": 324.6361170022283,
+      "candidate": 329.60847701178864,
+      "change_percent": 1.5316718470749224
+    },
+    {
+      "n": 512,
+      "repetition": 3,
+      "comparison": "projected_vs_borrowed",
+      "metric": "record_serialization_ms",
+      "baseline": 5.38027,
+      "candidate": 6.053526,
+      "change_percent": 12.513424047492027
+    },
+    {
+      "n": 512,
+      "repetition": 4,
+      "comparison": "projected_vs_borrowed",
+      "metric": "evaluate_ms",
+      "baseline": 25.119682,
+      "candidate": 25.567234000000003,
+      "change_percent": 1.7816786056447764
+    },
+    {
+      "n": 512,
+      "repetition": 4,
+      "comparison": "projected_vs_borrowed",
+      "metric": "process_ms",
+      "baseline": 323.19937099236995,
+      "candidate": 324.79192499886267,
+      "change_percent": 0.4927466293027871
+    },
+    {
+      "n": 512,
+      "repetition": 4,
+      "comparison": "projected_vs_borrowed",
+      "metric": "record_serialization_ms",
+      "baseline": 5.294119,
+      "candidate": 6.0075520000000004,
+      "change_percent": 13.475953222811965
+    },
+    {
+      "n": 2048,
+      "repetition": 2,
+      "comparison": "borrowed_vs_baseline",
+      "metric": "evaluate_ms",
+      "baseline": 110.864738,
+      "candidate": 111.224639,
+      "change_percent": 0.32463072252963965
+    },
+    {
+      "n": 2048,
+      "repetition": 4,
+      "comparison": "borrowed_vs_baseline",
+      "metric": "evaluate_ms",
+      "baseline": 115.72934,
+      "candidate": 116.884682,
+      "change_percent": 0.9983138243076617
+    },
+    {
+      "n": 2048,
+      "repetition": 2,
+      "comparison": "projected_vs_baseline",
+      "metric": "evaluate_ms",
+      "baseline": 110.864738,
+      "candidate": 112.966363,
+      "change_percent": 1.8956658698819018
+    },
+    {
+      "n": 2048,
+      "repetition": 0,
+      "comparison": "projected_vs_borrowed",
+      "metric": "evaluate_ms",
+      "baseline": 114.52347999999999,
+      "candidate": 116.852386,
+      "change_percent": 2.033562025883251
+    },
+    {
+      "n": 2048,
+      "repetition": 1,
+      "comparison": "projected_vs_borrowed",
+      "metric": "evaluate_ms",
+      "baseline": 107.848216,
+      "candidate": 111.452286,
+      "change_percent": 3.341798440133692
+    },
+    {
+      "n": 2048,
+      "repetition": 1,
+      "comparison": "projected_vs_borrowed",
+      "metric": "record_serialization_ms",
+      "baseline": 9.931917,
+      "candidate": 10.367383,
+      "change_percent": 4.3845110666953735
+    },
+    {
+      "n": 2048,
+      "repetition": 2,
+      "comparison": "projected_vs_borrowed",
+      "metric": "evaluate_ms",
+      "baseline": 111.224639,
+      "candidate": 112.966363,
+      "change_percent": 1.5659515873996277
+    },
+    {
+      "n": 2048,
+      "repetition": 3,
+      "comparison": "projected_vs_borrowed",
+      "metric": "record_serialization_ms",
+      "baseline": 10.431647,
+      "candidate": 10.613489,
+      "change_percent": 1.7431763172200965
+    },
+    {
+      "n": 8192,
+      "repetition": 1,
+      "comparison": "borrowed_vs_baseline",
+      "metric": "evaluate_ms",
+      "baseline": 494.41796999999997,
+      "candidate": 496.207951,
+      "change_percent": 0.3620380141118318
+    },
+    {
+      "n": 8192,
+      "repetition": 2,
+      "comparison": "borrowed_vs_baseline",
+      "metric": "evaluate_ms",
+      "baseline": 484.905817,
+      "candidate": 497.42535799999996,
+      "change_percent": 2.581850033776756
+    },
+    {
+      "n": 8192,
+      "repetition": 3,
+      "comparison": "borrowed_vs_baseline",
+      "metric": "evaluate_ms",
+      "baseline": 478.72519,
+      "candidate": 487.994298,
+      "change_percent": 1.936206448630795
+    },
+    {
+      "n": 8192,
+      "repetition": 0,
+      "comparison": "projected_vs_baseline",
+      "metric": "evaluate_ms",
+      "baseline": 440.181216,
+      "candidate": 447.956362,
+      "change_percent": 1.7663511566109236
+    },
+    {
+      "n": 8192,
+      "repetition": 0,
+      "comparison": "projected_vs_baseline",
+      "metric": "record_serialization_ms",
+      "baseline": 38.989491,
+      "candidate": 39.044222000000005,
+      "change_percent": 0.14037372275519377
+    },
+    {
+      "n": 8192,
+      "repetition": 1,
+      "comparison": "projected_vs_baseline",
+      "metric": "evaluate_ms",
+      "baseline": 494.41796999999997,
+      "candidate": 519.39968,
+      "change_percent": 5.052751217760143
+    },
+    {
+      "n": 8192,
+      "repetition": 3,
+      "comparison": "projected_vs_baseline",
+      "metric": "evaluate_ms",
+      "baseline": 478.72519,
+      "candidate": 483.76023699999996,
+      "change_percent": 1.051761450029387
+    },
+    {
+      "n": 8192,
+      "repetition": 3,
+      "comparison": "projected_vs_baseline",
+      "metric": "record_serialization_ms",
+      "baseline": 43.399549,
+      "candidate": 46.015355,
+      "change_percent": 6.027265398541348
+    },
+    {
+      "n": 8192,
+      "repetition": 0,
+      "comparison": "projected_vs_borrowed",
+      "metric": "evaluate_ms",
+      "baseline": 439.543482,
+      "candidate": 447.956362,
+      "change_percent": 1.9140040393091473
+    },
+    {
+      "n": 8192,
+      "repetition": 0,
+      "comparison": "projected_vs_borrowed",
+      "metric": "record_serialization_ms",
+      "baseline": 37.828268,
+      "candidate": 39.044222000000005,
+      "change_percent": 3.2144056925894837
+    },
+    {
+      "n": 8192,
+      "repetition": 1,
+      "comparison": "projected_vs_borrowed",
+      "metric": "evaluate_ms",
+      "baseline": 496.207951,
+      "candidate": 519.39968,
+      "change_percent": 4.673792298825941
+    },
+    {
+      "n": 8192,
+      "repetition": 1,
+      "comparison": "projected_vs_borrowed",
+      "metric": "evaluate_plus_commit_ms",
+      "baseline": 2110.589431,
+      "candidate": 2116.075738,
+      "change_percent": 0.25994193467560045
+    },
+    {
+      "n": 8192,
+      "repetition": 1,
+      "comparison": "projected_vs_borrowed",
+      "metric": "process_ms",
+      "baseline": 5698.092446022201,
+      "candidate": 5768.963898008224,
+      "change_percent": 1.243775046778972
+    },
+    {
+      "n": 8192,
+      "repetition": 1,
+      "comparison": "projected_vs_borrowed",
+      "metric": "record_serialization_ms",
+      "baseline": 38.565705,
+      "candidate": 42.009817999999996,
+      "change_percent": 8.930507039868708
+    },
+    {
+      "n": 8192,
+      "repetition": 3,
+      "comparison": "projected_vs_borrowed",
+      "metric": "record_serialization_ms",
+      "baseline": 41.014533,
+      "candidate": 46.015355,
+      "change_percent": 12.192804926000257
+    },
+    {
+      "n": 8192,
+      "repetition": 4,
+      "comparison": "projected_vs_borrowed",
+      "metric": "evaluate_ms",
+      "baseline": 476.925228,
+      "candidate": 489.11744200000004,
+      "change_percent": 2.5564204374611155
+    },
+    {
+      "n": 8192,
+      "repetition": 4,
+      "comparison": "projected_vs_borrowed",
+      "metric": "record_serialization_ms",
+      "baseline": 40.872308000000004,
+      "candidate": 43.645676,
+      "change_percent": 6.785445049983463
+    }
+  ]
+}

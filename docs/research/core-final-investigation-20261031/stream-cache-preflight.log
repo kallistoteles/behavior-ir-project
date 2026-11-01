@@ -1,0 +1,2 @@
+{"command": ["cargo", "build", "--locked", "--release", "-p", "behavior-store", "--example", "serialization_factor", "--example", "final_native_probe", "--example", "execution_evidence_bench"], "utc": "2026-10-31T22:50:26.699548+00:00"}
+    Finished `release` profile [optimized] target(s) in 0.15s

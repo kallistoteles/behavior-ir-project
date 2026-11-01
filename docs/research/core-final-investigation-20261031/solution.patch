@@ -1,0 +1,2165 @@
+diff --git a/crates/behavior-core/src/canonical.rs b/crates/behavior-core/src/canonical.rs
+index 60790e1..a955115 100644
+--- a/crates/behavior-core/src/canonical.rs
++++ b/crates/behavior-core/src/canonical.rs
+@@ -104,7 +104,10 @@ fn check_no_floats(v: &Value, path: &str) -> Result<(), CanonicalError> {
+ /// `preserve_order` feature is not enabled), which gives byte-order key sorting.
+ pub fn to_canonical_string(v: &Value) -> Result<String, CanonicalError> {
+     check_canonical_value(v)?;
+-    serde_json::to_string(v).map_err(|e| CanonicalError::Serialize(e.to_string()))
++    let text = serde_json::to_string(v).map_err(|e| CanonicalError::Serialize(e.to_string()))?;
++    #[cfg(test)]
++    hash_stream_tests::note_text(text.len());
++    Ok(text)
+ }
+ 
+ fn check_canonical_value(v: &Value) -> Result<(), CanonicalError> {
+@@ -134,17 +137,7 @@ pub fn canonical<T: Serialize>(t: &T) -> Result<String, CanonicalError> {
+ /// Nested hash fields remain content. This is the legacy governance algorithm.
+ /// The complete supplied value must be canonicalizable, including excluded metadata.
+ pub fn tagged_hash(tag: &str, doc: &Value) -> Result<String, CanonicalError> {
+-    let text = if doc.get("hash").is_some() {
+-        check_canonical_value(doc)?;
+-        let mut value = doc.clone();
+-        if let Value::Object(object) = &mut value {
+-            object.remove("hash");
+-        }
+-        to_canonical_string(&value)?
+-    } else {
+-        to_canonical_string(doc)?
+-    };
+-    Ok(tagged_hash_canonical_text(tag, &text))
++    tagged_hash_view(tag, &DocumentView::Borrowed(doc))
+ }
+ 
+ /// Internal reuse of bytes already produced by the canonical serializer.
+@@ -154,6 +147,11 @@ pub(crate) fn tagged_hash_canonical_text(tag: &str, text: &str) -> String {
+     digest.update(tag.as_bytes());
+     digest.update([0]);
+     digest.update(text.as_bytes());
++    finish_digest(digest)
++}
++
++fn finish_digest(digest: sha2::Sha256) -> String {
++    use sha2::Digest;
+     const HEX: &[u8; 16] = b"0123456789abcdef";
+     let mut hash = String::with_capacity(71);
+     hash.push_str("sha256:");
+@@ -163,3 +161,10 @@ pub(crate) fn tagged_hash_canonical_text(tag: &str, text: &str) -> String {
+     }
+     hash
+ }
++
++#[cfg(test)]
++#[path = "canonical/hash_stream_tests.rs"]
++mod hash_stream_tests;
++
++mod view;
++pub use view::{DocumentView, tagged_hash_view};
+diff --git a/crates/behavior-core/src/eval/prepared_tests.rs b/crates/behavior-core/src/eval/prepared_tests.rs
+index c717dc0..5f5578c 100644
+--- a/crates/behavior-core/src/eval/prepared_tests.rs
++++ b/crates/behavior-core/src/eval/prepared_tests.rs
+@@ -258,8 +258,7 @@ fn unchanged_reference_and_optional_fields_preserve_actual_bound_target_observat
+     assert_eq!(actual.observed().fields, observed.fields);
+ }
+ 
+-#[path = "../../tests/support/commands.rs"]
+-mod command_model;
++use crate::command_test_model as command_model;
+ #[test]
+ fn prepared_command_payload_activation_and_errors_match_reference() {
+     for (wire, mut request) in [
+diff --git a/crates/behavior-core/src/lib.rs b/crates/behavior-core/src/lib.rs
+index f3dd691..8836dfe 100644
+--- a/crates/behavior-core/src/lib.rs
++++ b/crates/behavior-core/src/lib.rs
+@@ -63,3 +63,7 @@ pub fn format_versions() -> serde_json::Value {
+ 
+ #[cfg(test)]
+ mod incremental_proof;
++
++#[cfg(test)]
++#[path = "../tests/support/commands.rs"]
++mod command_test_model;
+diff --git a/crates/behavior-core/src/record.rs b/crates/behavior-core/src/record.rs
+index f09f6a8..18dfb3e 100644
+--- a/crates/behavior-core/src/record.rs
++++ b/crates/behavior-core/src/record.rs
+@@ -523,7 +523,9 @@ fn replay_profile(module: &Module, stored: &Json) -> Result<RecordExecution, Rec
+     let command_module = module.semantic_profile() == SemanticProfile::CommandIntents;
+     match stored.get("record_version").and_then(Json::as_str) {
+         Some(RECORD_VERSION_CURRENT) => {
+-            DecisionRecord::from_json(&stored.to_string())?;
++            // reproduce_record already strictly decoded this immutable value.
++            // Retain every typed/profile check without a second text round trip.
++            validate_record08(stored)?;
+             if command_module != stored.get("semantic_profile").is_some() {
+                 return Err(record_error("record/module profile mismatch"));
+             }
+@@ -1011,7 +1013,7 @@ fn reject_null_fields(raw: &Json, fields: &[&str]) -> Result<(), RecordError> {
+ 
+ fn validate_record08(raw: &Json) -> Result<crate::commands::CommandIntentBag, RecordError> {
+     let record: Record08 =
+-        serde_json::from_value(raw.clone()).map_err(|error| record_error(error.to_string()))?;
++        serde::Deserialize::deserialize(raw).map_err(|error| record_error(error.to_string()))?;
+     if record.record_version != RECORD_VERSION_CURRENT
+         || record.validation_profile != VALIDATION_PROFILE_CURRENT
+     {
+@@ -1155,13 +1157,62 @@ fn validate_record08(raw: &Json) -> Result<crate::commands::CommandIntentBag, Re
+             &step.field,
+         );
+     }
++    // Positional CurrentTrace has extra fields that the old projected parser
++    // can reject. Preserve that exact path after all current-profile checks.
++    let object_trace = raw
++        .get("trace")
++        .and_then(Json::as_array)
++        .is_some_and(|steps| steps.iter().all(Json::is_object));
++    if !object_trace {
++        return validate_record07(&project_current_record(raw, record.commands.is_some()));
++    }
++    let common = Record07 {
++        record_version: RECORD_VERSION_COMMANDS.into(),
++        semantic_profile: "0.8".into(),
++        behavior_version: record.behavior_version,
++        data_version: record.data_version,
++        git_revision: record.git_revision,
++        action: record.action,
++        state: record.state,
++        input: record.input,
++        context: record.context,
++        facts: record.facts,
++        result: record.result,
++        reasons: record.reasons,
++        trace: record
++            .trace
++            .into_iter()
++            .map(|step| SemanticTrace {
++                phase: step.phase,
++                hash: step.hash,
++                reads: step.reads,
++                outcome: step.outcome,
++                param: step.param,
++                role: step.role,
++                rescales: step.rescales,
++                emission: step.emission,
++                canonical_index: step.canonical_index,
++                field: step.field,
++            })
++            .collect(),
++        derived: record.derived,
++        changes: record.changes,
++        lifecycle: record.lifecycle,
++        commands: record
++            .commands
++            .unwrap_or_else(|| json!({"declarations":[],"types":[],"intents":[]})),
++    };
++    validate_record07_fields(common)
++}
++
++fn project_current_record(raw: &Json, has_commands: bool) -> Json {
+     let mut common = raw.clone();
+     if let Some(object) = common.as_object_mut() {
+         object.remove("validation_profile");
+         object.remove("refused_request");
+         object.insert("record_version".into(), json!(RECORD_VERSION_COMMANDS));
+         object.insert("semantic_profile".into(), json!("0.8"));
+-        if record.commands.is_none() {
++        if !has_commands {
+             object.insert(
+                 "commands".into(),
+                 json!({"declarations":[],"types":[],"intents":[]}),
+@@ -1177,23 +1228,20 @@ fn validate_record08(raw: &Json) -> Result<crate::commands::CommandIntentBag, Re
+             }
+         }
+     }
+-    let bag = validate_record07(&common)?;
+-    let _ = (
+-        record.behavior_version,
+-        record.data_version,
+-        record.git_revision,
+-        record.action,
+-        record.state,
+-        record.input,
+-        record.context,
+-        record.reasons,
+-    );
+-    Ok(bag)
++    common
+ }
+ 
+ fn validate_record07(raw: &Json) -> Result<crate::commands::CommandIntentBag, RecordError> {
++    #[cfg(test)]
++    typed_materialization_tests::note07_decode();
+     let record: Record07 =
+-        serde_json::from_value(raw.clone()).map_err(|e| record_error(e.to_string()))?;
++        serde::Deserialize::deserialize(raw).map_err(|e| record_error(e.to_string()))?;
++    validate_record07_fields(record)
++}
++
++fn validate_record07_fields(
++    record: Record07,
++) -> Result<crate::commands::CommandIntentBag, RecordError> {
+     if record.record_version != RECORD_VERSION_COMMANDS || record.semantic_profile != "0.8" {
+         return Err(record_error("unsupported record/profile pair"));
+     }
+@@ -1315,3 +1363,7 @@ fn validate_record07(raw: &Json) -> Result<crate::commands::CommandIntentBag, Re
+     );
+     Ok(bag)
+ }
++
++#[cfg(test)]
++#[path = "record/typed_materialization_tests.rs"]
++mod typed_materialization_tests;
+diff --git a/crates/behavior-core/tests/support/commands.rs b/crates/behavior-core/tests/support/commands.rs
+index 0c6f66a..97f64dc 100644
+--- a/crates/behavior-core/tests/support/commands.rs
++++ b/crates/behavior-core/tests/support/commands.rs
+@@ -1,4 +1,4 @@
+-#![allow(dead_code)]
++#![allow(dead_code, clippy::expect_used)]
+ //! Independent small command model used by Core, Store, Verifier and facade tests.
+ use serde_json::{Value, json};
+ 
+diff --git a/crates/behavior-store/src/documents.rs b/crates/behavior-store/src/documents.rs
+index 7fd1d2c..2760907 100644
+--- a/crates/behavior-store/src/documents.rs
++++ b/crates/behavior-store/src/documents.rs
+@@ -225,12 +225,18 @@ fn schema_mismatch_text(store: &str, module: &str, differing: &[DeclarationDiff]
+ /// The domain-tagged hash of a serializable document.
+ pub fn hash_of<T: Serialize>(tag: &str, doc: &T) -> R<String> {
+     let v = serde_json::to_value(doc).map_err(|e| StoreError::BundleInvalid(e.to_string()))?;
++    #[cfg(test)]
++    hash_view_tests::note_materialization(tag);
++    hash_json(tag, &v)
++}
++
++fn hash_json(tag: &str, v: &Json) -> R<String> {
+     #[cfg(feature = "validation-work")]
+     behavior_core::eval::work::note(|w| {
+         w.document_hash_calls += 1;
+         w.hash_document_json_bytes += v.to_string().len();
+     });
+-    document_hash(tag, &v).map_err(|e| StoreError::BundleInvalid(e.to_string()))
++    document_hash(tag, v).map_err(|e| StoreError::BundleInvalid(e.to_string()))
+ }
+ 
+ /// Decodes a document strictly (unknown fields are refused).
+@@ -725,7 +731,7 @@ impl CommitBundle {
+         }
+         let content = serde_json::json!({"kind":"action","store":self.store,"evaluated_history":history,"behavior_version":self.behavior_version,"record":self.record,
+             "entity_declarations":self.entity_declarations,"read_set":self.read_set,"read_facts":if self.read_facts.is_null(){serde_json::json!({})}else{self.read_facts.clone()},"write_set":self.write_set,"write_lifecycle":self.write_lifecycle});
+-        let transition = hash_of(
++        let transition = hash_json(
+             behavior_verify::hashing::TAG_CANDIDATE_TRANSITION_V2,
+             &content,
+         )?;
+@@ -763,7 +769,7 @@ impl CommitBundle {
+                         "legacy bundle contains v2 semantics".into(),
+                     ));
+                 }
+-                hash_of(TAG_COMMIT_BUNDLE, self)
++                views::hash_bundle(TAG_COMMIT_BUNDLE, self)
+             }
+             TAG_COMMIT_BUNDLE_V2 => {
+                 if self.governance_candidate()?.hash() != self.transition_hash {
+@@ -780,7 +786,7 @@ impl CommitBundle {
+                         "v2 bundle cannot contain structural legacy evidence".into(),
+                     ));
+                 }
+-                hash_of(TAG_COMMIT_BUNDLE_V2, self)
++                views::hash_bundle(TAG_COMMIT_BUNDLE_V2, self)
+             }
+             _ => Err(StoreError::BundleInvalid(
+                 "unknown commit bundle format".into(),
+@@ -926,8 +932,20 @@ impl TransitionRecord {
+     pub fn hash(&self) -> R<String> {
+         self.check_kind()?;
+         match self.format.as_str() {
+-            TAG_TRANSITION_RECORD => hash_of(TAG_TRANSITION_RECORD, self),
+-            TAG_TRANSITION_RECORD_V2 => hash_of(TAG_TRANSITION_RECORD_V2, self),
++            TAG_TRANSITION_RECORD => {
++                if self.migration.is_none() {
++                    views::hash_event(TAG_TRANSITION_RECORD, self)
++                } else {
++                    hash_of(TAG_TRANSITION_RECORD, self)
++                }
++            }
++            TAG_TRANSITION_RECORD_V2 => {
++                if self.migration.is_none() {
++                    views::hash_event(TAG_TRANSITION_RECORD_V2, self)
++                } else {
++                    hash_of(TAG_TRANSITION_RECORD_V2, self)
++                }
++            }
+             _ => Err(StoreError::BundleInvalid(
+                 "unknown transition format".into(),
+             )),
+@@ -1030,3 +1048,9 @@ pub fn valid_timestamp(s: &str) -> bool {
+         && b[16] == b':'
+         && b[19] == b'Z'
+ }
++
++#[cfg(test)]
++#[path = "documents/hash_view_tests.rs"]
++mod hash_view_tests;
++
++mod views;
+diff --git a/crates/behavior-store/src/lib.rs b/crates/behavior-store/src/lib.rs
+index c009905..8c920f6 100644
+--- a/crates/behavior-store/src/lib.rs
++++ b/crates/behavior-store/src/lib.rs
+@@ -120,3 +120,11 @@ pub trait Backend {
+         new_head: &Head,
+     ) -> Result<CasOutcome, BackendError>;
+ }
++
++#[cfg(test)]
++use crate as store_api;
++#[cfg(test)]
++use behavior_core as core_api;
++#[cfg(test)]
++#[path = "../tests/support/execution_evidence_workload.rs"]
++pub(crate) mod execution_test_workload;
+diff --git a/crates/behavior-store/src/store.rs b/crates/behavior-store/src/store.rs
+index 245d47d..08dd34b 100644
+--- a/crates/behavior-store/src/store.rs
++++ b/crates/behavior-store/src/store.rs
+@@ -2603,6 +2603,7 @@ impl<B: Backend> Store<B> {
+             state: acc.state_id()?,
+             position,
+         };
++        let bundle_hash = archived_bundle.hash()?;
+         let record = TransitionRecord {
+             format: if v2 {
+                 crate::documents::TAG_TRANSITION_RECORD_V2
+@@ -2613,9 +2614,9 @@ impl<B: Backend> Store<B> {
+             position,
+             previous_record: head.last_record.clone(),
+             kind: if v2 { Some("action".into()) } else { None },
+-            bundle: Some(archived_bundle.clone()),
++            bundle: Some(archived_bundle),
+             migration: None,
+-            bundle_hash: archived_bundle.hash()?,
++            bundle_hash,
+             evaluated_against: parent.clone(),
+             committed_on: parent.clone(),
+             result_state: result_state.clone(),
+diff --git a/crates/behavior-store/src/store/incremental/research031_tests.rs b/crates/behavior-store/src/store/incremental/research031_tests.rs
+index 857f77b..bf707c7 100644
+--- a/crates/behavior-store/src/store/incremental/research031_tests.rs
++++ b/crates/behavior-store/src/store/incremental/research031_tests.rs
+@@ -1,11 +1,8 @@
+ //! Full-observation controls for the research harness; not a public runtime interface.
+ #![allow(clippy::unwrap_used)]
+ use super::*;
+-use crate as store_api;
+-use behavior_core as core_api;
++pub(super) use crate::execution_test_workload as execution_workload;
+ use serde_json::{Value as Json, json};
+-#[path = "../../../tests/support/execution_evidence_workload.rs"]
+-pub(super) mod execution_workload;
+ 
+ fn observations(reference: bool) -> Json {
+     observations_and_metrics(reference).0
+diff --git a/crates/behavior-core/src/canonical/hash_stream_tests.rs b/crates/behavior-core/src/canonical/hash_stream_tests.rs
+new file mode 100644
+index 0000000..ba9a060
+--- /dev/null
++++ b/crates/behavior-core/src/canonical/hash_stream_tests.rs
+@@ -0,0 +1,169 @@
++#![allow(clippy::unwrap_used)]
++use super::*;
++use serde_json::json;
++use std::cell::Cell;
++
++thread_local! { static TEXT_BYTES: Cell<usize> = const { Cell::new(0) }; }
++pub(super) fn note_text(bytes: usize) {
++    TEXT_BYTES.with(|counter| counter.set(counter.get() + bytes));
++}
++
++fn reference(tag: &str, doc: &Value) -> Result<String, CanonicalError> {
++    use sha2::{Digest, Sha256};
++    // Frozen former control flow, retaining complete-value error precedence.
++    let text = if doc.get("hash").is_some() {
++        check_canonical_value(doc)?;
++        let mut value = doc.clone();
++        if let Value::Object(object) = &mut value {
++            object.remove("hash");
++        }
++        to_canonical_string(&value)?
++    } else {
++        to_canonical_string(doc)?
++    };
++    let mut digest = Sha256::new();
++    digest.update(tag.as_bytes());
++    digest.update([0]);
++    digest.update(text.as_bytes());
++    Ok(format!("sha256:{:x}", digest.finalize()))
++}
++
++#[test]
++fn tagged_hash_does_not_materialize_a_canonical_output_string() {
++    let document = json!({"a": ["x".repeat(65536)], "hash": "excluded", "nested": {"hash": 7}});
++    let expected = reference("resource-goal", &document).unwrap();
++    TEXT_BYTES.with(|counter| counter.set(0));
++    assert_eq!(tagged_hash("resource-goal", &document).unwrap(), expected);
++    assert_eq!(
++        TEXT_BYTES.with(Cell::get),
++        0,
++        "hash should stream canonical bytes"
++    );
++}
++
++#[test]
++fn full_value_errors_precede_top_level_hash_exclusion() {
++    for (document, path) in [
++        (json!({"hash": [0.5], "z": 1}), "$.hash[0]"),
++        (json!({"a": {"x": 0.5}, "hash": 0.25}), "$.a.x"),
++        (json!([{"hash": 0.5}]), "$[0].hash"),
++        (json!(0.5), "$"),
++    ] {
++        assert_eq!(
++            tagged_hash("errors", &document),
++            Err(CanonicalError::Float(path.into()))
++        );
++        assert_eq!(
++            tagged_hash("errors", &document),
++            reference("errors", &document)
++        );
++    }
++}
++
++#[test]
++fn canonical_string_contract_remains_compact_ordered_utf8() {
++    let value =
++        json!({"z": [null, true, "é\n\""], "a": -7, "hash": "kept for ordinary serialization"});
++    assert_eq!(
++        to_canonical_string(&value).unwrap(),
++        "{\"a\":-7,\"hash\":\"kept for ordinary serialization\",\"z\":[null,true,\"é\\n\\\"\"]}"
++    );
++}
++
++#[test]
++fn scalar_nested_and_large_documents_match_frozen_hashing() {
++    let mut documents = vec![
++        Value::Null,
++        json!(true),
++        json!(false),
++        json!(i64::MIN),
++        json!(i64::MAX),
++        json!(u64::MAX),
++        json!("quote\"slash\\tab\t零"),
++        json!([]),
++        json!({}),
++        json!({"hash": null}),
++        json!({"nested": {"hash": 7}, "array": [{"hash": 9}]}),
++    ];
++    for seed in 0..256 {
++        documents.push(
++            json!({"z":seed,"hash":{"excluded":seed},"a":[seed, -seed, "é".repeat(seed as usize)],
++                              "nested":{"hash":seed, "value": format!("\u{0}{seed}\n")}}),
++        );
++    }
++    for document in documents {
++        for tag in ["", "behavior.transition.v1", "tag\0suffix"] {
++            assert_eq!(tagged_hash(tag, &document), reference(tag, &document));
++        }
++    }
++}
++
++#[test]
++fn composed_view_matches_materialized_objects_and_exact_float_paths() {
++    use std::collections::BTreeMap;
++    let record = json!({"trace":[{"hash":"bound","n":7}],"str":"é\n"});
++    let view = DocumentView::Object(BTreeMap::from([
++        ("z", DocumentView::Owned(json!(u64::MAX))),
++        (
++            "bundle",
++            DocumentView::Object(BTreeMap::from([
++                ("record", DocumentView::Borrowed(&record)),
++                ("hash", DocumentView::Owned(json!("nested stays"))),
++            ])),
++        ),
++        ("hash", DocumentView::Owned(json!("root excluded"))),
++    ]));
++    let materialized = serde_json::to_value(&view).unwrap();
++    assert_eq!(
++        tagged_hash_view("view", &view),
++        reference("view", &materialized)
++    );
++    let bad = json!({"hash":[0.5]});
++    let bad_view = DocumentView::Object(BTreeMap::from([
++        ("bundle", DocumentView::Borrowed(&bad)),
++        ("hash", DocumentView::Owned(json!(0.25))),
++    ]));
++    assert_eq!(
++        tagged_hash_view("view", &bad_view),
++        Err(CanonicalError::Float("$.bundle.hash[0]".into()))
++    );
++    let root_only = DocumentView::Object(BTreeMap::from([("hash", DocumentView::Borrowed(&bad))]));
++    assert_eq!(
++        tagged_hash_view("view", &root_only),
++        Err(CanonicalError::Float("$.hash.hash[0]".into()))
++    );
++}
++
++#[test]
++fn composed_view_hash_does_not_materialize_canonical_text() {
++    use std::collections::BTreeMap;
++    let record = json!(["x".repeat(65536)]);
++    let view = DocumentView::Object(BTreeMap::from([(
++        "record",
++        DocumentView::Borrowed(&record),
++    )]));
++    let expected = reference("view-resource", &serde_json::to_value(&view).unwrap()).unwrap();
++    TEXT_BYTES.with(|counter| counter.set(0));
++    assert_eq!(tagged_hash_view("view-resource", &view).unwrap(), expected);
++    assert_eq!(
++        TEXT_BYTES.with(Cell::get),
++        0,
++        "view hash should stream canonical bytes"
++    );
++}
++
++#[test]
++fn owned_root_views_match_borrowed_roots_and_keep_nested_hashes() {
++    for document in [
++        json!({"hash":1,"n":{"hash":2}}),
++        json!([{"hash":3}]),
++        json!("é"),
++        json!({"hash":null}),
++    ] {
++        let expected = reference("owned", &document);
++        assert_eq!(
++            tagged_hash_view("owned", &DocumentView::Owned(document)),
++            expected
++        );
++    }
++}
+diff --git a/crates/behavior-core/src/canonical/view.rs b/crates/behavior-core/src/canonical/view.rs
+new file mode 100644
+index 0000000..a9977ae
+--- /dev/null
++++ b/crates/behavior-core/src/canonical/view.rs
+@@ -0,0 +1,119 @@
++//! Checked composition of borrowed and owned JSON. Construction confers no validity.
++use super::{CanonicalError, check_no_floats, contains_float, finish_digest};
++use serde::ser::SerializeMap;
++use serde::{Serialize, Serializer};
++use serde_json::Value;
++use sha2::{Digest, Sha256};
++use std::collections::BTreeMap;
++use std::io::{self, BufWriter, Write};
++
++/// Internal cross-crate view; not part of the supported engine facade.
++/// Objects compose fixed document fields while JSON leaves preserve their representation.
++pub enum DocumentView<'a> {
++    Borrowed(&'a Value),
++    Owned(Value),
++    Object(BTreeMap<&'a str, DocumentView<'a>>),
++}
++
++impl DocumentView<'_> {
++    fn contains_float(&self) -> bool {
++        match self {
++            Self::Borrowed(value) => contains_float(value),
++            Self::Owned(value) => contains_float(value),
++            Self::Object(fields) => fields.values().any(Self::contains_float),
++        }
++    }
++
++    fn check_no_floats(&self, path: &str) -> Result<(), CanonicalError> {
++        match self {
++            Self::Borrowed(value) => check_no_floats(value, path),
++            Self::Owned(value) => check_no_floats(value, path),
++            Self::Object(fields) => fields
++                .iter()
++                .try_for_each(|(key, value)| value.check_no_floats(&format!("{path}.{key}"))),
++        }
++    }
++}
++
++impl Serialize for DocumentView<'_> {
++    fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
++        match self {
++            Self::Borrowed(value) => value.serialize(serializer),
++            Self::Owned(value) => value.serialize(serializer),
++            Self::Object(fields) => {
++                let mut map = serializer.serialize_map(Some(fields.len()))?;
++                for (key, value) in fields {
++                    map.serialize_entry(key, value)?;
++                }
++                map.end()
++            }
++        }
++    }
++}
++
++struct RootProjection<'a, 'value>(&'a DocumentView<'value>);
++
++fn serialize_json_root<S: Serializer>(value: &Value, serializer: S) -> Result<S::Ok, S::Error> {
++    let Some(fields) = value.as_object() else {
++        return value.serialize(serializer);
++    };
++    let len = fields.len() - usize::from(fields.contains_key("hash"));
++    let mut map = serializer.serialize_map(Some(len))?;
++    for (key, value) in fields {
++        if key != "hash" {
++            map.serialize_entry(key, value)?;
++        }
++    }
++    map.end()
++}
++
++impl Serialize for RootProjection<'_, '_> {
++    fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
++        match self.0 {
++            DocumentView::Borrowed(value) => serialize_json_root(value, serializer),
++            DocumentView::Owned(value) => serialize_json_root(value, serializer),
++            DocumentView::Object(fields) => {
++                let len = fields.len() - usize::from(fields.contains_key("hash"));
++                let mut map = serializer.serialize_map(Some(len))?;
++                for (key, value) in fields {
++                    if *key != "hash" {
++                        map.serialize_entry(key, value)?;
++                    }
++                }
++                map.end()
++            }
++        }
++    }
++}
++
++struct DigestWriter<'a>(&'a mut Sha256);
++impl Write for DigestWriter<'_> {
++    fn write(&mut self, bytes: &[u8]) -> io::Result<usize> {
++        self.0.update(bytes);
++        Ok(bytes.len())
++    }
++    fn flush(&mut self) -> io::Result<()> {
++        Ok(())
++    }
++}
++
++/// Hash a complete checked view using the existing root-only metadata convention.
++/// Validation precedes projection, and paths follow canonical object/array order.
++pub fn tagged_hash_view(tag: &str, view: &DocumentView<'_>) -> Result<String, CanonicalError> {
++    if view.contains_float() {
++        view.check_no_floats("$")?;
++    }
++    let mut digest = Sha256::new();
++    digest.update(tag.as_bytes());
++    digest.update([0]);
++    {
++        // Batch the compact formatter's small fragments without storing the whole document.
++        let mut writer = BufWriter::with_capacity(8192, DigestWriter(&mut digest));
++        serde_json::to_writer(&mut writer, &RootProjection(view))
++            .map_err(|error| CanonicalError::Serialize(error.to_string()))?;
++        writer
++            .flush()
++            .map_err(|error| CanonicalError::Serialize(error.to_string()))?;
++    }
++    Ok(finish_digest(digest))
++}
+diff --git a/crates/behavior-core/src/record/typed_materialization_corpus.json b/crates/behavior-core/src/record/typed_materialization_corpus.json
+new file mode 100644
+index 0000000..e10fff0
+--- /dev/null
++++ b/crates/behavior-core/src/record/typed_materialization_corpus.json
+@@ -0,0 +1 @@
++[{"name":"ordinary","record":{"action":{"hash":"sha256:25aed1eeef68d16f8b2613282bfd306f45eb5324b85a030f9c4870b5ac4ea9d0","name":"create"},"behavior_version":"sha256:833d7acb082361e6d8cb33b4c6afc5f16d5d4480398cf907718bc1146782b1c0","changes":[],"context":{},"data_version":"store:sha256:cd52c479a8b593438693fedd63d9b5c272282a4e4970b191601ca4c2eb9b20c7;state:sha256:4ca13b9548b010ab1226a434017a4151bbbb7b5318268e2e8302f097b8e2a892;position:0","derived":[],"facts":{"fields":[{"entity":"E","field":"x","id":"e0","value":1},{"entity":"E","field":"x","id":"e1","value":1},{"entity":"E","field":"x","id":"e2","value":1},{"entity":"E","field":"x","id":"e3","value":1},{"entity":"E","field":"x","id":"e4","value":1},{"entity":"E","field":"x","id":"e5","value":1},{"entity":"E","field":"x","id":"e6","value":1},{"entity":"E","field":"x","id":"e7","value":1}],"identities":[{"entity":"E","id":"new0_0","used":false}],"queries":[{"captures":[],"definition":"sha256:f0543439c0b71145ed443b0a990890bdbcee31c46243bd428d46dec2e8b476a4","entity":"E","instance":"sha256:73af0225ee33c8a58c65a4fcb8d80b572d4bdfb51811d1a928ee5d68bcbb9e8d","members":[{"id":"e0"},{"id":"e1"},{"id":"e2"},{"id":"e3"},{"id":"e4"},{"id":"e5"},{"id":"e6"},{"id":"e7"}]}],"universe":[{"entity":"E","members":[{"id":"e0","padding":"","x":1,"y":2},{"id":"e1","padding":"","x":1,"y":2},{"id":"e2","padding":"","x":1,"y":2},{"id":"e3","padding":"","x":1,"y":2},{"id":"e4","padding":"","x":1,"y":2},{"id":"e5","padding":"","x":1,"y":2},{"id":"e6","padding":"","x":1,"y":2},{"id":"e7","padding":"","x":1,"y":2}]}]},"input":{"id0":"new0_0"},"lifecycle":[{"entity":"E","id":"new0_0","op":"create","value":{"id":"new0_0","padding":"","x":1,"y":2}}],"reasons":[],"record_version":"0.8","result":"ALLOW","state":{},"trace":[{"hash":"sha256:7012dcd9abef2a20b333d06442cf9e94e7a88e6b9bfe0caebe8820a0fbc1904d","outcome":{"created":{"entity":"E","id":"new0_0"}},"phase":"create","reads":{"id0":"new0_0"}},{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","obligation":{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","kind":"constraint","name":"positive","source":"declared"},"observations":[{"field":"x","phase_state":"S'","value":1}],"outcome":true,"phase":"constraint_post","reads":{"e.x":1},"subject":{"entity":"E","id":"e0"}},{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","obligation":{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","kind":"constraint","name":"positive","source":"declared"},"observations":[{"field":"x","phase_state":"S'","value":1}],"outcome":true,"phase":"constraint_post","reads":{"e.x":1},"subject":{"entity":"E","id":"e1"}},{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","obligation":{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","kind":"constraint","name":"positive","source":"declared"},"observations":[{"field":"x","phase_state":"S'","value":1}],"outcome":true,"phase":"constraint_post","reads":{"e.x":1},"subject":{"entity":"E","id":"e2"}},{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","obligation":{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","kind":"constraint","name":"positive","source":"declared"},"observations":[{"field":"x","phase_state":"S'","value":1}],"outcome":true,"phase":"constraint_post","reads":{"e.x":1},"subject":{"entity":"E","id":"e3"}},{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","obligation":{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","kind":"constraint","name":"positive","source":"declared"},"observations":[{"field":"x","phase_state":"S'","value":1}],"outcome":true,"phase":"constraint_post","reads":{"e.x":1},"subject":{"entity":"E","id":"e4"}},{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","obligation":{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","kind":"constraint","name":"positive","source":"declared"},"observations":[{"field":"x","phase_state":"S'","value":1}],"outcome":true,"phase":"constraint_post","reads":{"e.x":1},"subject":{"entity":"E","id":"e5"}},{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","obligation":{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","kind":"constraint","name":"positive","source":"declared"},"observations":[{"field":"x","phase_state":"S'","value":1}],"outcome":true,"phase":"constraint_post","reads":{"e.x":1},"subject":{"entity":"E","id":"e6"}},{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","obligation":{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","kind":"constraint","name":"positive","source":"declared"},"observations":[{"field":"x","phase_state":"S'","value":1}],"outcome":true,"phase":"constraint_post","reads":{"e.x":1},"subject":{"entity":"E","id":"e7"}},{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","obligation":{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","kind":"constraint","name":"positive","source":"declared"},"observations":[{"field":"x","phase_state":"S'","value":1}],"outcome":true,"phase":"constraint_post","reads":{"e.x":1},"subject":{"entity":"E","id":"new0_0"}},{"hash":"sha256:38c30aeb64c863e20b67dd595220f222da22163c5018f0204c8b5afecb76945b","outcome":true,"phase":"invariant_global","reads":{"node:sha256:d4ae624390c839a7633510f2a7198aeb319c90af0f0aebc4fa82ef3c4d2d4ff1":9}}],"validation_profile":"behavior.complete_resulting_state.v1"}},{"name":"commands-references","record":{"action":{"hash":"sha256:9750a8a013821c95387c0346510e790aac3227433136a573e742dfccb539e0aa","name":"create"},"behavior_version":"sha256:351eb0976946a824a92cb3802591c3419e0c45bb39e0c5ed009933f1b44bda0d","changes":[],"commands":{"declarations":[{"declaration_hash":"sha256:0e0d7fc78c6a11299e8265ea139576d2620807d03730c2c38d742212fa1fb12a","fields":[{"name":"kind","type":{"t":"string"}}],"name":"WorkIntent"}],"intents":[{"declaration":"sha256:0e0d7fc78c6a11299e8265ea139576d2620807d03730c2c38d742212fa1fb12a","intent_hash":"sha256:fffeb2f6243829db7633626ebf92012837a27c919e2a4d6e8cfcd69cb109fe4b","payload":{"kind":"process"}},{"declaration":"sha256:0e0d7fc78c6a11299e8265ea139576d2620807d03730c2c38d742212fa1fb12a","intent_hash":"sha256:fffeb2f6243829db7633626ebf92012837a27c919e2a4d6e8cfcd69cb109fe4b","payload":{"kind":"process"}}],"types":[]},"context":{},"data_version":"store:sha256:78b6d540aad4b10f47e3f308b43448ce71910964d149f9019d7cfe0bbd67276b;state:sha256:851f3dd225ab208dfcfc78d275b9b849cfcd68023ec3c169ddd163230f566f98;position:2","derived":[],"facts":{"fields":[{"entity":"E","field":"owner","id":"e0","value":"p0"},{"entity":"E","field":"x","id":"e0","value":1},{"entity":"E","field":"owner","id":"e1","value":"p0"},{"entity":"E","field":"x","id":"e1","value":1},{"entity":"E","field":"owner","id":"e2","value":"p0"},{"entity":"E","field":"x","id":"e2","value":1},{"entity":"E","field":"owner","id":"e3","value":"p0"},{"entity":"E","field":"x","id":"e3","value":1},{"entity":"E","field":"owner","id":"e4","value":"p0"},{"entity":"E","field":"x","id":"e4","value":1},{"entity":"E","field":"owner","id":"e5","value":"p0"},{"entity":"E","field":"x","id":"e5","value":1},{"entity":"E","field":"owner","id":"e6","value":"p0"},{"entity":"E","field":"x","id":"e6","value":1},{"entity":"E","field":"owner","id":"e7","value":"p0"},{"entity":"E","field":"x","id":"e7","value":1}],"identities":[{"entity":"E","id":"new0_0","used":false}],"queries":[{"captures":[],"definition":"sha256:d8c0264976cfb81e1c6109747e87001b0a1c5102d149177ae7459f807174e8a7","entity":"E","instance":"sha256:c863344bfb4bdce3847c807a02c8e8988b994531f8e804cec80c635683a96fea","members":[{"id":"e0"},{"id":"e1"},{"id":"e2"},{"id":"e3"},{"id":"e4"},{"id":"e5"},{"id":"e6"},{"id":"e7"}]}],"universe":[{"entity":"E","members":[{"id":"e0","owner":"p0","padding":"","x":1,"y":2},{"id":"e1","owner":"p0","padding":"","x":1,"y":2},{"id":"e2","owner":"p0","padding":"","x":1,"y":2},{"id":"e3","owner":"p0","padding":"","x":1,"y":2},{"id":"e4","owner":"p0","padding":"","x":1,"y":2},{"id":"e5","owner":"p0","padding":"","x":1,"y":2},{"id":"e6","owner":"p0","padding":"","x":1,"y":2},{"id":"e7","owner":"p0","padding":"","x":1,"y":2}]},{"entity":"Parent","members":[{"id":"p0","phase":0}]}]},"input":{"id0":"new0_0"},"lifecycle":[{"entity":"E","id":"new0_0","op":"create","value":{"id":"new0_0","owner":"p0","padding":"","x":1,"y":2}}],"reasons":[],"record_version":"0.8","result":"ALLOW","semantic_profile":"0.8","state":{"parent":{"id":"p0","phase":0}},"trace":[{"hash":"sha256:977f9d4f0f482dbe55b69ad0a36b48ac33eea71012408e3ebf72a6baaed58103","outcome":{"created":{"entity":"E","id":"new0_0"}},"phase":"create","reads":{"id0":"new0_0","parent.id":"p0"}},{"canonical_index":0,"emission":"sha256:9fca955d0bcfa99213c9c73ba28ec05f67ad227c6d544868f70e5924e4d17207","hash":"sha256:77fc719fc815a1714c4ca23b411e1be7149f6827cba068f8a8101ebb1486e37a","outcome":true,"phase":"command_guard","reads":{}},{"canonical_index":0,"emission":"sha256:9fca955d0bcfa99213c9c73ba28ec05f67ad227c6d544868f70e5924e4d17207","field":"kind","hash":"sha256:68978185ba8f1ba0c743d4da4ae950d14514f349cf6d2a662990e3e973d6c37a","outcome":{"value":"process"},"phase":"command_payload","reads":{}},{"canonical_index":1,"emission":"sha256:9fca955d0bcfa99213c9c73ba28ec05f67ad227c6d544868f70e5924e4d17207","hash":"sha256:77fc719fc815a1714c4ca23b411e1be7149f6827cba068f8a8101ebb1486e37a","outcome":true,"phase":"command_guard","reads":{}},{"canonical_index":1,"emission":"sha256:9fca955d0bcfa99213c9c73ba28ec05f67ad227c6d544868f70e5924e4d17207","field":"kind","hash":"sha256:68978185ba8f1ba0c743d4da4ae950d14514f349cf6d2a662990e3e973d6c37a","outcome":{"value":"process"},"phase":"command_payload","reads":{}},{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","obligation":{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","kind":"constraint","name":"positive","source":"declared"},"observations":[{"field":"x","phase_state":"S'","value":1}],"outcome":true,"phase":"constraint_post","reads":{"e.x":1},"subject":{"entity":"E","id":"e0"}},{"hash":"sha256:0462a0e37d21a2e39d66a3b7865c5e62d7ec8b713ce154bf827a6e4c18555294","obligation":{"entity_declaration":"sha256:728fdd4242c923826283dd70fc30533f8a9392f73c66bafa34c3cc42ebf7072d","field":"owner","hash":"sha256:0462a0e37d21a2e39d66a3b7865c5e62d7ec8b713ce154bf827a6e4c18555294","kind":"constraint","source":"synthesized_reference"},"observations":[{"field":"owner","phase_state":"S'","value":"p0"}],"outcome":true,"phase":"constraint_post","reads":{"node:sha256:0af3e4b67265ff698e9db16ed65032df8ca7aff34d1c0692946112262d98abdd":true,"self.owner":"p0"},"subject":{"entity":"E","id":"e0"}},{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","obligation":{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","kind":"constraint","name":"positive","source":"declared"},"observations":[{"field":"x","phase_state":"S'","value":1}],"outcome":true,"phase":"constraint_post","reads":{"e.x":1},"subject":{"entity":"E","id":"e1"}},{"hash":"sha256:0462a0e37d21a2e39d66a3b7865c5e62d7ec8b713ce154bf827a6e4c18555294","obligation":{"entity_declaration":"sha256:728fdd4242c923826283dd70fc30533f8a9392f73c66bafa34c3cc42ebf7072d","field":"owner","hash":"sha256:0462a0e37d21a2e39d66a3b7865c5e62d7ec8b713ce154bf827a6e4c18555294","kind":"constraint","source":"synthesized_reference"},"observations":[{"field":"owner","phase_state":"S'","value":"p0"}],"outcome":true,"phase":"constraint_post","reads":{"node:sha256:0af3e4b67265ff698e9db16ed65032df8ca7aff34d1c0692946112262d98abdd":true,"self.owner":"p0"},"subject":{"entity":"E","id":"e1"}},{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","obligation":{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","kind":"constraint","name":"positive","source":"declared"},"observations":[{"field":"x","phase_state":"S'","value":1}],"outcome":true,"phase":"constraint_post","reads":{"e.x":1},"subject":{"entity":"E","id":"e2"}},{"hash":"sha256:0462a0e37d21a2e39d66a3b7865c5e62d7ec8b713ce154bf827a6e4c18555294","obligation":{"entity_declaration":"sha256:728fdd4242c923826283dd70fc30533f8a9392f73c66bafa34c3cc42ebf7072d","field":"owner","hash":"sha256:0462a0e37d21a2e39d66a3b7865c5e62d7ec8b713ce154bf827a6e4c18555294","kind":"constraint","source":"synthesized_reference"},"observations":[{"field":"owner","phase_state":"S'","value":"p0"}],"outcome":true,"phase":"constraint_post","reads":{"node:sha256:0af3e4b67265ff698e9db16ed65032df8ca7aff34d1c0692946112262d98abdd":true,"self.owner":"p0"},"subject":{"entity":"E","id":"e2"}},{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","obligation":{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","kind":"constraint","name":"positive","source":"declared"},"observations":[{"field":"x","phase_state":"S'","value":1}],"outcome":true,"phase":"constraint_post","reads":{"e.x":1},"subject":{"entity":"E","id":"e3"}},{"hash":"sha256:0462a0e37d21a2e39d66a3b7865c5e62d7ec8b713ce154bf827a6e4c18555294","obligation":{"entity_declaration":"sha256:728fdd4242c923826283dd70fc30533f8a9392f73c66bafa34c3cc42ebf7072d","field":"owner","hash":"sha256:0462a0e37d21a2e39d66a3b7865c5e62d7ec8b713ce154bf827a6e4c18555294","kind":"constraint","source":"synthesized_reference"},"observations":[{"field":"owner","phase_state":"S'","value":"p0"}],"outcome":true,"phase":"constraint_post","reads":{"node:sha256:0af3e4b67265ff698e9db16ed65032df8ca7aff34d1c0692946112262d98abdd":true,"self.owner":"p0"},"subject":{"entity":"E","id":"e3"}},{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","obligation":{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","kind":"constraint","name":"positive","source":"declared"},"observations":[{"field":"x","phase_state":"S'","value":1}],"outcome":true,"phase":"constraint_post","reads":{"e.x":1},"subject":{"entity":"E","id":"e4"}},{"hash":"sha256:0462a0e37d21a2e39d66a3b7865c5e62d7ec8b713ce154bf827a6e4c18555294","obligation":{"entity_declaration":"sha256:728fdd4242c923826283dd70fc30533f8a9392f73c66bafa34c3cc42ebf7072d","field":"owner","hash":"sha256:0462a0e37d21a2e39d66a3b7865c5e62d7ec8b713ce154bf827a6e4c18555294","kind":"constraint","source":"synthesized_reference"},"observations":[{"field":"owner","phase_state":"S'","value":"p0"}],"outcome":true,"phase":"constraint_post","reads":{"node:sha256:0af3e4b67265ff698e9db16ed65032df8ca7aff34d1c0692946112262d98abdd":true,"self.owner":"p0"},"subject":{"entity":"E","id":"e4"}},{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","obligation":{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","kind":"constraint","name":"positive","source":"declared"},"observations":[{"field":"x","phase_state":"S'","value":1}],"outcome":true,"phase":"constraint_post","reads":{"e.x":1},"subject":{"entity":"E","id":"e5"}},{"hash":"sha256:0462a0e37d21a2e39d66a3b7865c5e62d7ec8b713ce154bf827a6e4c18555294","obligation":{"entity_declaration":"sha256:728fdd4242c923826283dd70fc30533f8a9392f73c66bafa34c3cc42ebf7072d","field":"owner","hash":"sha256:0462a0e37d21a2e39d66a3b7865c5e62d7ec8b713ce154bf827a6e4c18555294","kind":"constraint","source":"synthesized_reference"},"observations":[{"field":"owner","phase_state":"S'","value":"p0"}],"outcome":true,"phase":"constraint_post","reads":{"node:sha256:0af3e4b67265ff698e9db16ed65032df8ca7aff34d1c0692946112262d98abdd":true,"self.owner":"p0"},"subject":{"entity":"E","id":"e5"}},{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","obligation":{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","kind":"constraint","name":"positive","source":"declared"},"observations":[{"field":"x","phase_state":"S'","value":1}],"outcome":true,"phase":"constraint_post","reads":{"e.x":1},"subject":{"entity":"E","id":"e6"}},{"hash":"sha256:0462a0e37d21a2e39d66a3b7865c5e62d7ec8b713ce154bf827a6e4c18555294","obligation":{"entity_declaration":"sha256:728fdd4242c923826283dd70fc30533f8a9392f73c66bafa34c3cc42ebf7072d","field":"owner","hash":"sha256:0462a0e37d21a2e39d66a3b7865c5e62d7ec8b713ce154bf827a6e4c18555294","kind":"constraint","source":"synthesized_reference"},"observations":[{"field":"owner","phase_state":"S'","value":"p0"}],"outcome":true,"phase":"constraint_post","reads":{"node:sha256:0af3e4b67265ff698e9db16ed65032df8ca7aff34d1c0692946112262d98abdd":true,"self.owner":"p0"},"subject":{"entity":"E","id":"e6"}},{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","obligation":{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","kind":"constraint","name":"positive","source":"declared"},"observations":[{"field":"x","phase_state":"S'","value":1}],"outcome":true,"phase":"constraint_post","reads":{"e.x":1},"subject":{"entity":"E","id":"e7"}},{"hash":"sha256:0462a0e37d21a2e39d66a3b7865c5e62d7ec8b713ce154bf827a6e4c18555294","obligation":{"entity_declaration":"sha256:728fdd4242c923826283dd70fc30533f8a9392f73c66bafa34c3cc42ebf7072d","field":"owner","hash":"sha256:0462a0e37d21a2e39d66a3b7865c5e62d7ec8b713ce154bf827a6e4c18555294","kind":"constraint","source":"synthesized_reference"},"observations":[{"field":"owner","phase_state":"S'","value":"p0"}],"outcome":true,"phase":"constraint_post","reads":{"node:sha256:0af3e4b67265ff698e9db16ed65032df8ca7aff34d1c0692946112262d98abdd":true,"self.owner":"p0"},"subject":{"entity":"E","id":"e7"}},{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","obligation":{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","kind":"constraint","name":"positive","source":"declared"},"observations":[{"field":"x","phase_state":"S'","value":1}],"outcome":true,"phase":"constraint_post","reads":{"e.x":1},"subject":{"entity":"E","id":"new0_0"}},{"hash":"sha256:0462a0e37d21a2e39d66a3b7865c5e62d7ec8b713ce154bf827a6e4c18555294","obligation":{"entity_declaration":"sha256:728fdd4242c923826283dd70fc30533f8a9392f73c66bafa34c3cc42ebf7072d","field":"owner","hash":"sha256:0462a0e37d21a2e39d66a3b7865c5e62d7ec8b713ce154bf827a6e4c18555294","kind":"constraint","source":"synthesized_reference"},"observations":[{"field":"owner","phase_state":"S'","value":"p0"}],"outcome":true,"phase":"constraint_post","reads":{"node:sha256:0af3e4b67265ff698e9db16ed65032df8ca7aff34d1c0692946112262d98abdd":true,"self.owner":"p0"},"subject":{"entity":"E","id":"new0_0"}},{"hash":"sha256:32b7bce4fd12ef522ab8689bebc60024d801413bbf4534395d97d4434b6eb6bc","outcome":true,"phase":"invariant_global","reads":{"node:sha256:1ea53a0f0df47ff982cc488cdab6eaee83548fbe59ee80f26e174cd504c72959":9}}],"validation_profile":"behavior.complete_resulting_state.v1"}},{"name":"history-update","record":{"action":{"hash":"sha256:23e40b390b4bdfb782a04bcc205b485c9c6d26ba3019d1243a6b132cc4af2576","name":"set"},"behavior_version":"sha256:d6318811e334c023069c3c7516f03df0b70c868b15af7706d43b396303906523","changes":[{"entity":"E","field":"x","id":"e0","new":2,"old":1,"param":"e0"}],"commands":{"declarations":[{"declaration_hash":"sha256:0e0d7fc78c6a11299e8265ea139576d2620807d03730c2c38d742212fa1fb12a","fields":[{"name":"kind","type":{"t":"string"}}],"name":"WorkIntent"}],"intents":[{"declaration":"sha256:0e0d7fc78c6a11299e8265ea139576d2620807d03730c2c38d742212fa1fb12a","intent_hash":"sha256:fffeb2f6243829db7633626ebf92012837a27c919e2a4d6e8cfcd69cb109fe4b","payload":{"kind":"process"}},{"declaration":"sha256:0e0d7fc78c6a11299e8265ea139576d2620807d03730c2c38d742212fa1fb12a","intent_hash":"sha256:fffeb2f6243829db7633626ebf92012837a27c919e2a4d6e8cfcd69cb109fe4b","payload":{"kind":"process"}}],"types":[]},"context":{},"data_version":"store:sha256:16b23b8cc95e6d7ea2e2d7122f34a36da59e8fcb540c45d0a4d030fa569ade95;state:sha256:4ca13b9548b010ab1226a434017a4151bbbb7b5318268e2e8302f097b8e2a892;position:8","derived":[],"facts":{"fields":[{"entity":"E","field":"x","id":"e0","value":1},{"entity":"E","field":"x","id":"e1","value":1},{"entity":"E","field":"x","id":"e2","value":1},{"entity":"E","field":"x","id":"e3","value":1},{"entity":"E","field":"x","id":"e4","value":1},{"entity":"E","field":"x","id":"e5","value":1},{"entity":"E","field":"x","id":"e6","value":1},{"entity":"E","field":"x","id":"e7","value":1}],"queries":[{"captures":[],"definition":"sha256:f0543439c0b71145ed443b0a990890bdbcee31c46243bd428d46dec2e8b476a4","entity":"E","instance":"sha256:73af0225ee33c8a58c65a4fcb8d80b572d4bdfb51811d1a928ee5d68bcbb9e8d","members":[{"id":"e0"},{"id":"e1"},{"id":"e2"},{"id":"e3"},{"id":"e4"},{"id":"e5"},{"id":"e6"},{"id":"e7"}]}],"universe":[{"entity":"E","members":[{"id":"e0","padding":"","x":1,"y":2},{"id":"e1","padding":"","x":1,"y":2},{"id":"e2","padding":"","x":1,"y":2},{"id":"e3","padding":"","x":1,"y":2},{"id":"e4","padding":"","x":1,"y":2},{"id":"e5","padding":"","x":1,"y":2},{"id":"e6","padding":"","x":1,"y":2},{"id":"e7","padding":"","x":1,"y":2}]}]},"input":{"n":2},"reasons":[],"record_version":"0.8","result":"ALLOW","semantic_profile":"0.8","state":{"e0":{"id":"e0","padding":"","x":1,"y":2}},"trace":[{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","outcome":true,"param":"e0","phase":"constraint","reads":{"e.x":1},"role":"state"},{"hash":"sha256:be3f4ce6c23db22bd60ce1fedd666256dfdb26a929ddd4a7d3afaac06c90371c","outcome":{"assigned":2},"phase":"effect","reads":{"n":2}},{"canonical_index":0,"emission":"sha256:9fca955d0bcfa99213c9c73ba28ec05f67ad227c6d544868f70e5924e4d17207","hash":"sha256:77fc719fc815a1714c4ca23b411e1be7149f6827cba068f8a8101ebb1486e37a","outcome":true,"phase":"command_guard","reads":{}},{"canonical_index":0,"emission":"sha256:9fca955d0bcfa99213c9c73ba28ec05f67ad227c6d544868f70e5924e4d17207","field":"kind","hash":"sha256:68978185ba8f1ba0c743d4da4ae950d14514f349cf6d2a662990e3e973d6c37a","outcome":{"value":"process"},"phase":"command_payload","reads":{}},{"canonical_index":1,"emission":"sha256:9fca955d0bcfa99213c9c73ba28ec05f67ad227c6d544868f70e5924e4d17207","hash":"sha256:77fc719fc815a1714c4ca23b411e1be7149f6827cba068f8a8101ebb1486e37a","outcome":true,"phase":"command_guard","reads":{}},{"canonical_index":1,"emission":"sha256:9fca955d0bcfa99213c9c73ba28ec05f67ad227c6d544868f70e5924e4d17207","field":"kind","hash":"sha256:68978185ba8f1ba0c743d4da4ae950d14514f349cf6d2a662990e3e973d6c37a","outcome":{"value":"process"},"phase":"command_payload","reads":{}},{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","obligation":{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","kind":"constraint","name":"positive","source":"declared"},"observations":[{"field":"x","phase_state":"S'","value":2}],"outcome":true,"phase":"constraint_post","reads":{"e.x":2},"subject":{"entity":"E","id":"e0"}},{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","obligation":{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","kind":"constraint","name":"positive","source":"declared"},"observations":[{"field":"x","phase_state":"S'","value":1}],"outcome":true,"phase":"constraint_post","reads":{"e.x":1},"subject":{"entity":"E","id":"e1"}},{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","obligation":{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","kind":"constraint","name":"positive","source":"declared"},"observations":[{"field":"x","phase_state":"S'","value":1}],"outcome":true,"phase":"constraint_post","reads":{"e.x":1},"subject":{"entity":"E","id":"e2"}},{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","obligation":{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","kind":"constraint","name":"positive","source":"declared"},"observations":[{"field":"x","phase_state":"S'","value":1}],"outcome":true,"phase":"constraint_post","reads":{"e.x":1},"subject":{"entity":"E","id":"e3"}},{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","obligation":{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","kind":"constraint","name":"positive","source":"declared"},"observations":[{"field":"x","phase_state":"S'","value":1}],"outcome":true,"phase":"constraint_post","reads":{"e.x":1},"subject":{"entity":"E","id":"e4"}},{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","obligation":{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","kind":"constraint","name":"positive","source":"declared"},"observations":[{"field":"x","phase_state":"S'","value":1}],"outcome":true,"phase":"constraint_post","reads":{"e.x":1},"subject":{"entity":"E","id":"e5"}},{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","obligation":{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","kind":"constraint","name":"positive","source":"declared"},"observations":[{"field":"x","phase_state":"S'","value":1}],"outcome":true,"phase":"constraint_post","reads":{"e.x":1},"subject":{"entity":"E","id":"e6"}},{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","obligation":{"hash":"sha256:40ff7b6c4c689046e4bfae92c3da4fcbd7bb260087d325ff6f9cc6c33c1b18bb","kind":"constraint","name":"positive","source":"declared"},"observations":[{"field":"x","phase_state":"S'","value":1}],"outcome":true,"phase":"constraint_post","reads":{"e.x":1},"subject":{"entity":"E","id":"e7"}},{"hash":"sha256:38c30aeb64c863e20b67dd595220f222da22163c5018f0204c8b5afecb76945b","outcome":true,"phase":"invariant_global","reads":{"node:sha256:d4ae624390c839a7633510f2a7198aeb319c90af0f0aebc4fa82ef3c4d2d4ff1":8}}],"validation_profile":"behavior.complete_resulting_state.v1"}}]
+diff --git a/crates/behavior-core/src/record/typed_materialization_reference.rs b/crates/behavior-core/src/record/typed_materialization_reference.rs
+new file mode 100644
+index 0000000..8727d82
+--- /dev/null
++++ b/crates/behavior-core/src/record/typed_materialization_reference.rs
+@@ -0,0 +1,306 @@
++fn reference_validate_record08(raw: &Json) -> Result<crate::commands::CommandIntentBag, RecordError> {
++    let record: Record08 =
++        serde_json::from_value(raw.clone()).map_err(|error| record_error(error.to_string()))?;
++    if record.record_version != RECORD_VERSION_CURRENT
++        || record.validation_profile != VALIDATION_PROFILE_CURRENT
++    {
++        return Err(record_error("unsupported record/validation profile pair"));
++    }
++    reject_null_fields(
++        raw,
++        &[
++            "semantic_profile",
++            "commands",
++            "git_revision",
++            "refused_request",
++        ],
++    )?;
++    match (&record.semantic_profile, &record.commands) {
++        (Some(profile), Some(_)) if profile == "0.8" => {}
++        (None, None) => {}
++        _ => {
++            return Err(record_error(
++                "invalid command-language profile/archive pair",
++            ));
++        }
++    }
++    if record.result != "INVALID_INPUT"
++        && record
++            .facts
++            .as_ref()
++            .and_then(|facts| facts.get("universe"))
++            .and_then(Json::as_array)
++            .is_none()
++    {
++        return Err(record_error(
++            "current evaluation has no complete parent universe",
++        ));
++    }
++    if record.refused_request.is_some()
++        && (record.result != "INVALID_INPUT"
++            || !record.trace.is_empty()
++            || !record.derived.is_empty()
++            || !record.changes.is_empty()
++            || !record.lifecycle.is_empty())
++    {
++        return Err(record_error(
++            "refused input text conflicts with body evidence",
++        ));
++    }
++    reject_null_fields(&raw["action"], &["hash"])?;
++    for reason in raw["reasons"].as_array().into_iter().flatten() {
++        reject_null_fields(reason, &["path", "details"])?;
++    }
++    for (step, raw_step) in record
++        .trace
++        .iter()
++        .zip(raw["trace"].as_array().into_iter().flatten())
++    {
++        reject_null_fields(
++            raw_step,
++            &[
++                "param",
++                "role",
++                "emission",
++                "canonical_index",
++                "field",
++                "subject",
++                "obligation",
++                "observations",
++            ],
++        )?;
++        let child_kind = match step.phase.as_str() {
++            "invariant_post" => Some(ObligationKind::Invariant),
++            "constraint_post" => Some(ObligationKind::Constraint),
++            _ => None,
++        };
++        if let Some(expected_kind) = child_kind {
++            let subject = step
++                .subject
++                .as_ref()
++                .ok_or_else(|| record_error("child validity step has no typed subject"))?;
++            record_identifier(&subject.entity)?;
++            let _ = &subject.id;
++            let obligation = step
++                .obligation
++                .as_ref()
++                .ok_or_else(|| record_error("child validity step has no semantic obligation"))?;
++            let (kind, hash) = match obligation {
++                ChildObligation::Declared { kind, name, hash } => {
++                    record_identifier(name)?;
++                    (*kind, hash)
++                }
++                ChildObligation::SynthesizedReference {
++                    kind,
++                    entity_declaration,
++                    field,
++                    hash,
++                } => {
++                    if *kind != ObligationKind::Constraint {
++                        return Err(record_error("a reference obligation is a constraint"));
++                    }
++                    record_hash(entity_declaration)?;
++                    record_identifier(field)?;
++                    (*kind, hash)
++                }
++            };
++            record_hash(hash)?;
++            if kind != expected_kind || hash != &step.hash {
++                return Err(record_error(
++                    "child obligation does not match trace phase/hash",
++                ));
++            }
++            let observations = step
++                .observations
++                .as_ref()
++                .ok_or_else(|| record_error("child validity step has no observations"))?;
++            if step.outcome == json!("skipped") && !observations.is_empty() {
++                return Err(record_error("skipped child step has observations"));
++            }
++            for observation in observations {
++                if observation.field.is_empty() || observation.phase_state != "S'" {
++                    return Err(record_error("invalid child field observation"));
++                }
++                crate::canonical::to_canonical_string(&observation.value)
++                    .map_err(|error| record_error(error.to_string()))?;
++            }
++        } else if ["subject", "obligation", "observations"]
++            .iter()
++            .any(|field| raw_step.get(*field).is_some())
++        {
++            return Err(record_error(
++                "child evidence outside the child validity phase",
++            ));
++        }
++        // Common outcome, hash, role and rescale checks use the same validator
++        // below; the closed typed parse has already rejected unknown fields.
++        let _ = (
++            &step.reads,
++            &step.param,
++            &step.role,
++            &step.rescales,
++            &step.emission,
++            step.canonical_index,
++            &step.field,
++        );
++    }
++    let mut common = raw.clone();
++    if let Some(object) = common.as_object_mut() {
++        object.remove("validation_profile");
++        object.remove("refused_request");
++        object.insert("record_version".into(), json!(RECORD_VERSION_COMMANDS));
++        object.insert("semantic_profile".into(), json!("0.8"));
++        if record.commands.is_none() {
++            object.insert(
++                "commands".into(),
++                json!({"declarations":[],"types":[],"intents":[]}),
++            );
++        }
++    }
++    if let Some(trace) = common["trace"].as_array_mut() {
++        for step in trace {
++            if let Some(object) = step.as_object_mut() {
++                object.remove("subject");
++                object.remove("obligation");
++                object.remove("observations");
++            }
++        }
++    }
++    let bag = reference_validate_record07(&common)?;
++    let _ = (
++        record.behavior_version,
++        record.data_version,
++        record.git_revision,
++        record.action,
++        record.state,
++        record.input,
++        record.context,
++        record.reasons,
++    );
++    Ok(bag)
++}
++
++fn reference_validate_record07(raw: &Json) -> Result<crate::commands::CommandIntentBag, RecordError> {
++    let record: Record07 =
++        serde_json::from_value(raw.clone()).map_err(|e| record_error(e.to_string()))?;
++    if record.record_version != RECORD_VERSION_COMMANDS || record.semantic_profile != "0.8" {
++        return Err(record_error("unsupported record/profile pair"));
++    }
++    record_hash(&record.behavior_version)?;
++    if let Some(hash) = &record.action.hash {
++        record_hash(hash)?;
++    }
++    if record.result == "ALLOW" && record.action.hash.is_none() {
++        return Err(record_error("allowed record has no action identity"));
++    }
++    if ![
++        "ALLOW",
++        "DENY",
++        "ERROR",
++        "INVALID_INPUT",
++        "INVALID_STATE",
++        "INVALID_CONTEXT",
++        "INVALID_BINDING",
++        "ENTITY_ID_ALREADY_USED",
++        "LIFECYCLE_CONFLICT",
++    ]
++    .contains(&record.result.as_str())
++    {
++        return Err(record_error("unknown result"));
++    }
++    let bag = crate::commands::decode_archive(&record.commands)
++        .map_err(|e| record_error(e.to_string()))?;
++    if record.result != "ALLOW"
++        && (!bag.is_empty() || !record.changes.is_empty() || !record.lifecycle.is_empty())
++    {
++        return Err(record_error("a refused record exposes partial effects"));
++    }
++    if let Some(facts) = record.facts
++        && record.result != "INVALID_INPUT"
++    {
++        crate::facts::Facts::from_json(&facts).map_err(|e| record_error(e.message))?;
++    }
++    for reason in record.reasons {
++        if reason.code.is_empty() {
++            return Err(record_error("empty reason code"));
++        }
++        if let Some(detail) = reason.details {
++            record_failure(&detail)?;
++        }
++        for edge in reason.references {
++            if edge.entity.is_empty() || edge.field.is_empty() {
++                return Err(record_error("invalid reference edge"));
++            }
++            let _ = edge.id;
++        }
++        let _ = reason.path;
++    }
++    for step in record.trace {
++        trace_outcome(&step)?;
++        record_hash(&step.hash)?;
++        if ![
++            "constraint",
++            "invariant_pre",
++            "precondition",
++            "effect",
++            "create",
++            "remove",
++            "command_guard",
++            "command_payload",
++            "postcondition",
++            "invariant_post",
++            "constraint_post",
++            "invariant_global",
++        ]
++        .contains(&step.phase.as_str())
++        {
++            return Err(record_error("unknown trace phase"));
++        }
++        if let Some(hash) = step.emission {
++            record_hash(&hash)?;
++        }
++        if let Some(role) = step.role
++            && !["state", "input", "context"].contains(&role.as_str())
++        {
++            return Err(record_error("invalid trace role"));
++        }
++        for rescale in step.rescales {
++            if rescale.scale > 28
++                || crate::exact::Rounding::parse(&rescale.rounding).is_none()
++                || crate::exact::Exact::parse(&rescale.exact).is_err()
++                || crate::decimal::Dec::parse_str(&rescale.result).is_err()
++            {
++                return Err(record_error("invalid rescale evidence"));
++            }
++        }
++        let _ = (step.reads, step.param, step.canonical_index, step.field);
++    }
++    for derived in record.derived {
++        record_hash(&derived.hash)?;
++        if !["S", "S'"].contains(&derived.phase_state.as_str()) {
++            return Err(record_error("invalid derived phase"));
++        }
++        let _ = derived.value;
++    }
++    for change in record.changes {
++        if change.entity.is_empty() || change.param.is_empty() || change.field.is_empty() {
++            return Err(record_error("invalid changed cell"));
++        }
++        let _ = (change.id, change.old, change.new);
++    }
++    for change in record.lifecycle {
++        if !["create", "remove"].contains(&change.op.as_str()) || change.entity.is_empty() {
++            return Err(record_error("invalid lifecycle event"));
++        }
++        let _ = (change.id, change.value);
++    }
++    let _ = (
++        record.data_version,
++        record.git_revision,
++        record.action.name,
++        record.state,
++        record.input,
++        record.context,
++    );
++    Ok(bag)
++}
+diff --git a/crates/behavior-core/src/record/typed_materialization_tests.rs b/crates/behavior-core/src/record/typed_materialization_tests.rs
+new file mode 100644
+index 0000000..30d468d
+--- /dev/null
++++ b/crates/behavior-core/src/record/typed_materialization_tests.rs
+@@ -0,0 +1,507 @@
++#![allow(clippy::unwrap_used)]
++//! Research controls against the frozen pre-refactor validators.
++use super::*;
++use std::cell::Cell;
++
++use crate::command_test_model as model;
++
++include!("typed_materialization_reference.rs");
++
++thread_local! {
++    static DECODES07: Cell<usize> = const { Cell::new(0) };
++}
++
++pub(super) fn note07_decode() {
++    DECODES07.with(|count| count.set(count.get() + 1));
++}
++
++fn reference(text: &str) -> Result<crate::commands::CommandIntentBag, RecordError> {
++    let raw = crate::canonical::decode_strict(text).map_err(|e| record_error(e.to_string()))?;
++    match raw.get("record_version").and_then(Json::as_str) {
++        Some(RECORD_VERSION_CURRENT) => reference_validate_record08(&raw),
++        Some(RECORD_VERSION_COMMANDS) => reference_validate_record07(&raw),
++        _ => Err(record_error("unsupported decision record version")),
++    }
++}
++
++fn actual(text: &str) -> Result<crate::commands::CommandIntentBag, RecordError> {
++    DecisionRecord::from_json(text).map(|record| record.commands)
++}
++
++fn compare(raw: &Json, label: &str) {
++    let text = raw.to_string();
++    assert_eq!(actual(&text), reference(&text), "{label}: {text}");
++}
++
++fn archived(raw: &Json) -> Json {
++    let mut common = raw.clone();
++    let fields = common.as_object_mut().unwrap();
++    fields.remove("validation_profile");
++    fields.remove("refused_request");
++    fields.insert("record_version".into(), json!("0.7"));
++    fields.insert("semantic_profile".into(), json!("0.8"));
++    fields
++        .entry("commands")
++        .or_insert_with(|| json!({"declarations":[],"types":[],"intents":[]}));
++    for step in common["trace"].as_array_mut().unwrap() {
++        if let Some(fields) = step.as_object_mut() {
++            for key in ["subject", "obligation", "observations"] {
++                fields.remove(key);
++            }
++        }
++    }
++    common
++}
++
++fn examples() -> Vec<(String, Json)> {
++    let corpus: Json =
++        serde_json::from_str(include_str!("typed_materialization_corpus.json")).unwrap();
++    let mut examples: Vec<_> = corpus
++        .as_array()
++        .unwrap()
++        .iter()
++        .map(|row| {
++            (
++                row["name"].as_str().unwrap().to_owned(),
++                row["record"].clone(),
++            )
++        })
++        .collect();
++    let mut wire = model::module();
++    let emission = wire["actions"][0]["command_effects"][0].clone();
++    wire["actions"][0]["command_effects"]
++        .as_array_mut()
++        .unwrap()
++        .push(emission);
++    let module = crate::admit(&wire.to_string()).unwrap();
++    examples.push((
++        "duplicate-commands".into(),
++        crate::evaluate(&module, &model::request(2, true).to_string())
++            .as_json()
++            .clone(),
++    ));
++    wire["actions"][0]["preconditions"] =
++        json!([{"expr":model::boolean(false),"loc":model::loc()}]);
++    let denied = crate::admit(&wire.to_string()).unwrap();
++    examples.push((
++        "denied".into(),
++        crate::evaluate(&denied, &model::request(2, true).to_string())
++            .as_json()
++            .clone(),
++    ));
++    let error = crate::admit(&model::ratio_module(model::boolean(true)).to_string()).unwrap();
++    examples.push((
++        "error".into(),
++        crate::evaluate(&error, &model::request(0, true).to_string())
++            .as_json()
++            .clone(),
++    ));
++    examples.push((
++        "invalid-input".into(),
++        crate::evaluate(&module, "{").as_json().clone(),
++    ));
++    let archived: Vec<_> = examples
++        .iter()
++        .map(|(name, raw)| (format!("archived-{name}"), archived(raw)))
++        .collect();
++    examples.extend(archived);
++    examples
++}
++
++fn paths(value: &Json, prefix: &str, output: &mut Vec<String>) {
++    output.push(prefix.to_owned());
++    match value {
++        Json::Object(fields) => {
++            for (key, value) in fields {
++                let key = key.replace('~', "~0").replace('/', "~1");
++                paths(value, &format!("{prefix}/{key}"), output);
++            }
++        }
++        Json::Array(values) => {
++            for (index, value) in values.iter().enumerate() {
++                paths(value, &format!("{prefix}/{index}"), output);
++            }
++        }
++        _ => {}
++    }
++}
++
++#[test]
++fn current_object_record_reuses_its_common_typed_fields() {
++    let examples = examples();
++    let raw = &examples[0].1;
++    DECODES07.with(|count| count.set(0));
++    assert!(actual(&raw.to_string()).is_ok());
++    assert_eq!(
++        DECODES07.with(Cell::get),
++        0,
++        "a current object record should not decode the common record again"
++    );
++}
++
++#[test]
++fn all_seed_records_remain_valid_with_exact_command_bags() {
++    let examples = examples();
++    assert_eq!(examples.len(), 14);
++    for (label, raw) in examples {
++        assert!(reference(&raw.to_string()).is_ok(), "seed {label}");
++        compare(&raw, &label);
++    }
++}
++
++#[test]
++fn public_constructor_matches_frozen_errors_over_field_mutations() {
++    let mut tested = 0;
++    for (label, raw) in examples() {
++        let mut locations = Vec::new();
++        paths(&raw, "", &mut locations);
++        for location in locations {
++            for replacement in [
++                Json::Null,
++                json!(false),
++                json!(0),
++                json!(""),
++                json!([]),
++                json!({}),
++            ] {
++                if raw.pointer(&location) == Some(&replacement) {
++                    continue;
++                }
++                let mut changed = raw.clone();
++                *changed.pointer_mut(&location).unwrap() = replacement;
++                compare(&changed, &format!("{label} replace {location}"));
++                tested += 1;
++            }
++            if let Some(fields) = raw.pointer(&location).and_then(Json::as_object) {
++                for key in fields.keys() {
++                    let mut changed = raw.clone();
++                    changed
++                        .pointer_mut(&location)
++                        .unwrap()
++                        .as_object_mut()
++                        .unwrap()
++                        .remove(key);
++                    compare(&changed, &format!("{label} omit {location}/{key}"));
++                    tested += 1;
++                }
++                let mut changed = raw.clone();
++                changed
++                    .pointer_mut(&location)
++                    .unwrap()
++                    .as_object_mut()
++                    .unwrap()
++                    .insert("_unrecognized".into(), json!(true));
++                compare(&changed, &format!("{label} unknown {location}"));
++                tested += 1;
++            }
++        }
++    }
++    assert!(tested > 10000, "corpus did not collect enough actual cases");
++    eprintln!("TYPED_MATERIALIZATION_DIFFERENTIAL_CASES={tested}");
++}
++
++fn sequence(length: usize) -> Json {
++    let mut fields = vec![
++        json!("precondition"),
++        json!(format!("sha256:{}", "0".repeat(64))),
++        json!({}),
++        json!(true),
++        Json::Null,
++        Json::Null,
++        json!([]),
++        Json::Null,
++        Json::Null,
++        Json::Null,
++        Json::Null,
++        Json::Null,
++        Json::Null,
++    ];
++    fields.resize(length, Json::Null);
++    json!(fields)
++}
++
++#[test]
++fn typed_trace_conversion_needs_a_sequence_fallback() {
++    let step = sequence(11);
++    assert!(serde_json::from_value::<CurrentTrace>(step.clone()).is_ok());
++    let error = serde_json::from_value::<SemanticTrace>(step).err().unwrap();
++    assert_eq!(
++        error.to_string(),
++        "invalid length 11, expected fewer elements in array"
++    );
++    let mut raw = examples()[0].1.clone();
++    raw["trace"] = json!([sequence(11)]);
++    let expected = reference(&raw.to_string()).unwrap_err();
++    assert_eq!(
++        expected.message,
++        "invalid length 11, expected fewer elements in array"
++    );
++    compare(&raw, "eleven-element trace counterexample");
++}
++
++#[test]
++fn sequence_forms_and_compound_errors_keep_their_original_order() {
++    let original = examples()[0].1.clone();
++    for length in 0..=15 {
++        let mut raw = original.clone();
++        raw["trace"] = json!([sequence(length)]);
++        compare(&raw, &format!("sequence-{length}"));
++        let mut invalid = raw.clone();
++        invalid["behavior_version"] = json!("not-a-hash");
++        compare(&invalid, &format!("sequence-{length}-bad-hash"));
++        invalid["validation_profile"] = json!("unknown");
++        compare(&invalid, &format!("sequence-{length}-bad-profile"));
++    }
++    let mut raw = original.clone();
++    raw["action"] = json!([original["action"]["name"], original["action"]["hash"]]);
++    compare(&raw, "shared action sequence");
++    let mut raw = original;
++    raw["trace"] = json!([sequence(10)]);
++    assert!(reference(&raw.to_string()).is_ok());
++    DECODES07.with(|count| count.set(0));
++    assert!(actual(&raw.to_string()).is_ok());
++    assert_eq!(
++        DECODES07.with(Cell::get),
++        1,
++        "accepted array-form trace must retain its original parser path"
++    );
++}
++
++fn check_sequences(raw: &Json, label: &str, path: &str, fields: &[(&str, Json)]) -> usize {
++    let Some(value) = raw.pointer(path) else {
++        return 0;
++    };
++    if !value.is_object() {
++        return 0;
++    }
++    let sequence: Vec<_> = fields
++        .iter()
++        .map(|(key, default)| value.get(*key).unwrap_or(default).clone())
++        .collect();
++    for length in 0..=sequence.len() + 1 {
++        let mut values = sequence.clone();
++        values.resize(length, Json::Null);
++        let mut changed = raw.clone();
++        *changed.pointer_mut(path).unwrap() = json!(values);
++        compare(&changed, &format!("{label} sequence {path} len {length}"));
++    }
++    sequence.len() + 2
++}
++
++#[test]
++fn nested_struct_sequences_preserve_accepted_forms_and_errors() {
++    let mut tested = 0;
++    for (label, raw) in examples() {
++        tested += check_sequences(
++            &raw,
++            &label,
++            "/action",
++            &[("name", Json::Null), ("hash", Json::Null)],
++        );
++        for (i, reason) in raw["reasons"].as_array().unwrap().iter().enumerate() {
++            let path = format!("/reasons/{i}");
++            tested += check_sequences(
++                &raw,
++                &label,
++                &path,
++                &[
++                    ("code", Json::Null),
++                    ("path", Json::Null),
++                    ("details", Json::Null),
++                    ("references", json!([])),
++                ],
++            );
++            tested += check_sequences(
++                &raw,
++                &label,
++                &format!("{path}/details"),
++                &[
++                    ("code", Json::Null),
++                    ("node", Json::Null),
++                    ("operands", Json::Null),
++                ],
++            );
++            for j in 0..reason["references"].as_array().map_or(0, Vec::len) {
++                tested += check_sequences(
++                    &raw,
++                    &label,
++                    &format!("{path}/references/{j}"),
++                    &[
++                        ("entity", Json::Null),
++                        ("id", Json::Null),
++                        ("field", Json::Null),
++                    ],
++                );
++            }
++            for j in 0..reason["details"]["operands"].as_array().map_or(0, Vec::len) {
++                tested += check_sequences(
++                    &raw,
++                    &label,
++                    &format!("{path}/details/operands/{j}"),
++                    &[("node", Json::Null), ("value", Json::Null)],
++                );
++            }
++        }
++        for (i, step) in raw["trace"].as_array().unwrap().iter().enumerate() {
++            let mut fields = vec![
++                ("phase", Json::Null),
++                ("hash", Json::Null),
++                ("reads", Json::Null),
++                ("outcome", Json::Null),
++                ("param", Json::Null),
++                ("role", Json::Null),
++                ("rescales", json!([])),
++                ("emission", Json::Null),
++                ("canonical_index", Json::Null),
++                ("field", Json::Null),
++            ];
++            if raw["record_version"] == "0.8" {
++                fields.extend([
++                    ("subject", Json::Null),
++                    ("obligation", Json::Null),
++                    ("observations", Json::Null),
++                ]);
++            }
++            tested += check_sequences(&raw, &label, &format!("/trace/{i}"), &fields);
++            for j in 0..step["rescales"].as_array().map_or(0, Vec::len) {
++                tested += check_sequences(
++                    &raw,
++                    &label,
++                    &format!("/trace/{i}/rescales/{j}"),
++                    &[
++                        ("exact", Json::Null),
++                        ("rounding", Json::Null),
++                        ("scale", Json::Null),
++                        ("result", Json::Null),
++                    ],
++                );
++            }
++        }
++        for i in 0..raw["derived"].as_array().unwrap().len() {
++            tested += check_sequences(
++                &raw,
++                &label,
++                &format!("/derived/{i}"),
++                &[
++                    ("hash", Json::Null),
++                    ("phase_state", Json::Null),
++                    ("value", Json::Null),
++                ],
++            );
++        }
++        for i in 0..raw["changes"].as_array().unwrap().len() {
++            tested += check_sequences(
++                &raw,
++                &label,
++                &format!("/changes/{i}"),
++                &[
++                    ("entity", Json::Null),
++                    ("id", Json::Null),
++                    ("param", Json::Null),
++                    ("field", Json::Null),
++                    ("old", Json::Null),
++                    ("new", Json::Null),
++                ],
++            );
++        }
++        for i in 0..raw["lifecycle"].as_array().map_or(0, Vec::len) {
++            tested += check_sequences(
++                &raw,
++                &label,
++                &format!("/lifecycle/{i}"),
++                &[
++                    ("op", Json::Null),
++                    ("entity", Json::Null),
++                    ("id", Json::Null),
++                    ("value", Json::Null),
++                ],
++            );
++        }
++    }
++    assert!(tested > 500);
++    eprintln!("TYPED_MATERIALIZATION_SEQUENCE_CASES={tested}");
++}
++
++#[test]
++fn integer_bounds_keep_their_typed_and_semantic_errors() {
++    let mut tested = 0;
++    for (label, raw) in examples() {
++        for i in 0..raw["trace"].as_array().unwrap().len() {
++            for number in [
++                json!(-1),
++                json!(u32::MAX),
++                json!(u64::from(u32::MAX) + 1),
++                json!(u64::MAX),
++            ] {
++                let mut changed = raw.clone();
++                changed["trace"][i]["canonical_index"] = number;
++                compare(&changed, &format!("{label} canonical index bounds"));
++                tested += 1;
++            }
++            let count = raw["trace"][i]["rescales"].as_array().map_or(0, Vec::len);
++            for j in 0..count {
++                for number in [
++                    json!(-1),
++                    json!(28),
++                    json!(29),
++                    json!(255),
++                    json!(256),
++                    json!(u64::MAX),
++                ] {
++                    let mut changed = raw.clone();
++                    changed["trace"][i]["rescales"][j]["scale"] = number;
++                    compare(&changed, &format!("{label} rescale bounds"));
++                    tested += 1;
++                }
++            }
++        }
++    }
++    assert!(tested > 100);
++    eprintln!("TYPED_MATERIALIZATION_INTEGER_CASES={tested}");
++}
++
++#[test]
++fn child_semantic_failure_precedes_sequence_projection_failure() {
++    let raw = examples()[0].1.clone();
++    let step = raw["trace"]
++        .as_array()
++        .unwrap()
++        .iter()
++        .find(|step| {
++            step["phase"] == "constraint_post"
++                && step["observations"]
++                    .as_array()
++                    .is_some_and(|v| !v.is_empty())
++        })
++        .unwrap();
++    let mut values: Vec<_> = [
++        "phase",
++        "hash",
++        "reads",
++        "outcome",
++        "param",
++        "role",
++        "rescales",
++        "emission",
++        "canonical_index",
++        "field",
++        "subject",
++        "obligation",
++        "observations",
++    ]
++    .iter()
++    .map(|key| {
++        if *key == "rescales" {
++            step.get(*key).cloned().unwrap_or(json!([]))
++        } else {
++            step[*key].clone()
++        }
++    })
++    .collect();
++    values[12][0]["phase_state"] = json!("S");
++    let mut changed = raw;
++    changed["trace"] = json!([values]);
++    let expected = reference(&changed.to_string()).unwrap_err();
++    assert_eq!(expected.message, "invalid child field observation");
++    compare(&changed, "v08 semantic failure before array projection");
++}
+diff --git a/crates/behavior-core/tests/replay_materialization.rs b/crates/behavior-core/tests/replay_materialization.rs
+new file mode 100644
+index 0000000..89a60aa
+--- /dev/null
++++ b/crates/behavior-core/tests/replay_materialization.rs
+@@ -0,0 +1,113 @@
++#![allow(clippy::unwrap_used)]
++//! Research controls for reuse of a value already decoded inside one replay call.
++#[path = "support/commands.rs"]
++mod model;
++
++use behavior_core::{DecisionRecord, admit, evaluate, replay};
++use serde_json::{Value, json};
++
++fn example() -> (behavior_core::semantic::Module, Value) {
++    let module = admit(&model::module().to_string()).unwrap();
++    let record = evaluate(&module, &model::request(2, true).to_string());
++    assert_eq!(record.as_json()["result"], "ALLOW");
++    (module, record.as_json().clone())
++}
++
++#[test]
++#[cfg(feature = "validation-work")]
++fn replay_does_not_reparse_its_already_strictly_decoded_value() {
++    let (module, record) = example();
++    behavior_core::eval::work::reset();
++    assert!(replay(&module, &record.to_string()).matches);
++    assert_eq!(
++        behavior_core::eval::work::read().record_parse_calls,
++        0,
++        "replay must retain its ingress strict decode without a second DecisionRecord parse"
++    );
++}
++
++#[test]
++fn same_call_reuse_preserves_closed_validation_and_selected_error() {
++    let (module, original) = example();
++    let opposite = admit(include_str!(
++        "../../../tests/fixtures/wire/valid/invoice.json"
++    ))
++    .unwrap();
++    for mutation in 0..6 {
++        let mut bad = original.clone();
++        match mutation {
++            0 => bad["unexpected"] = json!(true),
++            1 => bad["validation_profile"] = json!("unknown"),
++            2 => bad["action"]["hash"] = Value::Null,
++            3 => {
++                bad["facts"].as_object_mut().unwrap().remove("universe");
++            }
++            4 => bad["commands"]["intents"][0]["payload"]["recipient"] = json!(17),
++            _ => bad["result"] = json!("DENY"),
++        }
++        let text = bad.to_string();
++        let error = DecisionRecord::from_json(&text).unwrap_err();
++        let outcome = replay(&module, &text);
++        assert!(!outcome.matches, "mutation {mutation}");
++        assert_eq!(outcome.diff.as_deref(), Some(error.to_string().as_str()));
++        assert_eq!(replay(&opposite, &text).diff, outcome.diff);
++    }
++}
++
++#[test]
++fn strict_value_reuse_preserves_accepted_unicode_and_whitespace() {
++    let mut wire = model::module();
++    wire["actions"][0]["command_effects"][0]["payload"]["recipient"] = model::string("å🚀");
++    let module = admit(&wire.to_string()).unwrap();
++    let record = evaluate(&module, &model::request(2, true).to_string());
++    let escaped = record
++        .to_json_string()
++        .replace('å', "\\u00e5")
++        .replace('🚀', "\\ud83d\\ude80");
++    assert_ne!(escaped, record.to_json_string());
++    assert!(replay(&module, &format!(" \n {escaped} \t")).matches);
++}
++
++#[test]
++fn strict_value_reuse_preserves_module_profile_mismatch() {
++    let (_, record) = example();
++    let opposite = admit(include_str!(
++        "../../../tests/fixtures/wire/valid/invoice.json"
++    ))
++    .unwrap();
++    assert_eq!(
++        replay(&opposite, &record.to_string()).diff.as_deref(),
++        Some("INVALID_DECISION_RECORD: record/module profile mismatch")
++    );
++}
++
++#[test]
++fn same_call_reuse_retains_strict_lexical_ingress() {
++    let (module, original) = example();
++    let text = original.to_string();
++    let mut malformed = vec![
++        format!("{{\"record_version\":\"0.8\",{}", &text[1..]),
++        format!("{{\"record_vers\\u0069on\":\"0.8\",{}", &text[1..]),
++        text[..text.len() - 1].to_owned(),
++    ];
++    for number in ["1.0", "1e0", "-0", "18446744073709551616"] {
++        malformed.push(text.replacen(
++            "\"input\":{}",
++            &format!("\"input\":{{\"bad\":{number}}}"),
++            1,
++        ));
++    }
++    malformed.push(text.replacen("\"input\":{}", "\"input\":{\"a\":1,\"a\":2}", 1));
++    for bad in malformed {
++        assert_ne!(bad, text, "mutation must actually change the input");
++        assert!(DecisionRecord::from_json(&bad).is_err());
++        let outcome = replay(&module, &bad);
++        assert!(!outcome.matches);
++        assert!(
++            outcome
++                .diff
++                .unwrap()
++                .starts_with("INVALID_DECISION_RECORD: record is not valid JSON:")
++        );
++    }
++}
+diff --git a/crates/behavior-store/src/documents/frozen_hash_reference.rs b/crates/behavior-store/src/documents/frozen_hash_reference.rs
+new file mode 100644
+index 0000000..519f82d
+--- /dev/null
++++ b/crates/behavior-store/src/documents/frozen_hash_reference.rs
+@@ -0,0 +1,134 @@
++#![allow(clippy::unwrap_used, dead_code)]
++use super::*;
++pub(super) trait FrozenHash {
++    fn frozen_hash(&self) -> R<String>;
++}
++impl CommitBundle {
++    fn frozen_governance_candidate(
++        &self,
++    ) -> R<behavior_verify::governance::trusted::GovernanceCandidate> {
++        if self.format != TAG_COMMIT_BUNDLE_V2 {
++            return Err(StoreError::Contract {
++                code: "HISTORY_FORMAT_UPGRADE_REQUIRED",
++                message: "candidate requires a v2 bundle with an exact history head".into(),
++            });
++        }
++        let history = self
++            .evaluated_history
++            .as_ref()
++            .ok_or_else(|| StoreError::BundleInvalid("missing evaluated_history".into()))?;
++        history.validate()?;
++        if history.state_ref() != self.evaluated_state || history.store != self.store {
++            return Err(StoreError::BundleInvalid(
++                "history/state/store basis differs".into(),
++            ));
++        }
++        let content = serde_json::json!({"kind":"action","store":self.store,"evaluated_history":history,"behavior_version":self.behavior_version,"record":self.record,
++            "entity_declarations":self.entity_declarations,"read_set":self.read_set,"read_facts":if self.read_facts.is_null(){serde_json::json!({})}else{self.read_facts.clone()},"write_set":self.write_set,"write_lifecycle":self.write_lifecycle});
++        let transition = hash_of(
++            behavior_verify::hashing::TAG_CANDIDATE_TRANSITION_V2,
++            &content,
++        )?;
++        behavior_verify::governance::trusted::GovernanceCandidate::from_json(&serde_json::json!({"format":"behavior.governance_candidate.v2","content":content,"transition_hash":transition}).to_string())
++            .map_err(|e|StoreError::BundleInvalid(e.to_string()))
++    }
++}
++impl FrozenHash for CommitBundle {
++    fn frozen_hash(&self) -> R<String> {
++        match self.format.as_str() {
++            TAG_COMMIT_BUNDLE => {
++                if self.evaluated_history.is_some()
++                    || self.authorization_context.is_some()
++                    || self
++                        .evidence
++                        .as_ref()
++                        .is_some_and(|e| e.as_trusted().is_some())
++                {
++                    return Err(StoreError::BundleInvalid(
++                        "legacy bundle contains v2 semantics".into(),
++                    ));
++                }
++                hash_of(TAG_COMMIT_BUNDLE, self)
++            }
++            TAG_COMMIT_BUNDLE_V2 => {
++                if self.frozen_governance_candidate()?.hash() != self.transition_hash {
++                    return Err(StoreError::BundleInvalid(
++                        "v2 candidate identity differs".into(),
++                    ));
++                }
++                if self
++                    .evidence
++                    .as_ref()
++                    .is_some_and(|e| e.as_legacy().is_some())
++                {
++                    return Err(StoreError::BundleInvalid(
++                        "v2 bundle cannot contain structural legacy evidence".into(),
++                    ));
++                }
++                hash_of(TAG_COMMIT_BUNDLE_V2, self)
++            }
++            _ => Err(StoreError::BundleInvalid(
++                "unknown commit bundle format".into(),
++            )),
++        }
++    }
++}
++impl TransitionRecord {
++    fn frozen_check_kind(&self) -> R<()> {
++        let valid = match (
++            self.format.as_str(),
++            self.kind.as_deref(),
++            &self.bundle,
++            &self.migration,
++        ) {
++            (TAG_TRANSITION_RECORD, None, Some(b), None) => b.format == TAG_COMMIT_BUNDLE,
++            (TAG_TRANSITION_RECORD, Some(KIND_MIGRATION), None, Some(m)) => m.format.is_none(),
++            (TAG_TRANSITION_RECORD_V2, Some("action"), Some(b), None) => {
++                b.frozen_hash()?;
++                let h = b
++                    .evaluated_history
++                    .as_ref()
++                    .ok_or_else(|| StoreError::BundleInvalid("missing evaluated history".into()))?;
++                h.state_ref() == self.evaluated_against && h.record == self.previous_record
++            }
++            (TAG_TRANSITION_RECORD_V2, Some(KIND_MIGRATION), None, Some(m)) => {
++                m.hash()?;
++                let h = HistoryRef::from_json(
++                    &m.candidate.as_ref().ok_or_else(|| {
++                        StoreError::BundleInvalid("missing migration candidate".into())
++                    })?["content"]["evaluated_history"]
++                        .to_string(),
++                )?;
++                h.state_ref() == self.evaluated_against && h.record == self.previous_record
++            }
++            _ => false,
++        };
++        if !valid {
++            return Err(StoreError::BundleInvalid(
++                "event kind/format/history product differs".into(),
++            ));
++        }
++        if self.format == TAG_TRANSITION_RECORD_V2
++            && (self.evaluated_against != self.committed_on
++                || self.committed_on.position.checked_add(1) != Some(self.position)
++                || self.result_state.position != self.position)
++        {
++            return Err(StoreError::BundleInvalid(
++                "v2 event position/history basis differs".into(),
++            ));
++        }
++        Ok(())
++    }
++}
++impl FrozenHash for TransitionRecord {
++    fn frozen_hash(&self) -> R<String> {
++        self.frozen_check_kind()?;
++        match self.format.as_str() {
++            TAG_TRANSITION_RECORD => hash_of(TAG_TRANSITION_RECORD, self),
++            TAG_TRANSITION_RECORD_V2 => hash_of(TAG_TRANSITION_RECORD_V2, self),
++            _ => Err(StoreError::BundleInvalid(
++                "unknown transition format".into(),
++            )),
++        }
++    }
++}
+diff --git a/crates/behavior-store/src/documents/hash_view_tests.rs b/crates/behavior-store/src/documents/hash_view_tests.rs
+new file mode 100644
+index 0000000..2aa24a8
+--- /dev/null
++++ b/crates/behavior-store/src/documents/hash_view_tests.rs
+@@ -0,0 +1,293 @@
++#![allow(clippy::unwrap_used, dead_code)]
++use super::*;
++use crate::execution_test_workload::fixture;
++use crate::{Backend, InMemoryBackend, Store};
++use serde_json::{Value, json};
++use std::cell::Cell;
++#[path = "frozen_hash_reference.rs"]
++mod frozen;
++use frozen::FrozenHash;
++
++thread_local! { static COPIES: Cell<usize> = const { Cell::new(0) }; }
++pub(super) fn note_materialization(tag: &str) {
++    if [
++        TAG_COMMIT_BUNDLE,
++        TAG_COMMIT_BUNDLE_V2,
++        TAG_TRANSITION_RECORD,
++        TAG_TRANSITION_RECORD_V2,
++        behavior_verify::hashing::TAG_CANDIDATE_TRANSITION_V2,
++    ]
++    .contains(&tag)
++    {
++        COPIES.with(|n| n.set(n.get() + 1));
++    }
++}
++
++fn sample(commands: usize) -> (CommitBundle, TransitionRecord) {
++    let case = fixture::Case {
++        n: 4,
++        commands,
++        ..Default::default()
++    };
++    let module = fixture::module(&case);
++    let mut store = Store::create(
++        InMemoryBackend::new(),
++        &module,
++        fixture::genesis(&case, &module),
++    )
++    .unwrap();
++    let bundle = store
++        .evaluate(
++            &module,
++            "create",
++            &BTreeMap::new(),
++            &json!({"id0":"new0_0"}),
++            &json!({}),
++            "2026-10-28T00:00:00Z",
++            None,
++        )
++        .unwrap()
++        .bundle
++        .unwrap();
++    store
++        .commit(&module, &bundle.evaluated_state, &bundle)
++        .unwrap();
++    (bundle, store.backend().record(1).unwrap().unwrap())
++}
++
++fn goal(commands: usize, event: bool) {
++    let (bundle, record) = sample(commands);
++    let expected = if event {
++        record.frozen_hash()
++    } else {
++        bundle.frozen_hash()
++    };
++    COPIES.with(|n| n.set(0));
++    let actual = if event { record.hash() } else { bundle.hash() };
++    assert_eq!(actual, expected);
++    assert_eq!(
++        COPIES.with(Cell::get),
++        0,
++        "known document hashing must borrow large JSON inputs"
++    );
++}
++
++#[test]
++fn legacy_bundle_does_not_materialize_known_json_again() {
++    goal(0, false);
++}
++#[test]
++fn v2_bundle_does_not_materialize_known_json_again() {
++    goal(2, false);
++}
++#[test]
++fn legacy_event_does_not_materialize_known_json_again() {
++    goal(0, true);
++}
++#[test]
++fn v2_event_does_not_materialize_known_json_again() {
++    goal(2, true);
++}
++
++#[test]
++fn typed_hashes_match_frozen_methods_for_field_mutations_and_omissions() {
++    let mutations = vec![
++        Value::Null,
++        json!(false),
++        json!(0),
++        json!(u64::MAX),
++        json!(0.5),
++        json!(""),
++        json!("é\n\""),
++        json!([]),
++        json!({}),
++        json!([null]),
++        json!({"a":0.5}),
++    ];
++    let mut compared = 0;
++    for commands in [0, 2] {
++        let (bundle, event) = sample(commands);
++        assert_eq!(bundle.hash(), bundle.frozen_hash());
++        assert_eq!(
++            serde_json::to_vec(&views::bundle_view(&bundle).unwrap()).unwrap(),
++            serde_json::to_vec(&serde_json::to_value(&bundle).unwrap()).unwrap()
++        );
++        assert_eq!(event.hash(), event.frozen_hash());
++        assert_eq!(
++            serde_json::to_vec(&views::event_view(&event).unwrap()).unwrap(),
++            serde_json::to_vec(&serde_json::to_value(&event).unwrap()).unwrap()
++        );
++        let base = serde_json::to_value(&bundle).unwrap();
++        for key in [
++            "format",
++            "evaluated_state",
++            "behavior_version",
++            "store",
++            "record",
++            "transition_hash",
++            "entity_declarations",
++            "read_set",
++            "write_set",
++            "read_facts",
++            "write_lifecycle",
++            "commit_time",
++            "evidence",
++            "evaluated_history",
++            "authorization_context",
++        ] {
++            for value in &mutations {
++                let mut raw = base.clone();
++                raw[key] = value.clone();
++                if let Ok(doc) = serde_json::from_value::<CommitBundle>(raw) {
++                    assert_eq!(doc.hash(), doc.frozen_hash(), "bundle {key}={value}");
++                    compared += 1;
++                }
++            }
++            let mut raw = base.clone();
++            raw.as_object_mut().unwrap().remove(key);
++            if let Ok(doc) = serde_json::from_value::<CommitBundle>(raw) {
++                assert_eq!(doc.hash(), doc.frozen_hash());
++                compared += 1;
++            }
++        }
++        let base = serde_json::to_value(&event).unwrap();
++        for key in [
++            "format",
++            "position",
++            "previous_record",
++            "kind",
++            "bundle",
++            "migration",
++            "bundle_hash",
++            "evaluated_against",
++            "committed_on",
++            "result_state",
++            "new_versions",
++            "evidence_policy",
++            "authorization",
++            "created",
++            "removed",
++            "ref_changes",
++        ] {
++            for value in &mutations {
++                let mut raw = base.clone();
++                raw[key] = value.clone();
++                if let Ok(doc) = serde_json::from_value::<TransitionRecord>(raw) {
++                    assert_eq!(doc.hash(), doc.frozen_hash(), "event {key}={value}");
++                    compared += 1;
++                }
++            }
++            let mut raw = base.clone();
++            raw.as_object_mut().unwrap().remove(key);
++            if let Ok(doc) = serde_json::from_value::<TransitionRecord>(raw) {
++                assert_eq!(doc.hash(), doc.frozen_hash());
++                compared += 1;
++            }
++        }
++        for number in [i64::MIN, -1, 0, i64::MAX] {
++            let mut doc = bundle.clone();
++            doc.record = json!({"a":number,"hash":{"metadata":"kept nested"}});
++            assert_eq!(doc.hash(), doc.frozen_hash());
++            compared += 1;
++        }
++    }
++    assert!(compared > 150);
++    eprintln!("typed-document differential cases={compared}");
++}
++
++#[test]
++fn canonical_error_order_is_over_the_whole_composed_document() {
++    let (mut bundle, mut event) = sample(0);
++    bundle.record = json!({"a":0.5});
++    bundle.read_facts = json!({"z":0.25});
++    assert_eq!(
++        bundle.hash(),
++        Err(StoreError::BundleInvalid(
++            "floating-point number in output at $.read_facts.z".into()
++        ))
++    );
++    assert_eq!(bundle.hash(), bundle.frozen_hash());
++    event.bundle = Some(bundle);
++    event.authorization = Some("ok".into());
++    assert_eq!(
++        event.hash(),
++        Err(StoreError::BundleInvalid(
++            "floating-point number in output at $.bundle.read_facts.z".into()
++        ))
++    );
++    assert_eq!(event.hash(), event.frozen_hash());
++}
++
++#[test]
++fn generic_hash_of_retains_value_conversion_and_map_reduction_semantics() {
++    struct Duplicate;
++    impl Serialize for Duplicate {
++        fn serialize<S: serde::Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
++            use serde::ser::SerializeMap;
++            let mut map = serializer.serialize_map(Some(2))?;
++            map.serialize_entry("same", &1)?;
++            map.serialize_entry("same", &2)?;
++            map.end()
++        }
++    }
++    assert_eq!(
++        hash_of("generic", &Duplicate),
++        hash_of("generic", &json!({"same":2}))
++    );
++    let error = hash_of("generic", &i128::MAX).unwrap_err();
++    assert_eq!(
++        error,
++        StoreError::BundleInvalid("number out of range".into())
++    );
++    assert_eq!(
++        hash_of("generic", &f64::NAN),
++        hash_of("generic", &Value::Null)
++    );
++}
++
++#[test]
++fn nested_legacy_bundle_does_not_gain_new_semantic_validation() {
++    let (_, mut event) = sample(0);
++    let bundle = event.bundle.as_mut().unwrap();
++    bundle.authorization_context = Some(json!({}));
++    assert!(bundle.hash().is_err());
++    assert!(event.hash().is_ok());
++    assert_eq!(event.hash(), event.frozen_hash());
++    event.bundle.as_mut().unwrap().record = json!({"float":0.5});
++    event.kind = Some("invalid".into());
++    assert_eq!(
++        event.hash(),
++        Err(StoreError::BundleInvalid(
++            "event kind/format/history product differs".into()
++        ))
++    );
++    assert_eq!(event.hash(), event.frozen_hash());
++}
++
++#[test]
++fn some_null_context_is_included_while_none_is_omitted() {
++    let (mut bundle, _) = sample(2);
++    let absent = bundle.hash().unwrap();
++    bundle.authorization_context = Some(Value::Null);
++    assert_ne!(bundle.hash().unwrap(), absent);
++    assert_eq!(bundle.hash(), bundle.frozen_hash());
++}
++
++#[test]
++fn generic_serialize_failure_after_a_float_precedes_canonical_validation() {
++    struct Failure;
++    impl Serialize for Failure {
++        fn serialize<S: serde::Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
++            use serde::ser::SerializeMap;
++            let mut map = serializer.serialize_map(None)?;
++            map.serialize_entry("a", &0.5)?;
++            Err(serde::ser::Error::custom("late custom serializer failure"))
++        }
++    }
++    assert_eq!(
++        hash_of("generic", &Failure),
++        Err(StoreError::BundleInvalid(
++            "late custom serializer failure".into()
++        ))
++    );
++}
+diff --git a/crates/behavior-store/src/documents/views.rs b/crates/behavior-store/src/documents/views.rs
+new file mode 100644
+index 0000000..84a5768
+--- /dev/null
++++ b/crates/behavior-store/src/documents/views.rs
+@@ -0,0 +1,104 @@
++//! Fixed schema views preserve derive field evaluation order and omission predicates.
++use super::*;
++use behavior_core::canonical::{DocumentView, tagged_hash_view};
++
++fn owned<T: Serialize>(value: &T) -> R<DocumentView<'_>> {
++    serde_json::to_value(value)
++        .map(DocumentView::Owned)
++        .map_err(|error| StoreError::BundleInvalid(error.to_string()))
++}
++
++pub(super) fn bundle_view(bundle: &CommitBundle) -> R<DocumentView<'_>> {
++    let mut fields = BTreeMap::new();
++    macro_rules! field {
++        ($name:ident) => {
++            fields.insert(stringify!($name), owned(&bundle.$name)?);
++        };
++    }
++    field!(format);
++    field!(evaluated_state);
++    field!(behavior_version);
++    field!(store);
++    fields.insert("record", DocumentView::Borrowed(&bundle.record));
++    field!(transition_hash);
++    field!(entity_declarations);
++    field!(read_set);
++    field!(write_set);
++    if !bundle.read_facts.is_null() {
++        fields.insert("read_facts", DocumentView::Borrowed(&bundle.read_facts));
++    }
++    if !bundle.write_lifecycle.is_empty() {
++        field!(write_lifecycle);
++    }
++    field!(commit_time);
++    if bundle.evidence.is_some() {
++        field!(evidence);
++    }
++    if bundle.evaluated_history.is_some() {
++        field!(evaluated_history);
++    }
++    if let Some(context) = &bundle.authorization_context {
++        fields.insert("authorization_context", DocumentView::Borrowed(context));
++    }
++    Ok(DocumentView::Object(fields))
++}
++
++pub(super) fn event_view(event: &TransitionRecord) -> R<DocumentView<'_>> {
++    let mut fields = BTreeMap::new();
++    macro_rules! field {
++        ($name:ident) => {
++            fields.insert(stringify!($name), owned(&event.$name)?);
++        };
++    }
++    field!(format);
++    field!(position);
++    field!(previous_record);
++    if event.kind.is_some() {
++        field!(kind);
++    }
++    if let Some(bundle) = &event.bundle {
++        fields.insert("bundle", bundle_view(bundle)?);
++    }
++    if event.migration.is_some() {
++        field!(migration);
++    }
++    field!(bundle_hash);
++    field!(evaluated_against);
++    field!(committed_on);
++    field!(result_state);
++    field!(new_versions);
++    field!(evidence_policy);
++    field!(authorization);
++    if !event.created.is_empty() {
++        field!(created);
++    }
++    if !event.removed.is_empty() {
++        field!(removed);
++    }
++    if !event.ref_changes.is_empty() {
++        field!(ref_changes);
++    }
++    Ok(DocumentView::Object(fields))
++}
++
++fn hash_view(tag: &str, view: &DocumentView<'_>) -> R<String> {
++    #[cfg(feature = "validation-work")]
++    {
++        let bytes = serde_json::to_string(view)
++            .map_err(|error| StoreError::BundleInvalid(error.to_string()))?
++            .len();
++        behavior_core::eval::work::note(|work| {
++            work.document_hash_calls += 1;
++            work.hash_document_json_bytes += bytes;
++        });
++    }
++    tagged_hash_view(tag, view).map_err(|error| StoreError::BundleInvalid(error.to_string()))
++}
++
++pub(super) fn hash_bundle(tag: &str, bundle: &CommitBundle) -> R<String> {
++    hash_view(tag, &bundle_view(bundle)?)
++}
++
++pub(super) fn hash_event(tag: &str, event: &TransitionRecord) -> R<String> {
++    hash_view(tag, &event_view(event)?)
++}

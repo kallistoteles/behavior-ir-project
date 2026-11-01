@@ -1,0 +1,10 @@
+test_actual_command_mismatch_is_not_masked_by_common_schema_adapter (factor_controls.FactorControls.test_actual_command_mismatch_is_not_masked_by_common_schema_adapter) ... ok
+test_fake_touch_and_diagnostic_mode_refuse (factor_controls.FactorControls.test_fake_touch_and_diagnostic_mode_refuse) ... ok
+test_matrix_is_complete_unique_and_every_arm_visits_every_position (factor_controls.FactorControls.test_matrix_is_complete_unique_and_every_arm_visits_every_position) ... ok
+test_missing_round_and_wrong_setup_sum_refuse (factor_controls.FactorControls.test_missing_round_and_wrong_setup_sum_refuse) ... ok
+test_real_primary_receipt_schema_passes (factor_controls.FactorControls.test_real_primary_receipt_schema_passes) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.095s
+
+OK

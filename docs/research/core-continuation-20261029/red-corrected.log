@@ -1,0 +1,26 @@
+   Compiling behavior-core v0.16.0 (/tmp/behavior-ir-core-continuation-20261029/crates/behavior-core)
+    Finished `release` profile [optimized] target(s) in 2.08s
+     Running tests/replay_materialization.rs (target/release/deps/replay_materialization-a8f7fb2aa68c584f)
+
+running 3 tests
+test same_call_reuse_retains_strict_lexical_ingress ... ok
+test replay_does_not_reparse_its_already_strictly_decoded_value ... FAILED
+test same_call_reuse_preserves_closed_validation_and_selected_error ... ok
+
+failures:
+
+---- replay_does_not_reparse_its_already_strictly_decoded_value stdout ----
+
+thread 'replay_does_not_reparse_its_already_strictly_decoded_value' (81086) panicked at crates/behavior-core/tests/replay_materialization.rs:22:5:
+assertion `left == right` failed: replay must retain its ingress strict decode without a second DecisionRecord parse
+  left: 1
+ right: 0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    replay_does_not_reparse_its_already_strictly_decoded_value
+
+test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p behavior-core --test replay_materialization`

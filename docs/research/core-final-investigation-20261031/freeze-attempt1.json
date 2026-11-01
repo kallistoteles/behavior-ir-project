@@ -1,0 +1,8 @@
+{
+  "utc": "2026-11-01T00:30:33.086199+00:00",
+  "status": "Failed before any primary measurements",
+  "operation": "git apply --check solution.patch in project notes checkout",
+  "reason": "The current behavior-ir-project checkout is an archive/notes repository, not the Core source base; tracked crates do not exist there.",
+  "effect": "Equal-length aliases and solution.patch created. No runtime source changed; no precollection manifest created.",
+  "resolution": "Check the patch against a new detached Core worktree at the declared source base. Retry verifies existing aliases instead of replacing targets."
+}
