@@ -25,7 +25,9 @@ architecture. The [requirements checklist](https://github.com/kallistoteles/beha
 reviews specification quality; no G0/G1 experiment or performance result is implied.
 The [G0–G1 implementation plan](https://github.com/kallistoteles/behavior-ir-core/blob/033-core-proof-feasibility/specs/033-core-proof-feasibility/plan.md)
 now supplies the researched choices, data model, semantic/runtime/campaign contracts
-and validation guide. Planning is complete through design; implementation tasks,
+and validation guide. The [generated task list](https://github.com/kallistoteles/behavior-ir-core/blob/033-core-proof-feasibility/specs/033-core-proof-feasibility/tasks.md)
+contains 93 dependency-ordered tasks, beginning with the G0 MVP and an early
+actual-source/matrix checkpoint. Task generation is complete; implementation,
 new proof artifacts and measurements remain subsequent work.
 
 The completed [existing-format optimization study](core-final-investigation-20261031/report.md)
