@@ -1,5 +1,10 @@
 # Core investigation notes
 
+The [complete study inventory](investigation-map.md) lists 13 main parts, from
+Core 029–032 and the first-principles/greenfield research through later profiling
+and the architectural reassessment. It distinguishes measurements, prototypes,
+formal scope and proposals that were not implemented.
+
 The overarching architectural investigation remains open. The
 [clarified scope](core-redesign-reassessment-20261101/scope.md) requires a mathematically
 correct chain through initialization, ordinary transitions and independent history
