@@ -23,6 +23,10 @@ Its specification covers the exact initial/transition/history claim, actual-arti
 correspondence, complete synchronous costs and a decision that may reject the
 architecture. The [requirements checklist](https://github.com/kallistoteles/behavior-ir-core/blob/033-core-proof-feasibility/specs/033-core-proof-feasibility/checklists/requirements.md)
 reviews specification quality; no G0/G1 experiment or performance result is implied.
+The [G0–G1 implementation plan](https://github.com/kallistoteles/behavior-ir-core/blob/033-core-proof-feasibility/specs/033-core-proof-feasibility/plan.md)
+now supplies the researched choices, data model, semantic/runtime/campaign contracts
+and validation guide. Planning is complete through design; implementation tasks,
+new proof artifacts and measurements remain subsequent work.
 
 The completed [existing-format optimization study](core-final-investigation-20261031/report.md)
 includes a cumulative, validated patch: strict-decode/typed reuse, bundle ownership transfer,
