@@ -18,6 +18,12 @@ verification, with absolute millisecond-scale targets. Every expensive step must
 explained and compared with established researched methods; moving its cost elsewhere
 does not answer the question.
 
+The next bounded feature is [Core 033: G0–G1 proof-chain feasibility](https://github.com/kallistoteles/behavior-ir-core/blob/033-core-proof-feasibility/specs/033-core-proof-feasibility/spec.md).
+Its specification covers the exact initial/transition/history claim, actual-artifact
+correspondence, complete synchronous costs and a decision that may reject the
+architecture. The [requirements checklist](https://github.com/kallistoteles/behavior-ir-core/blob/033-core-proof-feasibility/specs/033-core-proof-feasibility/checklists/requirements.md)
+reviews specification quality; no G0/G1 experiment or performance result is implied.
+
 The completed [existing-format optimization study](core-final-investigation-20261031/report.md)
 includes a cumulative, validated patch: strict-decode/typed reuse, bundle ownership transfer,
 buffered canonical hashing and borrowed document views. In the fresh six-case comparison,
@@ -36,6 +42,7 @@ allocator consolidation in the bounded diagnostic, including its sparse/unknown 
 | 2026-11-01 | [Existing-format optimization and profiling](core-final-investigation-20261031/report.md) | Six-arm cumulative comparison; hash streaming and borrowed views; 1,215 byte-equal measured processes; all 13 owner gates passed; scoped compatibility results, not the final architectural solution. |
 | 2026-11-01 | [Architectural reassessment](core-redesign-reassessment-20261101/scope.md) | Reopened original goal: explain required work and researched replacements across all three correctness stages. No new latency or implementation-proof claim. |
 | 2026-11-01 | [New Core architecture](../architecture/core/README.md) | Recommendation from the full inventory and three alternatives; explicit semantics/checker/history chain, identity and evidence redesign, atomic durable publication, complete-language and absolute-latency build gates. Design, not a measured implementation. |
+| 2026-11-01 | [Core 033 feasibility specification](https://github.com/kallistoteles/behavior-ir-core/blob/033-core-proof-feasibility/specs/033-core-proof-feasibility/spec.md) | G0–G1 scope and acceptance criteria ready for planning; correctness and performance have separate pass/fail/not-established outcomes. No new execution evidence. |
 
 Each investigation retains its protocol, patches, source/binary identities, controls and measured evidence.
 Performance figures belong to their individual campaigns; the final comparison is measured
